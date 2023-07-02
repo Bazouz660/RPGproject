@@ -8,6 +8,7 @@
 #include "Engine.hpp"
 #include "TilemapScene.hpp"
 #include "UIScene.hpp"
+#include "TestScene.hpp"
 #include "QuadtreeScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
@@ -38,10 +39,9 @@ namespace bya {
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
 
-        m_sceneManager.addScene("Test Scene", std::shared_ptr<IScene>(new QuadtreeScene()));
-        m_sceneManager.addScene("UI Scene", std::shared_ptr<IScene>(new UIScene()));
+        m_sceneManager.addScene("Test Scene", std::shared_ptr<IScene>(new TestScene()));
 
-        m_sceneManager.setCurrentScene("UI Scene");
+        m_sceneManager.setCurrentScene("Test Scene");
     }
 
     void Engine::handleEvents()
