@@ -5,7 +5,15 @@
 ** ResourceManager
 */
 
-#include <filesystem>
+#ifdef _WIN32
+    #include <experimental/filesystem>
+    namespace std {
+        namespace filesystem = experimental::filesystem;
+    }
+#else
+    #include <filesystem>
+#endif
+
 #include "ResourceManager.hpp"
 #include "parsing.hpp"
 
@@ -66,8 +74,9 @@ sf::Image* ResourceManager::getTextureImage(const std::string &name)
 
 void ResourceManager::loadTexturesFromFolder(const std::string& directory)
 {
-    for (const auto & entry : std::filesystem::directory_iterator(directory))
-        loadTexture(removeExtension(entry.path().filename()), entry.path().string());
+    for (const auto &entry : std::filesystem::directory_iterator(directory)) {
+        loadTexture(removeExtension(entry.path().filename().string()), entry.path().string());
+    }
 }
 
 

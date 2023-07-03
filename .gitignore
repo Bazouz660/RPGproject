@@ -5,4 +5,5 @@
 *.swp
 vgcore.*
 RPG
+*.exe
 build

@@ -4,8 +4,9 @@ set(PROJECT_NAME RPG)  # Change the project name here
 project(${PROJECT_NAME})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 set(CMAKE_CXX_STANDARD 20)
+
+link_libraries(stdc++fs)
 
 # Add the SFML library
 find_package(SFML 2.5 COMPONENTS graphics window system audio REQUIRED)

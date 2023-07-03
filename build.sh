@@ -1,5 +1,9 @@
 #!/bin/bash
-mkdir -p ./build/ && cd ./build/
-cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-cmake --build . -j 4
-cd ..
+
+if [[ $(uname) == "Linux" ]]; then
+    ./buildLinux.sh
+elif [[ $(uname) == "Darwin" ]]; then
+    echo "Unsupported operating system: macOS"
+else
+    ./buildWin.bat
+fi
