@@ -63,7 +63,10 @@ namespace bya {
 
         float angle(sf::Vector2f v1, sf::Vector2f v2)
         {
-            return acos(dot(v1, v2) / (sqrt(v1.x * v1.x + v1.y * v1.y) * sqrt(v2.x * v2.x + v2.y * v2.y)));
+            double dx = v2.x - v1.x;
+            double dy = v2.y - v1.y;
+
+            return std::atan2(dy, dx);
         }
 
         float length(sf::Vector2f v)

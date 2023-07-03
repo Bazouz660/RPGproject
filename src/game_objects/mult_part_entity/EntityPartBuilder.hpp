@@ -63,11 +63,24 @@ namespace bya::gameObj {
                 return *this;
             }
 
+            EntityPartBuilder &setZIndex(unsigned int zIndex) {
+                m_ZIndex = zIndex;
+                return *this;
+            }
+
+            EntityPartBuilder &setParent(IMultPartEntity *parent) {
+                m_parent = parent;
+                return *this;
+            }
+
             std::shared_ptr<IMultPartEntity> build() {
                 auto entity = std::make_shared<PartEntity>(m_name);
                 entity->setPivotPoint(m_pivotPoint);
                 entity->setPosition(m_position);
                 entity->setRotation(m_rotation);
+                entity->setZIndex(m_ZIndex);
+                entity->setTint(m_tint);
+                entity->setParent(m_parent);
                 entity->setSize(m_collisionBox.getSize());
                 return entity;
             }
@@ -75,9 +88,12 @@ namespace bya::gameObj {
         private:
             sf::Vector2f m_pivotPoint = {0, 0};
             sf::Vector2f m_position = {0, 0};
+            sf::Color m_tint = sf::Color(255, 0, 0, 100);
             float m_rotation = 0;
             float m_previousRotation = 0;
+            int m_ZIndex = 0;
             std::string m_name = "";
+            IMultPartEntity *m_parent = nullptr;
             sf::RectangleShape m_collisionBox;
             sf::CircleShape m_pivotPointIndicator;
 
