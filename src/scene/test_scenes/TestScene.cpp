@@ -27,6 +27,12 @@ namespace bya
 
         m_background.setSize(sf::Vector2f(winSize.x, winSize.y));
         m_background.setFillColor(sf::Color(50, 50, 50, 255));
+
+        m_oobb1.setPosition(sf::Vector2f(500, 500));
+        m_oobb1.setSize(sf::Vector2f(100, 200));
+        m_oobb1.setRotation(45);
+
+        m_oobb1.setOrigin(sf::Vector2f(50, 100));
     }
 
     void TestScene::close()
@@ -50,6 +56,17 @@ namespace bya
     void TestScene::update(float dt)
     {
         m_humanoid.update(dt);
+
+        if (m_oobb1.contains(info::getMousePosition())) {
+            m_oobb1.setColor(sf::Color::Green);
+        } else {
+            m_oobb1.setColor(sf::Color(255, 0, 0, 100));
+        }
+
+        // m_oobb1.setRotation(m_oobb1.getRotation() + 20.f * dt);
+        float scale = std::cos(getTime().asSeconds());
+        m_oobb1.setScale(sf::Vector2f(scale, 1));
+        // std::cerr << "oob center: " << m_oobb1.getCenter().x << ", " << m_oobb1.getCenter().y << "\n";
     }
 
     void TestScene::render(sf::RenderTarget &target)
@@ -58,7 +75,22 @@ namespace bya
         for (auto &[key, elem] : m_UIelements)
             elem->render(target);
 
+        auto& parts = m_humanoid.getSortedZParts();
+
+        gameObj::IMultPartEntity* hoveredPart = nullptr;
+        for (auto& part : parts) {
+            if (part->isHovered()) {
+                hoveredPart = part;
+            }
+            part->setTint(sf::Color(255, 0, 0, 100));
+        }
+        if (hoveredPart) {
+            hoveredPart->setTint(sf::Color::Green);
+        }
+
         m_humanoid.render(target);
+
+        m_oobb1.render(target);
     }
 
     void TestScene::addUIelement(const std::string& id, std::shared_ptr<ui::IUIelement> element)

@@ -26,9 +26,9 @@ namespace bya::gameObj
 
         addPart("abdomen", builder
             .setName("abdomen")
+            .setPosition(0.f, 0.f)
             .setSize(40.f, 50.f)
             .setPivotPoint(20.f, 0.f)
-            .setPosition(0.f, 0.f)
             .setParent(this)
             .build()
         );
@@ -39,9 +39,9 @@ namespace bya::gameObj
         // limbs
         addPart("head", builder
             .setName("head")
+            .setPosition(2.f, -60.f)
             .setSize(45.f, 50.f)
             .setPivotPoint(22.5f, 50.f)
-            .setPosition(2.f, -60.f)
             .setZIndex(1)
             .setParent(this)
             .build()
@@ -50,18 +50,18 @@ namespace bya::gameObj
         // right arm
         addPart("rightArm", builder
             .setName("righttArm")
+            .setPosition(-15.f, -40.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 10.f)
-            .setPosition(-15.f, -40.f)
             .setZIndex(2)
             .setParent(this)
             .build()
         );
         getPart("rightArm")->addPart("rightForearm", builder
             .setName("rightForearm")
+            .setPosition(-15.f, 0.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 0.f)
-            .setPosition(-15.f, 0.f)
             .setZIndex(1)
             .setParent(getPart("rightArm").get())
             .build()
@@ -74,18 +74,18 @@ namespace bya::gameObj
         // left arm
         addPart("leftArm", builder
             .setName("lefttArm")
+            .setPosition(15.f, -40.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 10.f)
-            .setPosition(15.f, -40.f)
             .setZIndex(-2)
             .setParent(this)
             .build()
         );
         getPart("leftArm")->addPart("leftForearm", builder
             .setName("leftForearm")
+            .setPosition(15.f, 0.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 0.f)
-            .setPosition(15.f, 0.f)
             .setZIndex(-1)
             .setParent(getPart("leftArm").get())
             .build()

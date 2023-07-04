@@ -11,6 +11,8 @@
 #include "Camera.hpp"
 #include "IUIelement.hpp"
 
+#include "OrientedBoundingBox.hpp"
+
 #include "HumanoidEntity.hpp"
 
 namespace bya
@@ -35,6 +37,8 @@ namespace bya
         std::map<std::string, std::shared_ptr<ui::IUIelement>> m_UIelements;
         sf::RectangleShape m_background;
         bya::gameObj::HumanoidEntity m_humanoid;
+
+        bya::gameObj::OrientedBoundingBox m_oobb1;
     };
 
 }

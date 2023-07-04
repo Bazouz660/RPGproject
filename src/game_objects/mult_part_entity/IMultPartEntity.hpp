@@ -42,12 +42,17 @@ namespace bya::gameObj
 
             virtual bool needsSorting() const = 0;
             virtual std::vector<IMultPartEntity*> sortZIndex() = 0;
+            virtual std::vector<IMultPartEntity*>& getSortedZParts() = 0;
 
             virtual void setTint(sf::Color tint) = 0;
             virtual sf::Color getTint() const = 0;
 
             virtual void setParent(IMultPartEntity* parent) = 0;
             virtual IMultPartEntity* getParent() const = 0;
+
+            virtual bool isHovered() const = 0;
+
+            virtual void flipX() = 0;
     };
 
 }
