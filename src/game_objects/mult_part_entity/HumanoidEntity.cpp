@@ -54,7 +54,7 @@ namespace bya::gameObj
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 10.f)
             .setZIndex(2)
-            .setTint(sf::Color(255, 255, 0, 100))
+            .setTint(sf::Color(255, 255, 0, 255))
             .setParent(this)
             .build()
         );
@@ -63,14 +63,14 @@ namespace bya::gameObj
             .setPosition(-15.f, 0.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 0.f)
-            .setTint(sf::Color(255, 255, 0, 100))
+            .setTint(sf::Color(255, 255, 0, 255))
             .setZIndex(1)
             .setParent(getPart("rightArm").get())
             .build()
         );
 
-        getPart("rightArm")->setFixedRotation(-20.f);
-        getPart("rightArm")->getPart("rightForearm")->setFixedRotation(-40.f);
+        getPart("rightArm")->setFixedRotation(-10.f);
+        getPart("rightForearm")->setFixedRotation(-40.f);
 
 
         // left arm
@@ -103,7 +103,7 @@ namespace bya::gameObj
             .setSize(22.f, 50.f)
             .setPivotPoint(11.f, 0.f)
             .setPosition(-15.f, 40.f)
-            .setTint(sf::Color(255, 255, 0, 100))
+            .setTint(sf::Color(255, 255, 0, 255))
             .setZIndex(2)
             .setParent(this)
             .build()
@@ -113,14 +113,14 @@ namespace bya::gameObj
             .setSize(20.f, 55.f)
             .setPivotPoint(10.f, 0.f)
             .setPosition(-15.f, 90.f)
-            .setTint(sf::Color(255, 255, 0, 100))
+            .setTint(sf::Color(255, 255, 0, 255))
             .setZIndex(1)
             .setParent(getPart("rightThigh").get())
             .build()
         );
 
         getPart("rightThigh")->setFixedRotation(0.f);
-        getPart("rightThigh")->getPart("rightTibia")->setFixedRotation(10.f);
+        getPart("rightTibia")->setFixedRotation(10.f);
 
         // left leg
         addPart("leftThigh", builder
@@ -143,7 +143,7 @@ namespace bya::gameObj
         );
 
         getPart("leftThigh")->setFixedRotation(-5.f);
-        getPart("leftThigh")->getPart("leftTibia")->setFixedRotation(10.f);
+        getPart("leftTibia")->setFixedRotation(10.f);
 
 
 
@@ -158,6 +158,11 @@ namespace bya::gameObj
         sf::Vector2f rightArmPos = m_parts["rightArm"]->getPosition();
         m_parts["leftArm"]->setPosition(rightArmPos);
         m_parts["rightArm"]->setPosition(leftArmPos);
+        for (auto &part : getPart("leftArm")->getChildren())
+            part->setZIndex(-part->getZIndex());
+        for (auto &part : getPart("rightArm")->getChildren())
+            part->setZIndex(-part->getZIndex());
+        sortZIndex();
     }
 
     void HumanoidEntity::update(float dt)

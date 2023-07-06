@@ -87,14 +87,14 @@ namespace bya::gameObj {
                 entity->setTint(m_tint);
                 entity->setParent(m_parent);
                 entity->setSize(m_collisionBox.getSize());
-                m_tint = sf::Color(255, 0, 0, 100);
+                m_tint = sf::Color(255, 0, 0, 255);
                 return entity;
             }
 
         private:
             sf::Vector2f m_pivotPoint = {0, 0};
             sf::Vector2f m_position = {0, 0};
-            sf::Color m_tint = sf::Color(255, 0, 0, 100);
+            sf::Color m_tint = sf::Color(255, 0, 0, 255);
             float m_rotation = 0;
             float m_previousRotation = 0;
             int m_ZIndex = 0;

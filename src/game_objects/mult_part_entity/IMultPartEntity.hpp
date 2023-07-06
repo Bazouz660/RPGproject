@@ -50,6 +50,7 @@ namespace bya::gameObj
             virtual void setParent(IMultPartEntity* parent) = 0;
             virtual IMultPartEntity* getParent() const = 0;
             virtual IMultPartEntity* getRoot() = 0;
+            virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const = 0;
 
             virtual bool isHovered() const = 0;
 

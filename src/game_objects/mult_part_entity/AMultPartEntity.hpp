@@ -212,6 +212,16 @@ namespace bya::gameObj
                     part->flipX();
             }
 
+            std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const {
+                std::vector<std::shared_ptr<IMultPartEntity>> parts;
+                for (auto &[partName, part] : m_parts) {
+                    parts.push_back(part);
+                    std::vector<std::shared_ptr<IMultPartEntity>> childs = part->getChildren();
+                    parts.insert(parts.end(), childs.begin(), childs.end());
+                }
+                return parts;
+            }
+
             virtual void loadFromJson(const std::string& path) override {
 
             }
