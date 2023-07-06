@@ -12,12 +12,24 @@ namespace bya {
 
         float toDeg(float rad)
         {
-            return rad * 180 / M_PI;
+            float deg = rad * 180 / M_PI;
+            // keep it between 180 and -180
+            if (deg < -180)
+                deg += 360;
+            if (deg > 180)
+                deg -= 360;
+            return deg;
         }
 
         float toRad(float deg)
         {
-            return deg * M_PI / 180;
+            float rad = deg * M_PI / 180;
+            // keep it between PI and -PI
+            if (rad < -M_PI)
+                rad += 2 * M_PI;
+            if (rad > M_PI)
+                rad -= 2 * M_PI;
+            return rad;
         }
 
         float dist(sf::Vector2f p1, sf::Vector2f p2)

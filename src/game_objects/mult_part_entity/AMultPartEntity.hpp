@@ -214,6 +214,15 @@ namespace bya::gameObj
                     part->flipX();
                 if (!m_parent)
                     sortZIndex();
+
+                for (const auto& mapping : m_partMapping) {
+                    const std::string& part1 = mapping.first;
+                    const std::string& part2 = mapping.second;
+                    sf::Vector2f pos1 = m_parts[part1]->getPosition();
+                    sf::Vector2f pos2 = m_parts[part2]->getPosition();
+                    m_parts[part1]->setPosition(pos2);
+                    m_parts[part2]->setPosition(pos1);
+                }
             }
 
             std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const {
@@ -224,6 +233,10 @@ namespace bya::gameObj
                     parts.insert(parts.end(), childs.begin(), childs.end());
                 }
                 return parts;
+            }
+
+            sf::Vector2f getScale() const override {
+                return m_orientedBox.getScale();
             }
 
             virtual void loadFromJson(const std::string& path) override {
@@ -256,6 +269,7 @@ namespace bya::gameObj
             sf::CircleShape m_pivotPointIndicator;
             IMultPartEntity* m_parent = nullptr;
             std::vector<IMultPartEntity*> m_sortedZparts;
+            std::map<std::string, std::string> m_partMapping;
     };
 
 }

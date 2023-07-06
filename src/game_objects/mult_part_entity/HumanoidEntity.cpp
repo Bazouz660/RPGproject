@@ -10,6 +10,7 @@
 #include "EntityPartBuilder.hpp"
 #include "info.hpp"
 #include "math.hpp"
+#include "clock.hpp"
 
 namespace bya::gameObj
 {
@@ -146,6 +147,10 @@ namespace bya::gameObj
         getPart("leftTibia")->setFixedRotation(10.f);
 
 
+        m_partMapping = {
+            {"leftArm", "rightArm"},
+            {"leftThigh", "rightThigh"},
+        };
 
         setPosition(300.f, 300.f);
         sortZIndex();
@@ -154,6 +159,10 @@ namespace bya::gameObj
     void HumanoidEntity::flipX()
     {
         AMultPartEntity::flipX();
+
+        return;
+
+        // to do: find a way to do this automatically
         sf::Vector2f leftArmPos = m_parts["leftArm"]->getPosition();
         sf::Vector2f rightArmPos = m_parts["rightArm"]->getPosition();
         sf::Vector2f leftThighPos = m_parts["leftThigh"]->getPosition();
@@ -162,15 +171,6 @@ namespace bya::gameObj
         m_parts["rightArm"]->setPosition(leftArmPos);
         m_parts["leftThigh"]->setPosition(rightThighPos);
         m_parts["rightThigh"]->setPosition(leftThighPos);
-        for (auto &part : getPart("leftArm")->getChildren())
-            part->setZIndex(-part->getZIndex());
-        for (auto &part : getPart("rightArm")->getChildren())
-            part->setZIndex(-part->getZIndex());
-        for (auto &part : getPart("leftThigh")->getChildren())
-            part->setZIndex(-part->getZIndex());
-        for (auto &part : getPart("rightThigh")->getChildren())
-            part->setZIndex(-part->getZIndex());
-        sortZIndex();
     }
 
     void HumanoidEntity::update(float dt)
@@ -186,17 +186,29 @@ namespace bya::gameObj
         sf::Vector2f headPos = head->getPosition();
 
         float angle = math::toDeg(math::angle(headPos, mousePos));
+        float maxAngle = 20.f;
 
-        if (angle > 20.f || angle < -20.f)
-            angle = (angle > 0) ? 20.f : -20.f;
+        if (mousePos.x < headPos.x && head->getScale().x > 0.f)
+            flipX();
+        else if (mousePos.x > headPos.x && head->getScale().x < 0.f)
+            flipX();
+
+        if (head->getScale().x < 0.f) {
+            angle = 180.f - angle;
+            maxAngle = -maxAngle;
+            if (angle > 180.f)
+                angle -= 360.f;
+            else if (angle < -180.f)
+                angle += 360.f;
+            angle = std::clamp(angle, maxAngle, -maxAngle);
+        } else {
+            angle = std::clamp(angle, -maxAngle, maxAngle);
+        }
 
         head->setRotation(angle);
 
         sf::Vector2f leftArmPos = leftArm->getPosition();
         angle = math::toDeg(math::angle(leftArmPos, mousePos));
-
-        if (angle > 20.f || angle < -20.f)
-            angle = (angle > 0) ? 20.f : -20.f;
 
         leftArm->setRotation(angle);
     }

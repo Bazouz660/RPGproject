@@ -55,6 +55,7 @@ namespace bya::gameObj
             virtual bool isHovered() const = 0;
 
             virtual void flipX() = 0;
+            virtual sf::Vector2f getScale() const = 0;
 
             virtual void loadFromJson(const std::string& path) = 0;
     };
