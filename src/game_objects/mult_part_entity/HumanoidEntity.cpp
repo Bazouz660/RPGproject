@@ -38,14 +38,14 @@ namespace bya::gameObj
         getPart("abdomen")->setFixedRotation(8.f);
 
         // limbs
-        float scale = 0.9f;
+        float scale = 0.95f;
         addPart("head", builder
             .setName("head")
             .setPosition(2.f, -60.f)
             .setSize(45.f * scale, 50.f * scale)
             .setPivotPoint(20.f * scale, 50.f * scale)
             .setZIndex(1)
-            .setTexture("steel_helm")
+            .setTexture("human_head1")
             .setTint(sf::Color::White)
             .setParent(this)
             .build()
@@ -157,23 +157,6 @@ namespace bya::gameObj
 
         setPosition(300.f, 300.f);
         sortZIndex();
-    }
-
-    void HumanoidEntity::flipX()
-    {
-        AMultPartEntity::flipX();
-
-        return;
-
-        // to do: find a way to do this automatically
-        sf::Vector2f leftArmPos = m_parts["leftArm"]->getPosition();
-        sf::Vector2f rightArmPos = m_parts["rightArm"]->getPosition();
-        sf::Vector2f leftThighPos = m_parts["leftThigh"]->getPosition();
-        sf::Vector2f rightThighPos = m_parts["rightThigh"]->getPosition();
-        m_parts["leftArm"]->setPosition(rightArmPos);
-        m_parts["rightArm"]->setPosition(leftArmPos);
-        m_parts["leftThigh"]->setPosition(rightThighPos);
-        m_parts["rightThigh"]->setPosition(leftThighPos);
     }
 
     void HumanoidEntity::update(float dt)

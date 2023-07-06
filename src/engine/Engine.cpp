@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 21:38:15
+ *  Modified time: 2023-07-06 22:13:38
  *  Description:
  */
 
@@ -29,7 +29,9 @@ namespace bya {
 
     void Engine::init()
     {
-        m_renderer.init(WINDOW_SIZE, "BurunyaEngine");
+        sf::ContextSettings settings;
+        settings.antialiasingLevel = 8;
+        m_renderer.init(WINDOW_SIZE, "BurunyaEngine", sf::Style::Default, settings);
         //m_window->setVerticalSyncEnabled(true);
 
         m_fpsHint.setFont(ResourceManager::getInstance().getFont("defaultFont"));

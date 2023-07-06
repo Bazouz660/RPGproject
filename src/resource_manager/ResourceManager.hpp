@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2023
-** RPG3
-** File description:
-** ResourceManager
-*/
+
 
 #ifndef RESOURCEMANAGER_HPP_
     #define RESOURCEMANAGER_HPP_

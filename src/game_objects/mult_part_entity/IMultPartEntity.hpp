@@ -40,6 +40,11 @@ namespace bya::gameObj
             virtual void setZIndex(int zIndex) = 0;
             virtual int getZIndex() const = 0;
 
+            virtual void setTexture(sf::Texture &texture) = 0;
+            virtual void setTextureRect(sf::IntRect rect) = 0;
+            virtual sf::IntRect getTextureRect() const = 0;
+            virtual sf::Texture* getTexture() const = 0;
+
             virtual bool needsSorting() const = 0;
             virtual std::vector<IMultPartEntity*> sortZIndex() = 0;
             virtual std::vector<IMultPartEntity*>& getSortedZParts() = 0;

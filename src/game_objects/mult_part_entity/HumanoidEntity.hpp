@@ -17,8 +17,6 @@ namespace bya::gameObj
             HumanoidEntity();
             ~HumanoidEntity() = default;
 
-            void flipX() override;
-
             void update(float dt) override;
     };
 }

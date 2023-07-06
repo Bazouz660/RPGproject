@@ -45,6 +45,9 @@ void ResourceManager::loadAssets()
 
     // load armor textures
     loadTexture("steel_helm", "asset/texture/armor/steel_helm.png");
+
+    // load body textures
+    loadTexture("human_head1", "asset/texture/body/human/head1.png");
 }
 
 ResourceManager& ResourceManager::getInstance()

@@ -21,9 +21,9 @@ namespace bya
             m_window.close();
     }
 
-    void Renderer::init(sf::Vector2u size, const std::string &title, sf::Uint32 style)
+    void Renderer::init(sf::Vector2u size, const std::string &title, sf::Uint32 style, const sf::ContextSettings &settings)
     {
-        m_window.create(sf::VideoMode(size.x, size.y), title, style);
+        m_window.create(sf::VideoMode(size.x, size.y), title, style, settings);
         m_staticView = m_window.getDefaultView();
         info::setStaticView(m_staticView);
         info::setContext(m_window);
