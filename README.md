@@ -1,3 +1,3 @@
 # RPGproject
 
-An early rpg project based on my sfml framework, burunya engine
+An early W.I.P rpg project based on my sfml framework, burunya engine
