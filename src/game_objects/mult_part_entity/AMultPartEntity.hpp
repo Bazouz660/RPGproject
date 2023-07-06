@@ -95,7 +95,7 @@ namespace bya::gameObj
                     angle += m_parent->getRotation();
                 m_rotation = angle + m_ownRotation;
                 float offset = (m_rotation - m_ownRotation) - (m_previousRotation - m_previousOwnRotation);
-                m_collisionBox.setRotation(angle);
+                m_collisionBox.setRotation(angle * m_orientedBox.getScale().x);
                 m_orientedBox.setRotation(angle);
                 m_pivotPointIndicator.setPosition(m_position);
 
@@ -196,6 +196,7 @@ namespace bya::gameObj
 
             virtual void flipX() override {
                 m_collisionBox.setScale({m_collisionBox.getScale().x * -1, m_collisionBox.getScale().y});
+                m_collisionBox.setRotation(m_collisionBox.getRotation() * -1);
                 m_orientedBox.setScale({m_orientedBox.getScale().x * -1, m_orientedBox.getScale().y});
                 if (m_parent) {
                     IMultPartEntity* root = getRoot();
@@ -207,9 +208,12 @@ namespace bya::gameObj
                 }
                 m_pivotPointIndicator.setScale({m_pivotPointIndicator.getScale().x * -1, m_pivotPointIndicator.getScale().y});
 
+                setZIndex(-getZIndex());
                 // flip childs
                 for (auto &[partName, part] : m_parts)
                     part->flipX();
+                if (!m_parent)
+                    sortZIndex();
             }
 
             std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const {
