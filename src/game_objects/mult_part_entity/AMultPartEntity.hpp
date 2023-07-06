@@ -45,7 +45,7 @@ namespace bya::gameObj
             }
 
             virtual void draw(sf::RenderTarget &target) override {
-                target.draw(m_collisionBox);
+                //target.draw(m_collisionBox);
                 m_orientedBox.render(target);
                 target.draw(m_pivotPointIndicator);
             }
@@ -79,9 +79,6 @@ namespace bya::gameObj
                 m_collisionBox.setOrigin(pivotPoint);
                 m_orientedBox.setOrigin(pivotPoint);
                 sf::Vector2f pivot = m_orientedBox.getOrigin();
-                if (m_name == "head") {
-                    std::cerr << "head pivot point: " << pivot.x << ", " << pivot.y << std::endl;
-                }
             }
 
             virtual void setPivotPoint(float x, float y) override {
@@ -96,27 +93,29 @@ namespace bya::gameObj
                 m_previousRotation = m_rotation;
                 if (m_parent)
                     angle += m_parent->getRotation();
-                float offset = angle - m_previousRotation;
-                m_rotation = angle;
+                m_rotation = angle + m_ownRotation;
+                float offset = (m_rotation - m_ownRotation) - (m_previousRotation - m_previousOwnRotation);
                 m_collisionBox.setRotation(angle);
                 m_orientedBox.setRotation(angle);
-                m_pivotPointIndicator.setPosition(std::cos(angle), std::sin(angle));
+                m_pivotPointIndicator.setPosition(m_position);
 
                 sf::Transform transform = sf::Transform::Identity;
-                transform.rotate(offset, m_position);
+                transform.rotate(offset * m_orientedBox.getScale().x, m_position);
 
                 // rotate childs
                 for (auto &[partName, part] : m_parts) {
                     sf::Vector2f pos = part->getPosition();
                     pos = transform.transformPoint(pos);
                     part->setPosition(pos);
-                    part->setRotation(part->getRotation() + offset);
+                    part->setRotation(offset);
                 }
             }
 
             virtual void setFixedRotation(float angle) override {
+                m_ownRotation = angle;
                 setRotation(angle);
-                m_previousRotation = angle;
+                m_previousRotation = m_rotation;
+                m_previousOwnRotation = m_ownRotation;
             }
 
             virtual float getRotation() const override {
@@ -170,6 +169,7 @@ namespace bya::gameObj
             virtual void setTint(sf::Color tint) override {
                 m_tint = tint;
                 m_collisionBox.setFillColor(tint);
+                m_orientedBox.setColor(tint);
             }
 
             virtual sf::Color getTint() const override {
@@ -184,12 +184,36 @@ namespace bya::gameObj
                 return m_parent;
             }
 
+            virtual IMultPartEntity* getRoot() override {
+                if (m_parent == nullptr)
+                    return this;
+                return m_parent->getRoot();
+            }
+
             virtual bool isHovered() const override {
                 return m_orientedBox.contains(info::getMousePosition());
             }
 
             virtual void flipX() override {
-                
+                m_collisionBox.setScale({m_collisionBox.getScale().x * -1, m_collisionBox.getScale().y});
+                m_orientedBox.setScale({m_orientedBox.getScale().x * -1, m_orientedBox.getScale().y});
+                if (m_parent) {
+                    IMultPartEntity* root = getRoot();
+                    sf::Vector2f posRelativeToRoot = root->getPosition() - m_orientedBox.getPosition();
+                    posRelativeToRoot.x *= -1;
+                    sf::Vector2f newPos(root->getPosition().x - posRelativeToRoot.x, m_orientedBox.getPosition().y);
+                    m_orientedBox.setPosition(newPos);
+                    m_position = newPos;
+                }
+                m_pivotPointIndicator.setScale({m_pivotPointIndicator.getScale().x * -1, m_pivotPointIndicator.getScale().y});
+
+                // flip childs
+                for (auto &[partName, part] : m_parts)
+                    part->flipX();
+            }
+
+            virtual void loadFromJson(const std::string& path) override {
+
             }
 
         protected:
@@ -208,7 +232,9 @@ namespace bya::gameObj
             sf::Vector2f m_position = {0, 0};
             sf::Color m_tint = sf::Color::White;
             float m_rotation = 0;
+            float m_ownRotation = 0;
             float m_previousRotation = 0;
+            float m_previousOwnRotation = 0;
             int m_zIndex = 0;
             std::string m_name;
             sf::RectangleShape m_collisionBox;

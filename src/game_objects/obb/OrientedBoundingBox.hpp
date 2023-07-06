@@ -29,6 +29,7 @@ namespace bya::gameObj
             void setOrigin(sf::Vector2f origin);
             void setColor(sf::Color color) { m_color = color; }
             void setScale(sf::Vector2f scale) { m_scale = scale; }
+            void setScale(float scale) { setScale({scale, scale}); }
 
             sf::Vector2f getPosition() const { return m_position; }
             sf::Vector2f getSize() const { return m_size; }
@@ -38,7 +39,6 @@ namespace bya::gameObj
             sf::Vector2f getScale() const { return m_scale; }
             std::array<sf::Vector2f, 4> getCorners() const;
             sf::Vector2f getCenter() const;
-            sf::Vector2f getPivotPoint() const;
 
             void render(sf::RenderTarget &target);
 

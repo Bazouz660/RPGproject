@@ -54,6 +54,7 @@ namespace bya::gameObj
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 10.f)
             .setZIndex(2)
+            .setTint(sf::Color(255, 255, 0, 100))
             .setParent(this)
             .build()
         );
@@ -62,6 +63,7 @@ namespace bya::gameObj
             .setPosition(-15.f, 0.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 0.f)
+            .setTint(sf::Color(255, 255, 0, 100))
             .setZIndex(1)
             .setParent(getPart("rightArm").get())
             .build()
@@ -92,7 +94,7 @@ namespace bya::gameObj
         );
 
         getPart("leftArm")->setFixedRotation(-20.f);
-        getPart("leftArm")->getPart("leftForearm")->setFixedRotation(-40.f);
+        getPart("leftForearm")->setFixedRotation(-40.f);
 
 
         // right leg
@@ -101,6 +103,7 @@ namespace bya::gameObj
             .setSize(22.f, 50.f)
             .setPivotPoint(11.f, 0.f)
             .setPosition(-15.f, 40.f)
+            .setTint(sf::Color(255, 255, 0, 100))
             .setZIndex(2)
             .setParent(this)
             .build()
@@ -110,6 +113,7 @@ namespace bya::gameObj
             .setSize(20.f, 55.f)
             .setPivotPoint(10.f, 0.f)
             .setPosition(-15.f, 90.f)
+            .setTint(sf::Color(255, 255, 0, 100))
             .setZIndex(1)
             .setParent(getPart("rightThigh").get())
             .build()
@@ -147,12 +151,22 @@ namespace bya::gameObj
         sortZIndex();
     }
 
+    void HumanoidEntity::flipX()
+    {
+        AMultPartEntity::flipX();
+        sf::Vector2f leftArmPos = m_parts["leftArm"]->getPosition();
+        sf::Vector2f rightArmPos = m_parts["rightArm"]->getPosition();
+        m_parts["leftArm"]->setPosition(rightArmPos);
+        m_parts["rightArm"]->setPosition(leftArmPos);
+    }
+
     void HumanoidEntity::update(float dt)
     {
         for (auto &[partName, part] : m_parts)
             part->update(dt);
 
         PartEntity *head = dynamic_cast<PartEntity *>(getPart("head").get());
+        PartEntity *leftArm = dynamic_cast<PartEntity *>(getPart("leftArm").get());
 
         // get angle between head and mouse
         sf::Vector2f mousePos = info::getMousePosition();
@@ -164,6 +178,14 @@ namespace bya::gameObj
             angle = (angle > 0) ? 20.f : -20.f;
 
         head->setRotation(angle);
+
+        sf::Vector2f leftArmPos = leftArm->getPosition();
+        angle = math::toDeg(math::angle(leftArmPos, mousePos));
+
+        if (angle > 20.f || angle < -20.f)
+            angle = (angle > 0) ? 20.f : -20.f;
+
+        leftArm->setRotation(angle);
     }
 
 }

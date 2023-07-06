@@ -51,6 +51,12 @@ namespace bya
     {
         for (auto &[key, elem] : m_UIelements)
             elem->handleEvent(event, window);
+
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::F) {
+                m_humanoid.flipX();
+            }
+        }
     }
 
     void TestScene::update(float dt)
@@ -77,16 +83,16 @@ namespace bya
 
         auto& parts = m_humanoid.getSortedZParts();
 
-        gameObj::IMultPartEntity* hoveredPart = nullptr;
-        for (auto& part : parts) {
-            if (part->isHovered()) {
-                hoveredPart = part;
-            }
-            part->setTint(sf::Color(255, 0, 0, 100));
-        }
-        if (hoveredPart) {
-            hoveredPart->setTint(sf::Color::Green);
-        }
+        // gameObj::IMultPartEntity* hoveredPart = nullptr;
+        // for (auto& part : parts) {
+        //     if (part->isHovered()) {
+        //         hoveredPart = part;
+        //     }
+        //     part->setTint(sf::Color(255, 0, 0, 100));
+        // }
+        // if (hoveredPart) {
+        //     hoveredPart->setTint(sf::Color::Green);
+        // }
 
         m_humanoid.render(target);
 

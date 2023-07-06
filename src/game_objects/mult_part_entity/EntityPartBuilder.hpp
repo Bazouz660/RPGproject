@@ -73,6 +73,11 @@ namespace bya::gameObj {
                 return *this;
             }
 
+            EntityPartBuilder &setTint(sf::Color tint) {
+                m_tint = tint;
+                return *this;
+            }
+
             std::shared_ptr<IMultPartEntity> build() {
                 auto entity = std::make_shared<PartEntity>(m_name);
                 entity->setPivotPoint(m_pivotPoint);
@@ -82,6 +87,7 @@ namespace bya::gameObj {
                 entity->setTint(m_tint);
                 entity->setParent(m_parent);
                 entity->setSize(m_collisionBox.getSize());
+                m_tint = sf::Color(255, 0, 0, 100);
                 return entity;
             }
 

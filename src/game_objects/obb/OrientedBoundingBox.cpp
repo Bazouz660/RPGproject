@@ -66,9 +66,7 @@ namespace bya::gameObj
         // first rotate around the origin, then scale, then translate
         // translate to origin
 
-        transform.translate(m_origin);
-        transform.rotate(m_rotation);
-        transform.translate(-m_origin);
+        transform.rotate(m_rotation, m_origin);
         for (int i = 0; i < 4; i++)
             corners[i] = transform.transformPoint(m_corners[i]);
 

@@ -49,10 +49,13 @@ namespace bya::gameObj
 
             virtual void setParent(IMultPartEntity* parent) = 0;
             virtual IMultPartEntity* getParent() const = 0;
+            virtual IMultPartEntity* getRoot() = 0;
 
             virtual bool isHovered() const = 0;
 
             virtual void flipX() = 0;
+
+            virtual void loadFromJson(const std::string& path) = 0;
     };
 
 }
