@@ -156,11 +156,19 @@ namespace bya::gameObj
         AMultPartEntity::flipX();
         sf::Vector2f leftArmPos = m_parts["leftArm"]->getPosition();
         sf::Vector2f rightArmPos = m_parts["rightArm"]->getPosition();
+        sf::Vector2f leftThighPos = m_parts["leftThigh"]->getPosition();
+        sf::Vector2f rightThighPos = m_parts["rightThigh"]->getPosition();
         m_parts["leftArm"]->setPosition(rightArmPos);
         m_parts["rightArm"]->setPosition(leftArmPos);
+        m_parts["leftThigh"]->setPosition(rightThighPos);
+        m_parts["rightThigh"]->setPosition(leftThighPos);
         for (auto &part : getPart("leftArm")->getChildren())
             part->setZIndex(-part->getZIndex());
         for (auto &part : getPart("rightArm")->getChildren())
+            part->setZIndex(-part->getZIndex());
+        for (auto &part : getPart("leftThigh")->getChildren())
+            part->setZIndex(-part->getZIndex());
+        for (auto &part : getPart("rightThigh")->getChildren())
             part->setZIndex(-part->getZIndex());
         sortZIndex();
     }
