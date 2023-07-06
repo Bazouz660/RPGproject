@@ -12,7 +12,7 @@ namespace bya {
 
         float toDeg(float rad)
         {
-            float deg = rad * 180 / M_PI;
+            float deg = rad * 180 / PI;
             // keep it between 180 and -180
             if (deg < -180)
                 deg += 360;
@@ -23,13 +23,23 @@ namespace bya {
 
         float toRad(float deg)
         {
-            float rad = deg * M_PI / 180;
+            float rad = deg * PI / 180;
             // keep it between PI and -PI
-            if (rad < -M_PI)
-                rad += 2 * M_PI;
-            if (rad > M_PI)
-                rad -= 2 * M_PI;
+            if (rad < -PI)
+                rad += 2 * PI;
+            if (rad > PI)
+                rad -= 2 * PI;
             return rad;
+        }
+
+        float invertAngle(float deg)
+        {
+            deg = 180.f - deg;
+            if (deg > 180.f)
+                deg -= 360.f;
+            else if (deg < -180.f)
+                deg += 360.f;
+            return deg;
         }
 
         float dist(sf::Vector2f p1, sf::Vector2f p2)
@@ -73,12 +83,19 @@ namespace bya {
             return v1.x * v2.y - v1.y * v2.x;
         }
 
-        float angle(sf::Vector2f v1, sf::Vector2f v2)
+        float angle(sf::Vector2f v1, sf::Vector2f v2, float offset)
         {
+            float offsetRad = toRad(offset);
             double dx = v2.x - v1.x;
             double dy = v2.y - v1.y;
+            double angle = atan2(dy, dx);
+            angle += offsetRad;
 
-            return std::atan2(dy, dx);
+            if (angle < -PI)
+                angle += 2 * PI;
+            if (angle > PI)
+                angle -= 2 * PI;
+            return angle;
         }
 
         float length(sf::Vector2f v)

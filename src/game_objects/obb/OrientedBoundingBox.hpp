@@ -29,7 +29,8 @@ namespace bya::gameObj
             void setOrigin(sf::Vector2f origin);
             void setColor(sf::Color color) { m_color = color; }
             void setScale(sf::Vector2f scale) { m_scale = scale; }
-            void setScale(float scale) { setScale({scale, scale}); }
+            void setTexture(sf::Texture &texture);
+            void setTextureRect(sf::IntRect textureRect);
 
             sf::Vector2f getPosition() const { return m_position; }
             sf::Vector2f getSize() const { return m_size; }
@@ -39,8 +40,14 @@ namespace bya::gameObj
             sf::Vector2f getScale() const { return m_scale; }
             std::array<sf::Vector2f, 4> getCorners() const;
             sf::Vector2f getCenter() const;
+            sf::FloatRect getGlobalBounds() const;
+            sf::Texture* getTexture() const { return m_texture; }
+            sf::IntRect getTextureRect() const { return m_textureRect; }
 
             void render(sf::RenderTarget &target);
+
+        private:
+            void updateTexCoords();
 
         private:
             sf::Vector2f m_position = {0, 0};
@@ -54,5 +61,8 @@ namespace bya::gameObj
             sf::VertexBuffer m_vertexBuffer;
             sf::CircleShape m_originShape;
             sf::CircleShape m_pivotShape;
+            sf::Texture *m_texture = nullptr;
+            sf::IntRect m_textureRect = {0, 0, 0, 0};
+            sf::RenderStates m_renderStates = sf::RenderStates::Default;
     };
 }

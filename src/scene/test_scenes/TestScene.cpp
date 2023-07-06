@@ -51,28 +51,22 @@ namespace bya
     {
         for (auto &[key, elem] : m_UIelements)
             elem->handleEvent(event, window);
-
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::F) {
-                m_humanoid.flipX();
-            }
-        }
     }
 
     void TestScene::update(float dt)
     {
         m_humanoid.update(dt);
 
-        if (m_oobb1.contains(info::getMousePosition())) {
-            m_oobb1.setColor(sf::Color::Green);
-        } else {
-            m_oobb1.setColor(sf::Color(255, 0, 0, 100));
-        }
 
-        // m_oobb1.setRotation(m_oobb1.getRotation() + 20.f * dt);
+        // test oobb //
+        if (m_oobb1.contains(info::getMousePosition()))
+            m_oobb1.setColor(sf::Color::Green);
+        else
+            m_oobb1.setColor(sf::Color(255, 0, 0, 100));
+
         float scale = std::cos(getTime().asSeconds());
         m_oobb1.setScale(sf::Vector2f(scale, 1));
-        // std::cerr << "oob center: " << m_oobb1.getCenter().x << ", " << m_oobb1.getCenter().y << "\n";
+        //           //
     }
 
     void TestScene::render(sf::RenderTarget &target)
@@ -81,21 +75,7 @@ namespace bya
         for (auto &[key, elem] : m_UIelements)
             elem->render(target);
 
-        auto& parts = m_humanoid.getSortedZParts();
-
-        // gameObj::IMultPartEntity* hoveredPart = nullptr;
-        // for (auto& part : parts) {
-        //     if (part->isHovered()) {
-        //         hoveredPart = part;
-        //     }
-        //     part->setTint(sf::Color(255, 0, 0, 100));
-        // }
-        // if (hoveredPart) {
-        //     hoveredPart->setTint(sf::Color::Green);
-        // }
-
         m_humanoid.render(target);
-
         m_oobb1.render(target);
     }
 

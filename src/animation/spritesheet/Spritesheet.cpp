@@ -1,9 +1,10 @@
 /*
-** EPITECH PROJECT, 2023
-** RPG3
-** File description:
-** Spritesheet
-*/
+ *  Author: Basile Trebus--Hamann
+ *  Create Time: 2023-07-03 18:50:24
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-06 21:37:31
+ *  Description:
+ */
 
 #include "Spritesheet.hpp"
 #include "Clock.hpp"

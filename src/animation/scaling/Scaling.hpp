@@ -1,9 +1,10 @@
 /*
-** EPITECH PROJECT, 2023
-** BurunyaEngine
-** File description:
-** Scaling
-*/
+ *  Author: Basile Trebus--Hamann
+ *  Create Time: 2023-07-03 18:50:24
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-06 21:37:12
+ *  Description:
+ */
 
 #pragma once
 

@@ -1,9 +1,10 @@
 /*
-** EPITECH PROJECT, 2023
-** RPG3
-** File description:
-** Engine
-*/
+ *  Author: Basile Trebus--Hamann
+ *  Create Time: 2023-07-03 18:50:24
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-06 21:38:15
+ *  Description:
+ */
 
 #include "Engine.hpp"
 #include "TilemapScene.hpp"
@@ -42,6 +43,12 @@ namespace bya {
         m_sceneManager.addScene("Test Scene", std::shared_ptr<IScene>(new TestScene()));
 
         m_sceneManager.setCurrentScene("Test Scene");
+    }
+
+    void Engine::setIcon(const std::string& name)
+    {
+        sf::Image& icon = ResourceManager::getInstance().getTextureImage(name);
+        m_renderer.getWindow().setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     }
 
     void Engine::handleEvents()

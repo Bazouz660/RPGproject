@@ -1,3 +1,19 @@
+/**
+**  Author: Basile Trebus--Hamann
+**  Create Time: 2023-07-03 18:50:24
+**  Modified by: Basile Trebus--Hamann
+**  Modified time: 2023-07-06 21:32:40
+**  Description:
+**/
+
+/**
+ * @ Author: Basile Trebus--Hamann
+ * @ Create Time: 2023-07-03 18:50:24
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-07-06 21:32:05
+ * @ Description:
+ */
+
 /*
 ** EPITECH PROJECT, 2023
 ** RPGproject
@@ -239,6 +255,11 @@ namespace bya::gameObj
                 return m_orientedBox.getScale();
             }
 
+            virtual void setTexture(sf::Texture &texture) { m_orientedBox.setTexture(texture); }
+            virtual void setTextureRect(sf::IntRect rect) { m_orientedBox.setTextureRect(rect); }
+            virtual sf::IntRect getTextureRect() const { return m_orientedBox.getTextureRect(); }
+            virtual sf::Texture* getTexture() const { return m_orientedBox.getTexture(); }
+
             virtual void loadFromJson(const std::string& path) override {
 
             }
@@ -254,22 +275,25 @@ namespace bya::gameObj
                 m_collisionBox.setOutlineColor(sf::Color::Black);
                 m_collisionBox.setOutlineThickness(1);
             }
-            std::map<std::string, std::shared_ptr<IMultPartEntity>> m_parts;
             sf::Vector2f m_pivotPoint = {0, 0};
             sf::Vector2f m_position = {0, 0};
-            sf::Color m_tint = sf::Color::White;
+
+            int m_zIndex = 0;
             float m_rotation = 0;
             float m_ownRotation = 0;
             float m_previousRotation = 0;
             float m_previousOwnRotation = 0;
-            int m_zIndex = 0;
-            std::string m_name;
+            sf::Color m_tint = sf::Color::White;
+            std::string m_name = "";
+
             sf::RectangleShape m_collisionBox;
             OrientedBoundingBox m_orientedBox;
             sf::CircleShape m_pivotPointIndicator;
+
             IMultPartEntity* m_parent = nullptr;
             std::vector<IMultPartEntity*> m_sortedZparts;
             std::map<std::string, std::string> m_partMapping;
+            std::map<std::string, std::shared_ptr<IMultPartEntity>> m_parts;
     };
 
 }

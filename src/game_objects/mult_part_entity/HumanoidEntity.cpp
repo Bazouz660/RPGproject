@@ -38,12 +38,15 @@ namespace bya::gameObj
         getPart("abdomen")->setFixedRotation(8.f);
 
         // limbs
+        float scale = 0.9f;
         addPart("head", builder
             .setName("head")
             .setPosition(2.f, -60.f)
-            .setSize(45.f, 50.f)
-            .setPivotPoint(22.5f, 50.f)
+            .setSize(45.f * scale, 50.f * scale)
+            .setPivotPoint(20.f * scale, 50.f * scale)
             .setZIndex(1)
+            .setTexture("steel_helm")
+            .setTint(sf::Color::White)
             .setParent(this)
             .build()
         );
@@ -194,12 +197,8 @@ namespace bya::gameObj
             flipX();
 
         if (head->getScale().x < 0.f) {
-            angle = 180.f - angle;
             maxAngle = -maxAngle;
-            if (angle > 180.f)
-                angle -= 360.f;
-            else if (angle < -180.f)
-                angle += 360.f;
+            angle = math::invertAngle(angle);
             angle = std::clamp(angle, maxAngle, -maxAngle);
         } else {
             angle = std::clamp(angle, -maxAngle, maxAngle);
@@ -209,7 +208,18 @@ namespace bya::gameObj
 
         sf::Vector2f leftArmPos = leftArm->getPosition();
         angle = math::toDeg(math::angle(leftArmPos, mousePos));
+        maxAngle = 45.f;
+        float angleOffset = 90.f;
 
+        if (leftArm->getScale().x < 0.f) {
+            maxAngle = -maxAngle;
+            angle = math::invertAngle(angle);
+            angle = std::clamp(angle, maxAngle, -maxAngle);
+            angle -= angleOffset;
+        } else {
+            angle = std::clamp(angle, -maxAngle, maxAngle);
+            angle -= angleOffset;
+        }
         leftArm->setRotation(angle);
     }
 

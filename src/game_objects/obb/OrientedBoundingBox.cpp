@@ -16,7 +16,7 @@ namespace bya::gameObj
     OrientedBoundingBox::OrientedBoundingBox()
     {
         m_vertexBuffer.create(5);
-        m_vertexBuffer.setPrimitiveType(sf::PrimitiveType::LineStrip);
+        m_vertexBuffer.setPrimitiveType(sf::PrimitiveType::Quads);
         m_vertexBuffer.setUsage(sf::VertexBuffer::Usage::Dynamic);
         m_originShape.setRadius(2);
         m_originShape.setFillColor(sf::Color::Blue);
@@ -151,10 +151,60 @@ namespace bya::gameObj
         m_vertices[4].color = m_color;
 
         m_vertexBuffer.update(m_vertices, 5, 0);
-        target.draw(m_vertexBuffer);
+        target.draw(m_vertexBuffer, m_renderStates);
         m_originShape.setPosition(getCenter());
         m_pivotShape.setPosition(m_position);
         target.draw(m_originShape);
         target.draw(m_pivotShape);
+    }
+
+    void OrientedBoundingBox::updateTexCoords()
+    {
+        sf::Vector2f size(m_textureRect.width, m_textureRect.height);
+        sf::Vector2f offset(m_textureRect.left, m_textureRect.top);
+
+        m_vertices[0].texCoords = offset;
+        m_vertices[1].texCoords = offset + sf::Vector2f(size.x, 0);
+        m_vertices[2].texCoords = offset + size;
+        m_vertices[3].texCoords = offset + sf::Vector2f(0, size.y);
+        m_vertices[4].texCoords = offset;
+    }
+
+    void OrientedBoundingBox::setTexture(sf::Texture &texture)
+    {
+        m_texture = &texture;
+        m_textureRect = {0, 0, (int)m_texture->getSize().x, (int)m_texture->getSize().y};
+        m_renderStates.texture = m_texture;
+        updateTexCoords();
+    }
+
+    void OrientedBoundingBox::setTextureRect(sf::IntRect textureRect)
+    {
+        m_textureRect = textureRect;
+        updateTexCoords();
+    }
+
+    sf::FloatRect OrientedBoundingBox::getGlobalBounds() const
+    {
+        auto corners = getCorners();
+        float left = corners[0].x;
+        float top = corners[0].y;
+        float right = corners[0].x;
+        float bottom = corners[0].y;
+        for (int i = 1; i < 4; i++) {
+            if (corners[i].x < left) {
+                left = corners[i].x;
+            }
+            if (corners[i].x > right) {
+                right = corners[i].x;
+            }
+            if (corners[i].y < top) {
+                top = corners[i].y;
+            }
+            if (corners[i].y > bottom) {
+                bottom = corners[i].y;
+            }
+        }
+        return {left, top, right - left, bottom - top};
     }
 }

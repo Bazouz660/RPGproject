@@ -1,9 +1,10 @@
 /*
-** EPITECH PROJECT, 2023
-** RPG3
-** File description:
-** Engine
-*/
+ *  Author: Basile Trebus--Hamann
+ *  Create Time: 2023-07-03 18:50:24
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-06 21:38:23
+ *  Description:
+ */
 
 #ifndef ENGINE_HPP_
     #define ENGINE_HPP_
@@ -19,6 +20,7 @@
                 ~Engine();
                 void init();
                 void run();
+                void setIcon(const std::string& name);
 
             private:
                 sf::Event m_event;

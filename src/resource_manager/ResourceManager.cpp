@@ -42,6 +42,9 @@ void ResourceManager::loadAssets()
 
     // load effects textures
     loadTexture("smoke", "asset/texture/effect/smoke.png");
+
+    // load armor textures
+    loadTexture("steel_helm", "asset/texture/armor/steel_helm.png");
 }
 
 ResourceManager& ResourceManager::getInstance()
@@ -53,23 +56,26 @@ ResourceManager& ResourceManager::getInstance()
 void ResourceManager::loadTexture(const std::string &name, const std::string &filename)
 {
     // Create a new texture and load it from the specified file.
-    sf::Texture texture;
-    texture.loadFromFile(filename);
+    std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
+    texture->loadFromFile(filename);
 
     std::cout << "Loaded texture as \"" << name << "\" from " << "\"" + filename + "\"" << std::endl;
 
     // Insert the texture into the map using the name as the key.
     m_textures[name] = texture;
-    m_images[name] = texture.copyToImage();
 }
 
 sf::Texture& ResourceManager::getTexture(const std::string &name) {
-    return m_textures.at(name);
+    return *m_textures.at(name);
 }
 
-sf::Image* ResourceManager::getTextureImage(const std::string &name)
+sf::Image& ResourceManager::getTextureImage(const std::string &name)
 {
-    return &m_images.at(name);
+    if (m_images.find(name) == m_images.end()) {
+        sf::Image image = m_textures.at(name)->copyToImage();
+        m_images[name] = std::make_shared<sf::Image>(image);
+    }
+    return *m_images.at(name);
 }
 
 void ResourceManager::loadTexturesFromFolder(const std::string& directory)
@@ -79,12 +85,11 @@ void ResourceManager::loadTexturesFromFolder(const std::string& directory)
     }
 }
 
-
 void ResourceManager::loadFont(const std::string& name,
 const std::string& filePath)
 {
-    auto& font = m_fonts[name];
-    if(!font.loadFromFile(filePath))
+    std::shared_ptr<sf::Font> font = std::make_shared<sf::Font>();
+    if(!font->loadFromFile(filePath))
         throw std::runtime_error("Failed to load font: " + filePath);
     m_fonts[name] = font;
     std::cout << "Loaded font as \"" << name << "\" from " << "\"" + filePath + "\"" << std::endl;
@@ -92,26 +97,24 @@ const std::string& filePath)
 
 sf::Font& ResourceManager::getFont(const std::string& fontName)
 {
-    if (m_fonts.count(fontName) == 0)
-        m_fonts[fontName].loadFromFile(fontName);
-    return m_fonts.at(fontName);
+    return *m_fonts.at(fontName);
 }
 
 void ResourceManager::loadSoundBuffer(const std::string& name,
 const std::string& fileName)
 {
-    sf::SoundBuffer soundBuffer;
-    if (!soundBuffer.loadFromFile(fileName))
+    std::shared_ptr<sf::SoundBuffer> soundBuffer = std::make_shared<sf::SoundBuffer>();
+    if (!soundBuffer->loadFromFile(fileName))
         throw std::runtime_error("Failed to load sound buffer: " + fileName);
     m_soundBuffers[name] = soundBuffer;
     std::cout << "Loaded font as \"" << name << "\" from " << "\"" + fileName + "\"" << std::endl;
 }
 
-sf::SoundBuffer* ResourceManager::getSoundBuffer(const std::string& name) {
+sf::SoundBuffer& ResourceManager::getSoundBuffer(const std::string& name) {
     auto it = m_soundBuffers.find(name);
     if (it == m_soundBuffers.end())
         throw std::runtime_error("Sound buffer not found: " + name);
-    return &m_soundBuffers.at(name);
+    return *m_soundBuffers.at(name);
 }
 
 }

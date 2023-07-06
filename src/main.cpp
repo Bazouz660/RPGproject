@@ -11,7 +11,13 @@ int main(int argc, char **argv)
 {
     bya::Engine engine;
 
-    engine.init();
-    engine.run();
+    try {
+        engine.init();
+        engine.setIcon("steel_helm");
+        engine.run();
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return 84;
+    }
     return 0;
 }

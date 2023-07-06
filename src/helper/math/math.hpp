@@ -20,13 +20,14 @@ namespace bya {
         sf::Vector2f normalize(sf::Vector2f v);
         float dot(sf::Vector2f v1, sf::Vector2f v2);
         float cross(sf::Vector2f v1, sf::Vector2f v2);
-        float angle(sf::Vector2f v1, sf::Vector2f v2);
+        float angle(sf::Vector2f v1, sf::Vector2f v2, float offset = 0.f);
         float length(sf::Vector2f v);
         sf::Vector2f unit(sf::Vector2f v);
         sf::Vector2f lerp(sf::Vector2f v1, sf::Vector2f v2, float t);
         float lerp(float v1, float v2, float t);
         float toDeg(float rad);
         float toRad(float deg);
+        float invertAngle(float deg);
 
         float flip(float x);
         float dumbPow(float x, uint32_t p);
@@ -39,6 +40,10 @@ namespace bya {
             float cs = cos(rad);
             float sn = sin(rad);
             return sf::Vector2<T>(v.x * cs - v.y * sn, v.x * sn + v.y * cs);
+        }
+
+        template <typename T> int sgn(T val) {
+            return (T(0) < val) - (val < T(0));
         }
     }
 }

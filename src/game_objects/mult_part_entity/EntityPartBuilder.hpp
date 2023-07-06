@@ -9,6 +9,7 @@
 
 #include "IMultPartEntity.hpp"
 #include "PartEntity.hpp"
+#include "ResourceManager.hpp"
 
 namespace bya::gameObj {
 
@@ -78,6 +79,16 @@ namespace bya::gameObj {
                 return *this;
             }
 
+            EntityPartBuilder &setTexture(std::string textureName) {
+                m_textureName = textureName;
+                return *this;
+            }
+
+            EntityPartBuilder &setTextureRect(sf::IntRect textureRect) {
+                m_textureRect = textureRect;
+                return *this;
+            }
+
             std::shared_ptr<IMultPartEntity> build() {
                 auto entity = std::make_shared<PartEntity>(m_name);
                 entity->setPivotPoint(m_pivotPoint);
@@ -87,6 +98,15 @@ namespace bya::gameObj {
                 entity->setTint(m_tint);
                 entity->setParent(m_parent);
                 entity->setSize(m_collisionBox.getSize());
+
+                if (m_textureName != "nullptr") {
+                    entity->setTexture(getResource().getTexture(m_textureName));
+                    if (m_textureRect != sf::IntRect(0, 0, 0, 0))
+                        entity->setTextureRect(m_textureRect);
+                    m_textureName = "nullptr";
+                    m_textureRect = sf::IntRect(0, 0, 0, 0);
+                }
+
                 m_tint = sf::Color(255, 0, 0, 255);
                 return entity;
             }
@@ -102,7 +122,8 @@ namespace bya::gameObj {
             IMultPartEntity *m_parent = nullptr;
             sf::RectangleShape m_collisionBox;
             sf::CircleShape m_pivotPointIndicator;
-
+            std::string m_textureName = "nullptr";
+            sf::IntRect m_textureRect = {0, 0, 0, 0};
     };
 
 }
