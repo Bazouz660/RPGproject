@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 21:34:37
+ *  Modified time: 2023-07-06 23:26:13
  *  Description:
 */
 
@@ -47,7 +47,7 @@ namespace bya::gameObj
             }
 
             virtual void draw(sf::RenderTarget &target) override {
-                //target.draw(m_collisionBox);
+                // target.draw(m_collisionBox);
                 m_orientedBox.render(target);
                 target.draw(m_pivotPointIndicator);
             }

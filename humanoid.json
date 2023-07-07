@@ -1,0 +1,78 @@
+{
+    "torso": {
+        "position": [0.0, -30.0],
+        "size": [45.0, 50.0],
+        "pivot": [22.5, 20.0],
+        "tint": [255, 255, 255, 255],
+        "zIndex": 0,
+        "childs": {
+            "abdomen": {
+                "position": [0.0, -30.0],
+                "size": [40.0, 50.0],
+                "pivot": [20.0, 0.0],
+                "tint": [255, 255, 255, 255],
+                "zIndex": 0,
+                "childs": {}
+            },
+            "head": {
+                "position": [2.0, -60.0],
+                "size": [42.75, 47.5],
+                "pivot": [19.0, 47.5],
+                "tint": [255, 255, 255, 255],
+                "zIndex": 1,
+                "childs": {}
+            },
+            "rightArm": {
+                "position": [-15.0, -40.0],
+                "size": [20.0, 50.0],
+                "pivot": [10.0, 10.0],
+                "tint": [255, 255, 255, 255],
+                "zIndex": 2,
+                "childs": {
+                    "rightForearm": {
+                        "position": [-15.0, 0.0],
+                        "size": [20.0, 50.0],
+                        "pivot": [10.0, 0.0],
+                        "tint": [255, 255, 255, 255],
+                        "zIndex": 2,
+                        "childs": {}
+                    }
+                }
+            },
+            "leftArm": {
+                "position": [15.0, -40.0],
+                "size": [20.0, 50.0],
+                "pivot": [10.0, 10.0],
+                "tint": [255, 255, 255, 255],
+                "zIndex": -2,
+                "childs": {
+                    "leftForearm": {
+                        "position": [15.0, 0.0],
+                        "size": [20.0, 50.0],
+                        "pivot": [10.0, 0.0],
+                        "tint": [255, 255, 255, 255],
+                        "zIndex": -2,
+                        "childs": {}
+                    }
+                }
+            },
+            "rightThigh": {
+                "position": [-15.0, 40.0],
+                "size": [22, 50.0],
+                "pivot": [11.0, 0.0],
+                "tint": [255, 255, 255, 255],
+                "zIndex": 2,
+                "childs": {
+                    "rightTibia": {
+                        "position": [-10.0, 0.0],
+                        "size": [20.0, 50.0],
+                        "pivot": [10.0, 0.0],
+                        "zIndex": 0,
+                        "tint": [255, 255, 255, 255],
+                        "childs": {}
+                    }
+                }
+            },
+        }
+    }
+}

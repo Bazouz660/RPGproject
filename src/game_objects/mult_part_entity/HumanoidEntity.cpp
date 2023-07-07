@@ -10,7 +10,7 @@
 #include "EntityPartBuilder.hpp"
 #include "info.hpp"
 #include "math.hpp"
-#include "clock.hpp"
+#include "Clock.hpp"
 
 namespace bya::gameObj
 {
@@ -53,7 +53,7 @@ namespace bya::gameObj
 
         // right arm
         addPart("rightArm", builder
-            .setName("righttArm")
+            .setName("rightArm")
             .setPosition(-15.f, -40.f)
             .setSize(20.f, 50.f)
             .setPivotPoint(10.f, 10.f)
@@ -99,7 +99,6 @@ namespace bya::gameObj
 
         getPart("leftArm")->setFixedRotation(-20.f);
         getPart("leftForearm")->setFixedRotation(-40.f);
-
 
         // right leg
         addPart("rightThigh", builder
