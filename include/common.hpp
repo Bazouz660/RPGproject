@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 21:35:59
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-07 02:59:18
  *  Description:
  */
 
@@ -20,6 +20,9 @@
     #include <memory>
     #include <cmath>
     #include <unordered_map>
+    #include <chrono>
+    #include <ctime>
+    #include <cassert>
 
     #include <SFML/Graphics.hpp>
     #include <SFML/Window.hpp>

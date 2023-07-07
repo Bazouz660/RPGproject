@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPGproject
-** File description:
-** TestScene
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-07 02:10:55
 */
 
 #include "TestScene.hpp"
@@ -47,12 +47,6 @@ namespace bya
     {
     }
 
-    void TestScene::handleEvent(sf::Event &event, sf::RenderWindow &window)
-    {
-        for (auto &[key, elem] : m_UIelements)
-            elem->handleEvent(event, window);
-    }
-
     void TestScene::update(float dt)
     {
         m_humanoid.update(dt);
@@ -72,16 +66,8 @@ namespace bya
     void TestScene::render(sf::RenderTarget &target)
     {
         target.draw(m_background);
-        for (auto &[key, elem] : m_UIelements)
-            elem->render(target);
-
+        AScene::renderUi(target);
         m_humanoid.render(target);
         m_oobb1.render(target);
     }
-
-    void TestScene::addUIelement(const std::string& id, std::shared_ptr<ui::IUIelement> element)
-    {
-        m_UIelements.insert(std::make_pair(id, std::move(element)));
-    }
-
 }

@@ -6,18 +6,18 @@
 */
 
 #include "Engine.hpp"
+#include "logger.hpp"
 
 int main(int argc, char **argv)
 {
-    bya::Engine engine;
+    bya::Engine& engine = bya::Engine::getInstance();
 
     try {
-        engine.init();
-        engine.setIcon("steel_helm");
+        engine.preProcessor();
         engine.run();
     } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
-        return 84;
+        logger::error(e.what());
+        return 1;
     }
     return 0;
 }
