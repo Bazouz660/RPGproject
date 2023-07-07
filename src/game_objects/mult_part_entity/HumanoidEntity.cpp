@@ -10,7 +10,7 @@
 #include "EntityPartBuilder.hpp"
 #include "info.hpp"
 #include "math.hpp"
-#include "clock.hpp"
+#include "Clock.hpp"
 
 namespace bya::gameObj
 {

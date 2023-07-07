@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 21:38:23
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-07 02:29:41
  *  Description:
  */
 
@@ -16,8 +16,9 @@
     namespace bya {
         class Engine {
             public:
-                Engine();
                 ~Engine();
+                static Engine& getInstance();
+                void preProcessor();
                 void init();
                 void run();
                 void setIcon(const std::string& name);
@@ -29,6 +30,7 @@
                 sf::Text m_fpsHint;
 
             private:
+                Engine();
                 void handleEvents();
                 void render();
                 void update();

@@ -1,22 +1,19 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 22:13:38
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-07 03:26:54
  *  Description:
  */
 
+#include "SplashScreen.hpp"
 #include "Engine.hpp"
-#include "TilemapScene.hpp"
-#include "UIScene.hpp"
 #include "TestScene.hpp"
-#include "QuadtreeScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
 #include "info.hpp"
 
 namespace bya {
-
     Engine::Engine()
     : m_sceneManager(SceneManager::getInstance())
     {
@@ -27,13 +24,26 @@ namespace bya {
     {
     }
 
-    void Engine::init()
+    Engine& Engine::getInstance()
+    {
+        static Engine instance;
+        return instance;
+    }
+
+    void Engine::preProcessor()
     {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
         m_renderer.init(WINDOW_SIZE, "BurunyaEngine", sf::Style::Default, settings);
         //m_window->setVerticalSyncEnabled(true);
+        ResourceManager::getInstance().init();
+        m_sceneManager.addScene("IntroLogo", std::make_shared<SplashScreen>());
+        setIcon("logo");
+        m_sceneManager.setCurrentScene("IntroLogo");
+    }
 
+    void Engine::init()
+    {
         m_fpsHint.setFont(ResourceManager::getInstance().getFont("defaultFont"));
         m_fpsHint.setCharacterSize(30);
         m_fpsHint.setFillColor(sf::Color::White);
@@ -41,10 +51,7 @@ namespace bya {
         m_fpsHint.setOutlineThickness(1);
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
-
-        m_sceneManager.addScene("Test Scene", std::shared_ptr<IScene>(new TestScene()));
-
-        m_sceneManager.setCurrentScene("Test Scene");
+        m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
     }
 
     void Engine::setIcon(const std::string& name)
@@ -104,5 +111,4 @@ namespace bya {
             handleEvents();
         }
     }
-
 }
