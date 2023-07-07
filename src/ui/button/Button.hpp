@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPG3
-** File description:
-** Button
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-07 15:16:34
 */
 
 #ifndef BUTTON_HPP_

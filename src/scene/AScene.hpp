@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-06 23:29:16
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 13:45:59
+ *  Modified time: 2023-07-07 15:03:15
  *  Description:
  */
 
@@ -17,22 +17,22 @@ namespace bya
     class AScene : public IScene {
         public:
             ~AScene() override = default;
-            void init() override {};
-            void handleEvent(sf::Event &event, sf::RenderWindow &window) override
+            virtual void init() override {};
+            virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override
             {
-                if (event.type == sf::Event::Resized) {
-                    m_background.setSize(sf::Vector2f(info::getWindowSize()));
-                }
+                //if (event.type == sf::Event::Resized) {
+                //    m_background.setSize(sf::Vector2f(info::getWindowSize()));
+                //}
                 for (auto &[key, elem] : m_UIelements)
                     elem->handleEvent(event, window);
             }
-            void renderUi(sf::RenderTarget &target)
+            virtual void renderUi(sf::RenderTarget &target)
             {
                 for (auto &[key, elem] : m_UIelements)
                     elem->render(target);
             }
-            void close() override {};
-            void reset() override {};
+            virtual void close() override {};
+            virtual void reset() override {};
 
         protected:
             std::map<std::string, std::shared_ptr<ui::IUIelement>> m_UIelements;

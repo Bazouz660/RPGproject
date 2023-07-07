@@ -22,6 +22,7 @@ namespace bya
         AnimationEditor() = default;
         virtual ~AnimationEditor() override = default;
         virtual void init() override;
+        virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override;
         virtual void update(float dt) override;
         virtual void render(sf::RenderTarget &target) override;
 

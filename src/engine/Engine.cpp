@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 14:22:14
+ *  Modified time: 2023-07-07 15:02:54
  *  Description:
  */
 
@@ -68,9 +68,6 @@ namespace bya {
             switch (m_event.type) {
                 case sf::Event::Closed:
                     m_renderer.close();
-                    break;
-                case sf::Event::Resized:
-                    m_renderer.getView() = sf::View(sf::FloatRect(0, 0, m_event.size.width, m_event.size.height));
                     break;
             }
             m_sceneManager.getCurrentScene()->handleEvent(m_event, m_renderer.getWindow());

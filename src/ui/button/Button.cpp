@@ -30,7 +30,7 @@ namespace bya::ui
         m_label.setFont(getResource().getFont("gameFont"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(this->getPosition());
-        m_label.setFillColor(sf::Color(80, 80, 80, 255));
+        m_label.setFillColor(sf::Color(30, 30, 30, 255));
     }
 
     void Button::setLabel(const std::string &label)
@@ -66,7 +66,7 @@ namespace bya::ui
             m_state = IDLE;
             setTextureRect(m_animation.getFrame(0));
             setScale(m_scaling.getState(0));
-            m_label.setFillColor(sf::Color(80, 80, 80, 255));
+            m_label.setFillColor(sf::Color(30, 30, 30, 255));
         }
     }
 
