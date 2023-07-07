@@ -18,19 +18,18 @@ namespace bya
 
     class TestScene : public AScene
     {
-    public:
-        TestScene();
-        virtual ~TestScene() override;
-        virtual void init() override;
-        virtual void close() override;
-        virtual void reset() override;
-        virtual void update(float dt) override;
-        virtual void render(sf::RenderTarget &target) override;
+        public:
+            TestScene();
+            virtual ~TestScene() override;
+            virtual void init() override;
+            virtual void close() override;
+            virtual void reset() override;
+            virtual void update(float dt) override;
+            virtual void render(sf::RenderTarget &target) override;
 
-    private:
-        sf::RectangleShape m_background;
-        bya::gameObj::HumanoidEntity m_humanoid;
-        bya::gameObj::OrientedBoundingBox m_oobb1;
+        private:
+            bya::gameObj::HumanoidEntity m_humanoid;
+            bya::gameObj::OrientedBoundingBox m_oobb1;
     };
 
 }

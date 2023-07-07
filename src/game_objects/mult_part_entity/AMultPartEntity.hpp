@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 12:38:13
+ *  Modified time: 2023-07-07 14:17:00
  *  Description:
 */
 
@@ -243,6 +243,7 @@ namespace bya::gameObj
                 return m_orientedBox.getScale();
             }
 
+            virtual void setName(const std::string& name) override { m_name = name; }
             virtual std::string getName() const override { return m_name; }
             virtual void setTexture(sf::Texture &texture) { m_orientedBox.setTexture(texture); }
             virtual void setTextureRect(sf::IntRect rect) { m_orientedBox.setTextureRect(rect); }
@@ -256,8 +257,8 @@ namespace bya::gameObj
             void parseRotation(const std::string& name, const nlohmann::json& json);
 
         protected:
-            AMultPartEntity(const std::string& name, IMultPartEntity* parent = nullptr)
-            : m_name(name), m_parent(parent)
+            AMultPartEntity(IMultPartEntity* parent = nullptr)
+            : m_parent(parent)
             {
                 m_pivotPointIndicator.setRadius(2);
                 sf::FloatRect bounds = m_pivotPointIndicator.getGlobalBounds();

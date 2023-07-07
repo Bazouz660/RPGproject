@@ -1,12 +1,13 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-07 03:26:54
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-07 14:22:14
  *  Description:
  */
 
 #include "SplashScreen.hpp"
+#include "AnimationEditor.hpp"
 #include "Engine.hpp"
 #include "TestScene.hpp"
 #include "ResourceManager.hpp"
@@ -45,13 +46,14 @@ namespace bya {
     void Engine::init()
     {
         m_fpsHint.setFont(ResourceManager::getInstance().getFont("defaultFont"));
-        m_fpsHint.setCharacterSize(30);
-        m_fpsHint.setFillColor(sf::Color::White);
+        m_fpsHint.setCharacterSize(20);
+        m_fpsHint.setFillColor(sf::Color::Green);
         m_fpsHint.setOutlineColor(sf::Color::Black);
         m_fpsHint.setOutlineThickness(1);
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
         m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
+        m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
     }
 
     void Engine::setIcon(const std::string& name)
@@ -93,6 +95,12 @@ namespace bya {
         if (getTime().asSeconds() > tick + 0.1) {
             tick = getTime().asSeconds();
             m_fpsHint.setString("FPS: " + std::to_string(getClock().getFps()));
+            if (getClock().getFps() < 30)
+                m_fpsHint.setFillColor(sf::Color::Red);
+            else if (getClock().getFps() < 60)
+                m_fpsHint.setFillColor(sf::Color::Yellow);
+            else
+                m_fpsHint.setFillColor(sf::Color::Green);
         }
     }
 

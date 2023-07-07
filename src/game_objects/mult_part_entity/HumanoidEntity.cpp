@@ -14,13 +14,10 @@
 namespace bya::gameObj
 {
     HumanoidEntity::HumanoidEntity()
-    : PartEntity("torso")
     {
         loadFromJson("humanoid.json");
 
         getPart("head")->setTexture(getResource().getTexture("human_head1"));
-
-        setPosition(300.f, 300.f);
 
         return;
     }

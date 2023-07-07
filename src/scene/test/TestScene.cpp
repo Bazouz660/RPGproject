@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPGproject
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-07 02:10:55
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-07 13:39:21
 */
 
 #include "TestScene.hpp"
@@ -25,14 +25,13 @@ namespace bya
     {
         sf::Vector2u winSize = info::getWindowSize();
 
-        m_background.setSize(sf::Vector2f(winSize.x, winSize.y));
-        m_background.setFillColor(sf::Color(50, 50, 50, 255));
-
         m_oobb1.setPosition(sf::Vector2f(500, 500));
         m_oobb1.setSize(sf::Vector2f(100, 200));
         m_oobb1.setRotation(45);
 
         m_oobb1.setOrigin(sf::Vector2f(50, 100));
+
+        m_humanoid.setPosition(300.f, 300.f);
     }
 
     void TestScene::close()

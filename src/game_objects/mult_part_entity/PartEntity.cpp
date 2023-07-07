@@ -9,11 +9,6 @@
 
 namespace bya::gameObj
 {
-    PartEntity::PartEntity(const std::string &name)
-    : AMultPartEntity(name)
-    {
-    }
-
     void PartEntity::update(float dt)
     {
         for (auto &[partName, part] : m_parts)

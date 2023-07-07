@@ -90,7 +90,8 @@ namespace bya::gameObj {
             }
 
             std::shared_ptr<IMultPartEntity> build() {
-                auto entity = std::make_shared<PartEntity>(m_name);
+                auto entity = std::make_shared<PartEntity>();
+                entity->setName(m_name);
                 entity->setPivotPoint(m_pivotPoint);
                 entity->setPosition(m_position);
                 entity->setRotation(m_rotation);

@@ -20,7 +20,6 @@ namespace bya {
             void render(sf::RenderTarget&) override;
 
         private:
-            sf::RectangleShape m_background;
             sf::Sprite m_splashIcon;
     };
 }

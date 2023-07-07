@@ -1,8 +1,8 @@
 /*
  *  Author: Clément Thomas
  *  Create Time: 2023-07-06 23:29:16
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-07 02:11:13
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-07 13:45:59
  *  Description:
  */
 
@@ -10,6 +10,7 @@
 
 #include "IUIelement.hpp"
 #include "IScene.hpp"
+#include "info.hpp"
 
 namespace bya
 {
@@ -19,6 +20,9 @@ namespace bya
             void init() override {};
             void handleEvent(sf::Event &event, sf::RenderWindow &window) override
             {
+                if (event.type == sf::Event::Resized) {
+                    m_background.setSize(sf::Vector2f(info::getWindowSize()));
+                }
                 for (auto &[key, elem] : m_UIelements)
                     elem->handleEvent(event, window);
             }
@@ -32,11 +36,14 @@ namespace bya
 
         protected:
             std::map<std::string, std::shared_ptr<ui::IUIelement>> m_UIelements;
+            sf::RectangleShape m_background;
 
             AScene() = default;
             void addUIelement(const std::string &id, std::shared_ptr<ui::IUIelement> element)
             {
                 m_UIelements.insert(std::make_pair(id, std::move(element)));
+                m_background.setSize(sf::Vector2f(info::getWindowSize()));
+                m_background.setFillColor(sf::Color(50, 50, 50, 255));
             }
     };
 }

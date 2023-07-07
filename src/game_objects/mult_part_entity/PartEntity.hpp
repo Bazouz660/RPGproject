@@ -14,7 +14,7 @@ namespace bya::gameObj
     class PartEntity : public AMultPartEntity
     {
         public:
-            PartEntity(const std::string &name);
+            PartEntity() = default;
             ~PartEntity() = default;
 
             void update(float dt) override;
