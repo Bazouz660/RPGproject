@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-06 23:26:13
+ *  Modified time: 2023-07-07 12:38:13
  *  Description:
 */
 
@@ -11,6 +11,8 @@
 
 #include "IMultPartEntity.hpp"
 #include "info.hpp"
+#include "parsing.hpp"
+#include "json.hpp"
 #include "OrientedBoundingBox.hpp"
 
 namespace bya::gameObj
@@ -241,14 +243,17 @@ namespace bya::gameObj
                 return m_orientedBox.getScale();
             }
 
+            virtual std::string getName() const override { return m_name; }
             virtual void setTexture(sf::Texture &texture) { m_orientedBox.setTexture(texture); }
             virtual void setTextureRect(sf::IntRect rect) { m_orientedBox.setTextureRect(rect); }
             virtual sf::IntRect getTextureRect() const { return m_orientedBox.getTextureRect(); }
             virtual sf::Texture* getTexture() const { return m_orientedBox.getTexture(); }
 
-            virtual void loadFromJson(const std::string& path) override {
+            virtual void loadFromJson(const std::string& path) override;
 
-            }
+        private:
+            void parsePart(const std::string& name, const nlohmann::json& json, IMultPartEntity* parent = nullptr);
+            void parseRotation(const std::string& name, const nlohmann::json& json);
 
         protected:
             AMultPartEntity(const std::string& name, IMultPartEntity* parent = nullptr)

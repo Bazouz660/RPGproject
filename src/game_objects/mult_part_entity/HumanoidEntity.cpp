@@ -6,7 +6,6 @@
 */
 
 #include "HumanoidEntity.hpp"
-#include "PartEntity.hpp"
 #include "EntityPartBuilder.hpp"
 #include "info.hpp"
 #include "math.hpp"
@@ -15,8 +14,15 @@
 namespace bya::gameObj
 {
     HumanoidEntity::HumanoidEntity()
-    : AMultPartEntity("torso")
+    : PartEntity("torso")
     {
+
+        loadFromJson("humanoid.json");
+
+        setPosition(300.f, 300.f);
+
+        return;
+
         EntityPartBuilder builder;
 
         // torso
@@ -103,9 +109,9 @@ namespace bya::gameObj
         // right leg
         addPart("rightThigh", builder
             .setName("rightThigh")
+            .setPosition(-15.f, 40.f)
             .setSize(22.f, 50.f)
             .setPivotPoint(11.f, 0.f)
-            .setPosition(-15.f, 40.f)
             .setTint(sf::Color(255, 255, 0, 255))
             .setZIndex(2)
             .setParent(this)
@@ -113,9 +119,9 @@ namespace bya::gameObj
         );
         getPart("rightThigh")->addPart("rightTibia", builder
             .setName("rightTibia")
+            .setPosition(-15.f, 90.f)
             .setSize(20.f, 55.f)
             .setPivotPoint(10.f, 0.f)
-            .setPosition(-15.f, 90.f)
             .setTint(sf::Color(255, 255, 0, 255))
             .setZIndex(1)
             .setParent(getPart("rightThigh").get())
@@ -128,18 +134,18 @@ namespace bya::gameObj
         // left leg
         addPart("leftThigh", builder
             .setName("leftThigh")
+            .setPosition(15.f, 40.f)
             .setSize(22.f, 50.f)
             .setPivotPoint(11.f, 0.f)
-            .setPosition(15.f, 40.f)
             .setZIndex(-2)
             .setParent(this)
             .build()
         );
         getPart("leftThigh")->addPart("leftTibia", builder
             .setName("leftTibia")
+            .setPosition(15.f, 90.f)
             .setSize(20.f, 55.f)
             .setPivotPoint(10.f, 0.f)
-            .setPosition(15.f, 90.f)
             .setZIndex(-1)
             .setParent(getPart("leftThigh").get())
             .build()

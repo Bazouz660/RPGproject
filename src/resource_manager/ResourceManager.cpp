@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-07 03:27:26
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-07 04:17:20
  *  Description:
  */
 
@@ -99,7 +99,7 @@ namespace bya {
     void ResourceManager::loadTexturesFromFolder(const std::string& directory)
     {
         for (const auto &entry : std::filesystem::directory_iterator(directory)) {
-            loadTexture(removeExtension(entry.path().filename().string()), entry.path().string());
+            loadTexture(parsing::removeExtension(entry.path().filename().string()), entry.path().string());
         }
     }
 

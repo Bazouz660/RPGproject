@@ -7,11 +7,11 @@
 
 #pragma once
 
-#include "AMultPartEntity.hpp"
+#include "PartEntity.hpp"
 
 namespace bya::gameObj
 {
-    class HumanoidEntity : public AMultPartEntity
+    class HumanoidEntity : public PartEntity
     {
         public:
             HumanoidEntity();

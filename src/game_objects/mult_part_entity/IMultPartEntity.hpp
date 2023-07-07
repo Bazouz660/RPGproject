@@ -57,6 +57,8 @@ namespace bya::gameObj
             virtual IMultPartEntity* getRoot() = 0;
             virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const = 0;
 
+            virtual std::string getName() const = 0;
+
             virtual bool isHovered() const = 0;
 
             virtual void flipX() = 0;
