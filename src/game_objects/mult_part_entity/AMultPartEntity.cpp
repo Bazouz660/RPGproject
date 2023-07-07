@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-07 04:56:01
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 12:50:40
+ *  Modified time: 2023-07-07 13:05:14
  *  Description:
  */
 
@@ -32,7 +32,8 @@ namespace bya::gameObj
             .setPivotPoint(json["pivot"][0].get<float>(), json["pivot"][1].get<float>())
             .setPosition(json["position"][0].get<float>(), json["position"][1].get<float>())
             .setSize(json["size"][0].get<float>(), json["size"][1].get<float>())
-            .setTint(sf::Color(json["tint"][0].get<float>(), json["tint"][1].get<float>(), json["tint"][2].get<float>(), json["tint"][3].get<float>()))
+            .setTint(sf::Color(json["tint"][0].get<float>(), json["tint"][1].get<float>(),
+                json["tint"][2].get<float>(), json["tint"][3].get<float>()))
             .setZIndex(json["zIndex"].get<int>())
             .setParent(parent)
             .build()
@@ -57,7 +58,8 @@ namespace bya::gameObj
         setPivotPoint({root["pivot"][0].get<float>(), root["pivot"][1].get<float>()});
         setPosition({root["position"][0].get<float>(), root["position"][1].get<float>()});
         setSize({root["size"][0].get<float>(), root["size"][1].get<float>()});
-        setTint({root["tint"][0].get<float>(), root["tint"][1].get<float>(), root["tint"][2].get<float>(), root["tint"][3].get<float>()});
+        setTint(sf::Color(root["tint"][0].get<float>(), root["tint"][1].get<float>(),
+            root["tint"][2].get<float>(), root["tint"][3].get<float>()));
         setZIndex(root.at("zIndex").get<int>());
         setFixedRotation(root.at("rotation").get<float>());
 
@@ -67,5 +69,10 @@ namespace bya::gameObj
             parseRotation(partName, part);
 
         sortZIndex();
+
+        if (!json.contains("partMapping"))
+            return;
+        for (auto& partMapping : json.at("partMapping").items())
+            m_partMapping[partMapping.key()] = partMapping.value().get<std::string>();
     }
 }
