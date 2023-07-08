@@ -65,7 +65,7 @@ namespace bya::gameObj
             virtual void flipX() = 0;
             virtual sf::Vector2f getScale() const = 0;
 
-            virtual void loadFromJson(const std::string& path) = 0;
+            virtual void loadFromJson(std::string path) = 0;
     };
 
 }

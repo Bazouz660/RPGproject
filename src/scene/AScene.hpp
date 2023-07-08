@@ -18,21 +18,35 @@ namespace bya
         public:
             ~AScene() override = default;
             virtual void init() override {};
-            virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override
+
+            virtual void handleUIEvent(sf::Event &event, sf::RenderWindow &window) override final
             {
-                //if (event.type == sf::Event::Resized) {
-                //    m_background.setSize(sf::Vector2f(info::getWindowSize()));
-                //}
                 for (auto &[key, elem] : m_UIelements)
                     elem->handleEvent(event, window);
             }
+
+            virtual void updateUI(float dt) override final
+            {
+                for (auto &[key, elem] : m_UIelements)
+                    elem->update(dt);
+            }
+
+            virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override {}
+
             virtual void renderUi(sf::RenderTarget &target)
             {
                 for (auto &[key, elem] : m_UIelements)
                     elem->render(target);
             }
-            virtual void close() override {};
-            virtual void reset() override {};
+
+            virtual void close() override {}
+            virtual void reset() override {}
+
+            template<typename T>
+            std::shared_ptr<T> getUIelement(const std::string &id)
+            {
+                return std::dynamic_pointer_cast<T>(m_UIelements.at(id));
+            }
 
         protected:
             std::map<std::string, std::shared_ptr<ui::IUIelement>> m_UIelements;

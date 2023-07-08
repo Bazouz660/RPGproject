@@ -37,7 +37,6 @@ namespace bya::ui {
         m_inputBox->setCallback([this]() {
             if (m_inputBox->getLabel().getString() == "Enter text here...")
                 m_inputBox->setLabel("");
-            m_inputBox->setFillColor(sf::Color(255, 255, 255, 255));
             this->setActive(true);
         });
 
@@ -55,7 +54,23 @@ namespace bya::ui {
         m_cancelButton->setSize(sf::Vector2f(100, 75));
         m_cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
         m_cancelButton->setCallback([this]() {
+            setActive(false);
+            m_input = "";
+            setOpen(false);
         });
+    }
+
+    void InputBox::setActive(bool active)
+    {
+        m_isActive = active;
+
+        if (m_isActive) {
+            m_inputBox->setLabel("");
+            m_inputBox->setFillColor(sf::Color(255, 255, 255, 255));
+        } else {
+            m_inputBox->setLabel("Enter text here...");
+            m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
+        }
     }
 
     void InputBox::setLabel(const std::string& label)
@@ -76,6 +91,9 @@ namespace bya::ui {
 
     void InputBox::handleEvent(sf::Event event, const sf::RenderWindow& window)
     {
+        if (!isOpen())
+            return;
+
         m_inputBox->handleEvent(event, window);
         m_applyButton->handleEvent(event, window);
         m_cancelButton->handleEvent(event, window);
@@ -83,12 +101,10 @@ namespace bya::ui {
         if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
             && !m_inputBox->getBounds().contains(info::getMousePosition()))
             || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
-
-            m_isActive = false;
-            m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
+            setActive(false);
         }
 
-        if (event.type == sf::Event::TextEntered && m_isActive) {
+        if (event.type == sf::Event::TextEntered && isActive()) {
             if (event.text.unicode == 8 && m_input.size() > 0)
                 m_input.pop_back();
             else if (event.text.unicode < 128 && event.text.unicode != 8
@@ -113,18 +129,27 @@ namespace bya::ui {
         return m_background.getGlobalBounds();
     }
 
-    void InputBox::render(sf::RenderTarget& target)
+    void InputBox::update(float dt)
     {
-        if (getTime().asSeconds() > m_cursorBlinkTimer + 0.75 && m_isActive) {
+        if (!isOpen())
+            return;
+
+        if (getTime().asSeconds() > m_cursorBlinkTimer + 0.75 && isActive()) {
             m_cursorBlinkTimer = getTime().asSeconds();
             m_inputBox->setLabel(m_input + "|");
-        } else if (getTime().asSeconds() > m_cursorBlinkTimer + 0.5 || (!m_isActive
+        } else if (getTime().asSeconds() > m_cursorBlinkTimer + 0.5 || (!isActive()
             && m_label.getString() != m_input)) {
-            if (m_input.size() == 0 && !m_isActive)
+            if (m_input.size() == 0 && !isActive())
                 m_inputBox->setLabel("Enter text here...");
             else
                 m_inputBox->setLabel(m_input);
         }
+    }
+
+    void InputBox::render(sf::RenderTarget& target)
+    {
+        if (!isOpen())
+            return;
 
         target.draw(m_background);
         target.draw(m_label);

@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include "IUIelement.hpp"
+#include "AUIelement.hpp"
 #include "ResourceManager.hpp"
 
 namespace bya::ui
 {
-    class Text : public IUIelement, public sf::Text
+    class Text : public AUIelement, public sf::Text
     {
         public:
             Text(const std::string& text = "",

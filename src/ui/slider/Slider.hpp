@@ -8,14 +8,14 @@
 #ifndef SLIDER_HPP_
     #define SLIDER_HPP_
 
-    #include "IUIelement.hpp"
+    #include "AUIelement.hpp"
     #include "Spritesheet.hpp"
     #include "Scaling.hpp"
     #include "ResourceManager.hpp"
     #include "Box.hpp"
 
     namespace bya::ui {
-        class Slider : public IUIelement {
+        class Slider : public AUIelement {
             public:
                 enum State { IDLE, HOVERED, GRABBED };
                 enum Orientation { VERTICAL, HORIZONTAL };

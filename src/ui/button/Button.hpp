@@ -8,7 +8,7 @@
 #ifndef BUTTON_HPP_
     #define BUTTON_HPP_
 
-    #include "IUIelement.hpp"
+    #include "AUIelement.hpp"
     #include "Spritesheet.hpp"
     #include "ResourceManager.hpp"
     #include "Scaling.hpp"
@@ -16,7 +16,7 @@
     #include <functional>
 
     namespace bya::ui {
-        class Button : public IUIelement, public gameObj::Box {
+        class Button : public AUIelement, public gameObj::Box {
             public:
                 enum State { IDLE, HOVERED, PRESSED };
                 Button(const sf::Texture& texture = getResource().getTexture("defaultButton"), const std::string& label = "");

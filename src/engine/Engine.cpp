@@ -70,6 +70,7 @@ namespace bya {
                     m_renderer.close();
                     break;
             }
+            m_sceneManager.getCurrentScene()->handleUIEvent(m_event, m_renderer.getWindow());
             m_sceneManager.getCurrentScene()->handleEvent(m_event, m_renderer.getWindow());
         }
     }
@@ -105,6 +106,7 @@ namespace bya {
     {
         getClock().update();
         updateFpsHint();
+        m_sceneManager.getCurrentScene()->updateUI(getClock().getFrameDt());
         m_sceneManager.getCurrentScene()->update(getClock().getFrameDt());
     }
 

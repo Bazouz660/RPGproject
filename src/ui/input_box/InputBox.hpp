@@ -6,10 +6,12 @@
  *  Description:
  */
 
+#pragma once
+
 #include "Button.hpp"
 
 namespace bya::ui {
-    class InputBox : public IUIelement, public gameObj::Box {
+    class InputBox : public AUIelement, public gameObj::Box {
         public:
             enum State { IDLE, HOVERED, PRESSED };
 
@@ -19,6 +21,7 @@ namespace bya::ui {
             void setLabel(const std::string& label);
 
             virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
+            virtual void update(float dt) override;
 
             virtual void setPosition(const sf::Vector2f& pos) override;
             virtual sf::FloatRect getBounds() const override;
@@ -29,8 +32,10 @@ namespace bya::ui {
 
             virtual void render(sf::RenderTarget& target) override;
 
-            void setActive(bool active) { m_isActive = active; }
+            void setActive(bool active);
             bool isActive() const { return m_isActive; }
+            void setOpen(bool open) { m_isOpen = open; m_input = ""; setActive(open); }
+            bool isOpen() const { return m_isOpen; }
 
         private:
             bool isInputContained() const;
@@ -41,6 +46,7 @@ namespace bya::ui {
             std::shared_ptr<Button> m_inputBox;
 
             bool m_isActive;
+            bool m_isOpen = false;
             float m_cursorBlinkTimer = 0;
 
             sf::Text m_label;

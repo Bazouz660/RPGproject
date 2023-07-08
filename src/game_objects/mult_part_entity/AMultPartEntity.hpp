@@ -250,7 +250,7 @@ namespace bya::gameObj
             virtual sf::IntRect getTextureRect() const { return m_orientedBox.getTextureRect(); }
             virtual sf::Texture* getTexture() const { return m_orientedBox.getTexture(); }
 
-            virtual void loadFromJson(const std::string& path) override;
+            virtual void loadFromJson(std::string path) override;
 
         private:
             void parsePart(const std::string& name, const nlohmann::json& json, IMultPartEntity* parent = nullptr);

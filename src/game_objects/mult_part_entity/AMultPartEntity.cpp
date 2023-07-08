@@ -46,8 +46,11 @@ namespace bya::gameObj
         }
     }
 
-    void AMultPartEntity::loadFromJson(const std::string& path)
+    void AMultPartEntity::loadFromJson(std::string path)
     {
+        path = parsing::removeExtension(path);
+        path += ".json";
+
         std::string data = parsing::getFileContent(path);
         nlohmann::json json = nlohmann::json::parse(data);
         EntityPartBuilder builder;

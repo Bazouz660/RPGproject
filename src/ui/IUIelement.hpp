@@ -16,6 +16,7 @@ namespace bya::ui {
             virtual ~IUIelement() = default;
 
             virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) = 0;
+            virtual void update(float dt) = 0;
 
             virtual void setPosition(const sf::Vector2f &pos) = 0;
             virtual sf::FloatRect getBounds() const = 0;
