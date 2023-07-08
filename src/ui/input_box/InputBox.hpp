@@ -12,28 +12,39 @@ namespace bya::ui {
     class InputBox : public IUIelement, public gameObj::Box {
         public:
             enum State { IDLE, HOVERED, PRESSED };
+
+            InputBox(const InputBox& other) = delete;
             InputBox(const sf::Texture& texture = getResource().getTexture("defaultButton"), const std::string& label = "");
 
-            void setCallback(std::function<void(void)> func);
             void setLabel(const std::string& label);
 
             virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
 
             virtual void setPosition(const sf::Vector2f& pos) override;
             virtual sf::FloatRect getBounds() const override;
+            virtual std::string getInput() const { return m_input; }
+
+            std::shared_ptr<Button> getApplyButton() const { return m_applyButton; }
+            std::shared_ptr<Button> getCancelButton() const { return m_cancelButton; }
 
             virtual void render(sf::RenderTarget& target) override;
 
+            void setActive(bool active) { m_isActive = active; }
+            bool isActive() const { return m_isActive; }
+
+        private:
+            bool isInputContained() const;
+
         protected:
-            sf::Text m_label;
             std::shared_ptr<Button> m_applyButton;
             std::shared_ptr<Button> m_cancelButton;
-            sf::RectangleShape m_background;
-            sf::RectangleShape m_inputBox;
-            std::string m_input = "";
+            std::shared_ptr<Button> m_inputBox;
 
-            Animation::Scaling m_scaling;
-            State m_state = IDLE;
-            std::function<void(void)> m_callback = []() {};
+            bool m_isActive;
+            float m_cursorBlinkTimer = 0;
+
+            sf::Text m_label;
+            std::string m_input = "";
+            sf::RectangleShape m_background;
     };
 }

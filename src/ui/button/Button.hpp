@@ -23,8 +23,10 @@
 
                 void setCallback(std::function<void(void)> func);
                 void setLabel(const std::string& label);
+                sf::Text& getLabel() { return m_label; }
                 void drawBox(bool draw);
                 bool isBoxDrawn() const;
+                void setSize(const sf::Vector2f& size);
 
                 virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
 

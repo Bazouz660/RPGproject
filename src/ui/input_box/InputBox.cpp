@@ -7,26 +7,55 @@
  */
 
 #include "InputBox.hpp"
+#include "logger.hpp"
+#include "info.hpp"
+#include "Clock.hpp"
 
 namespace bya::ui {
 
     InputBox::InputBox(const sf::Texture& texture, const std::string& label)
+    : m_isActive(false)
     {
         m_label.setString(label);
         m_label.setFont(getResource().getFont("gameFont"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
-        m_label.setPosition(getPosition());
+        m_label.setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + m_label.getCharacterSize()));
         m_label.setFillColor(sf::Color(30, 30, 30, 255));
 
-        m_background.setFillColor(sf::Color::White);
+        m_background.setFillColor(sf::Color(100, 100, 100, 255));
         m_background.setSize(sf::Vector2f(400, 300));
         m_background.setOrigin(m_background.getGlobalBounds().width / 2, m_background.getGlobalBounds().height / 2);
         m_background.setPosition(getPosition());
-    }
+        m_background.setOutlineColor(sf::Color(30, 30, 30, 255));
+        m_background.setOutlineThickness(5);
 
-    void InputBox::setCallback(std::function<void(void)> func)
-    {
-        m_callback = func;
+        m_inputBox = std::make_shared<Button>();
+        m_inputBox->getLabel().setCharacterSize(20);
+        m_inputBox->setSize(sf::Vector2f(300, 50));
+        m_inputBox->setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 100));
+        m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
+        m_inputBox->setCallback([this]() {
+            if (m_inputBox->getLabel().getString() == "Enter text here...")
+                m_inputBox->setLabel("");
+            m_inputBox->setFillColor(sf::Color(255, 255, 255, 255));
+            this->setActive(true);
+        });
+
+        m_applyButton = std::make_shared<Button>();
+        m_applyButton->getLabel().setCharacterSize(20);
+        m_applyButton->setLabel("Apply");
+        m_applyButton->setSize(sf::Vector2f(100, 75));
+        m_applyButton->setPosition(getPosition() + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
+        m_applyButton->setCallback([this]() {
+        });
+
+        m_cancelButton = std::make_shared<Button>();
+        m_cancelButton->getLabel().setCharacterSize(20);
+        m_cancelButton->setLabel("Cancel");
+        m_cancelButton->setSize(sf::Vector2f(100, 75));
+        m_cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
+        m_cancelButton->setCallback([this]() {
+        });
     }
 
     void InputBox::setLabel(const std::string& label)
@@ -35,15 +64,48 @@ namespace bya::ui {
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
     }
 
+    bool InputBox::isInputContained() const
+    {
+        sf::FloatRect inputBounds = m_inputBox->getBounds();
+        sf::FloatRect textBounds = m_inputBox->getLabel().getGlobalBounds();
+        int charSize = m_inputBox->getLabel().getCharacterSize();
+
+        return !(textBounds.left - charSize < inputBounds.left
+            || textBounds.left + textBounds.width + charSize > inputBounds.left + inputBounds.width);
+    }
+
     void InputBox::handleEvent(sf::Event event, const sf::RenderWindow& window)
     {
+        m_inputBox->handleEvent(event, window);
+        m_applyButton->handleEvent(event, window);
+        m_cancelButton->handleEvent(event, window);
 
+        if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
+            && !m_inputBox->getBounds().contains(info::getMousePosition()))
+            || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
+
+            m_isActive = false;
+            m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
+        }
+
+        if (event.type == sf::Event::TextEntered && m_isActive) {
+            if (event.text.unicode == 8 && m_input.size() > 0)
+                m_input.pop_back();
+            else if (event.text.unicode < 128 && event.text.unicode != 8
+                && isInputContained()) {
+                m_input += static_cast<char>(event.text.unicode);
+            }
+            m_inputBox->setLabel(m_input);
+        }
     }
 
     void InputBox::setPosition(const sf::Vector2f& pos)
     {
         m_background.setPosition(pos);
-        m_label.setPosition(pos + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 20));
+        m_label.setPosition(pos + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + m_label.getCharacterSize()));
+        m_inputBox->setPosition(pos + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 100));
+        m_applyButton->setPosition(pos + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
+        m_cancelButton->setPosition(pos + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
     }
 
     sf::FloatRect InputBox::getBounds() const
@@ -53,8 +115,22 @@ namespace bya::ui {
 
     void InputBox::render(sf::RenderTarget& target)
     {
+        if (getTime().asSeconds() > m_cursorBlinkTimer + 0.75 && m_isActive) {
+            m_cursorBlinkTimer = getTime().asSeconds();
+            m_inputBox->setLabel(m_input + "|");
+        } else if (getTime().asSeconds() > m_cursorBlinkTimer + 0.5 || (!m_isActive
+            && m_label.getString() != m_input)) {
+            if (m_input.size() == 0 && !m_isActive)
+                m_inputBox->setLabel("Enter text here...");
+            else
+                m_inputBox->setLabel(m_input);
+        }
+
         target.draw(m_background);
         target.draw(m_label);
+        m_inputBox->render(target);
+        m_applyButton->render(target);
+        m_cancelButton->render(target);
     }
 
 }

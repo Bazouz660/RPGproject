@@ -73,7 +73,11 @@ namespace bya::ui
     void Button::setPosition(const sf::Vector2f &pos)
     {
         Box::setPosition(pos);
-        m_label.setPosition(pos);
+
+        sf::FloatRect bounds = Box::getGlobalBounds();
+        sf::Vector2f labelPos(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+
+        m_label.setPosition(labelPos);
     }
 
     sf::FloatRect Button::getBounds() const
@@ -81,11 +85,27 @@ namespace bya::ui
         return Box::getGlobalBounds();
     }
 
+    void Button::setSize(const sf::Vector2f &size)
+    {
+        Box::setSize(size);
+        setOrigin(size * 0.5f);
+    }
+
     void Button::render(sf::RenderTarget &target)
     {
         if (m_drawBox)
             target.draw(*this);
         target.draw(m_label);
+
+        // draw label bounds
+        // sf::RectangleShape bounds;
+        // bounds.setSize(sf::Vector2f(m_label.getGlobalBounds().width, m_label.getGlobalBounds().height));
+        // bounds.setOrigin(bounds.getSize() * 0.5f);
+        // bounds.setPosition(m_label.getPosition());
+        // bounds.setFillColor(sf::Color::Transparent);
+        // bounds.setOutlineColor(sf::Color::Red);
+        // bounds.setOutlineThickness(1);
+        // target.draw(bounds);
     }
 
     void Button::drawBox(bool draw)

@@ -9,6 +9,7 @@
 #include "info.hpp"
 #include "Button.hpp"
 #include "InputBox.hpp"
+#include "logger.hpp"
 
 namespace bya {
 
@@ -26,14 +27,21 @@ namespace bya {
                 m_entity.setPosition(info::getMousePosition());
             });
 
-            ui::InputBox inputBox = ui::InputBox();
-            sf::FloatRect inputBoxBounds = inputBox.getBounds();
-            inputBox.setPosition({wSize.x / 2, wSize.y / 2});
-            inputBox.setLabel("File name");
-            inputBox.setCallback([this]() {
+            auto inputBox = std::make_shared<ui::InputBox>();
+            sf::FloatRect inputBoxBounds = inputBox->getBounds();
+            inputBox->setPosition({wSize.x / 2, wSize.y / 2});
+            inputBox->setLabel("File name");
+            inputBox->getApplyButton()->setCallback([this, inputBox]() {
+                try {
+                    m_entity.loadFromJson(inputBox->getInput());
+                    sf::Vector2f pos = sf::Vector2f(info::getWindowSize());
+                    m_entity.setPosition({pos.x / 4, pos.y / 2});
+                } catch (std::exception &e) {
+                    logger::error(e.what());
+                }
             });
 
-            addUIelement("LoadModelInputBox", std::make_shared<ui::InputBox>(inputBox));
+            addUIelement("LoadModelInputBox", inputBox);
             addUIelement("LoadModelButton", std::make_shared<ui::Button>(button));
         }
 
