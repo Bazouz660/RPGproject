@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 15:02:54
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-09 02:30:52
  *  Description:
  */
 
@@ -54,6 +54,7 @@ namespace bya {
         m_fpsHint.setString("FPS: 0");
         m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
         m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
+        SceneManager::getInstance().setCurrentScene("AnimationEditor");
     }
 
     void Engine::setIcon(const std::string& name)

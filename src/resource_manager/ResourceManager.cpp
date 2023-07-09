@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 04:17:20
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-09 02:32:15
  *  Description:
  */
 
@@ -31,7 +31,6 @@ namespace bya {
 
     void ResourceManager::init()
     {
-        loadTexture("logo", "asset/texture/default/logo.png");
         m_loadingThread = std::thread(&ResourceManager::loadAssets, this);
         m_loadingThread.detach();
     }

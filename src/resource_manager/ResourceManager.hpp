@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-07 02:16:15
+ *  Modified time: 2023-07-09 02:34:11
  *  Description:
  */
 
@@ -21,6 +21,10 @@ namespace bya {
             static ResourceManager& getInstance();
             void init();
             void loadAssets();
+            void loadTexture(const std::string &name, const std::string &filename);
+            void loadTexturesFromFolder(const std::string &folder);
+            void loadFont(const std::string& name, const std::string& filePath);
+            void loadSoundBuffer(const std::string& name, const std::string& filePath);
             sf::Texture& getTexture(const std::string &name);
             sf::Font& getFont(const std::string& name);
             sf::SoundBuffer& getSoundBuffer(const std::string& name);
@@ -28,10 +32,6 @@ namespace bya {
         private:
             bool m_loaded = false;
             std::thread m_loadingThread;
-            void loadTexture(const std::string &name, const std::string &filename);
-            void loadTexturesFromFolder(const std::string &folder);
-            void loadFont(const std::string& name, const std::string& filePath);
-            void loadSoundBuffer(const std::string& name, const std::string& filePath);
             std::map<std::string, std::shared_ptr<sf::Texture>> m_textures;
             std::map<std::string, std::shared_ptr<sf::Font>> m_fonts;
             std::map<std::string, std::shared_ptr<sf::SoundBuffer>> m_soundBuffers;
