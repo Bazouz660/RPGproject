@@ -28,6 +28,14 @@
                 bool isBoxDrawn() const;
                 void setSize(const sf::Vector2f& size);
 
+                virtual void setIdle();
+                virtual void setHovered();
+                virtual void setPressed();
+
+                virtual State getState() const { return m_state; }
+
+                virtual void activate();
+
                 virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
 
                 virtual void setPosition(const sf::Vector2f& pos) override;
@@ -38,7 +46,6 @@
             protected:
                 sf::Text m_label;
                 bool m_drawBox = true;
-                Animation::Spritesheet m_animation;
                 Animation::Scaling m_scaling;
                 State m_state = IDLE;
                 std::function<void(void)> m_callback = []() {};

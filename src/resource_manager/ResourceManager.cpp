@@ -49,6 +49,9 @@ namespace bya {
         // load game textures
         loadTexture("tileset", "asset/texture/tileset/dirt.png");
 
+        // load gui textures
+        loadTexture("editor_add_part", "asset/texture/gui/model_editor/add_part.png");
+
         // load effects textures
         loadTexture("smoke", "asset/texture/effect/smoke.png");
 
@@ -58,7 +61,6 @@ namespace bya {
         // load body textures
         loadTexture("human_head1", "asset/texture/body/human/head1.png");
         m_loaded = true;
-        //m_loadingThread->terminate();
     }
 
     ResourceManager& ResourceManager::getInstance()

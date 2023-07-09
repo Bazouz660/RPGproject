@@ -18,8 +18,8 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
-        ResourceManager::getInstance().loadTexture("logo", "asset/texture/default/logo.png");
-        ResourceManager::getInstance().loadTexture("loading", "asset/texture/default/loading.png");
+        ResourceManager::getInstance().loadTexture("logo", "asset/texture/gui/splash_screen/logo.png");
+        ResourceManager::getInstance().loadTexture("loading", "asset/texture/gui/splash_screen/loading.png");
     }
 
     SplashScreen::~SplashScreen()

@@ -11,26 +11,22 @@
 namespace bya::ui
 {
     Button::Button(const sf::Texture &texture, const std::string &label)
-        : m_animation(texture.getSize().x / 3, texture.getSize().y)
     {
         setTexture(&texture);
-
-        m_animation.addFrame(0, sf::seconds(0.5));
-        m_animation.addFrame(1, sf::seconds(0.5));
-        m_animation.addFrame(2, sf::seconds(0.5));
-        setTextureRect(m_animation.getFrame(0));
 
         m_scaling.addState(1, 1);
         m_scaling.addState(1.03, 1.03);
         m_scaling.addState(0.97, 0.97);
 
-        Box::setSize(sf::Vector2f(texture.getSize().x / 3, texture.getSize().y));
+        Box::setSize(sf::Vector2f(texture.getSize().x, texture.getSize().y));
         setOrigin(getSize() * 0.5f);
         m_label.setString(label);
         m_label.setFont(getResource().getFont("gameFont"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(this->getPosition());
         m_label.setFillColor(sf::Color(30, 30, 30, 255));
+
+        setIdle();
     }
 
     void Button::setLabel(const std::string &label)
@@ -44,29 +40,47 @@ namespace bya::ui
         m_callback = func;
     }
 
+    void Button::setIdle()
+    {
+        m_state = IDLE;
+        setScale(m_scaling.getState(0));
+        setFillColor(sf::Color(85, 85, 85, 255));
+        m_label.setFillColor(sf::Color(85, 85, 85, 255));
+    }
+
+    void Button::setHovered()
+    {
+        m_state = HOVERED;
+        setScale(m_scaling.getState(1));
+        setFillColor(sf::Color(170, 170, 170, 255));
+        m_label.setFillColor(sf::Color::White);
+    }
+
+    void Button::activate()
+    {
+        m_callback();
+    }
+
+    void Button::setPressed()
+    {
+        m_state = PRESSED;
+        setScale(m_scaling.getState(2));
+        setFillColor(sf::Color::White);
+        m_label.setFillColor(sf::Color::White);
+    }
+
     void Button::handleEvent(sf::Event event, const sf::RenderWindow &window)
     {
         if (isHovered()) {
             if (m_state == PRESSED && !isClicked()) {
                 m_callback();
-                m_state = IDLE;
-            } else if (isClicked()) {
-                m_state = PRESSED;
-                setTextureRect(m_animation.getFrame(2));
-                setScale(m_scaling.getState(2));
-                m_label.setFillColor(sf::Color::White);
-            }
-            if (m_state == IDLE) {
-                m_state = HOVERED;
-                setTextureRect(m_animation.getFrame(1));
-                setScale(m_scaling.getState(1));
-                m_label.setFillColor(sf::Color::White);
-            }
+                setIdle();
+            } else if (isClicked())
+                setPressed();
+            if (m_state == IDLE)
+                setHovered();
         } else if (m_state != IDLE) {
-            m_state = IDLE;
-            setTextureRect(m_animation.getFrame(0));
-            setScale(m_scaling.getState(0));
-            m_label.setFillColor(sf::Color(30, 30, 30, 255));
+            setIdle();
         }
     }
 

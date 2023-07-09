@@ -20,7 +20,6 @@ namespace bya::ui {
         m_label.setFont(getResource().getFont("gameFont"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + m_label.getCharacterSize()));
-        m_label.setFillColor(sf::Color(30, 30, 30, 255));
 
         m_background.setFillColor(sf::Color(100, 100, 100, 255));
         m_background.setSize(sf::Vector2f(400, 300));
@@ -33,7 +32,6 @@ namespace bya::ui {
         m_inputBox->getLabel().setCharacterSize(20);
         m_inputBox->setSize(sf::Vector2f(300, 50));
         m_inputBox->setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 100));
-        m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
         m_inputBox->setCallback([this]() {
             if (m_inputBox->getLabel().getString() == "Enter text here...")
                 m_inputBox->setLabel("");
@@ -66,10 +64,8 @@ namespace bya::ui {
 
         if (m_isActive) {
             m_inputBox->setLabel("");
-            m_inputBox->setFillColor(sf::Color(255, 255, 255, 255));
         } else {
             m_inputBox->setLabel("Enter text here...");
-            m_inputBox->setFillColor(sf::Color(180, 180, 180, 255));
         }
     }
 
@@ -104,6 +100,10 @@ namespace bya::ui {
             setActive(false);
         }
 
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+            m_applyButton->activate();
+        }
+
         if (event.type == sf::Event::TextEntered && isActive() && event.text.unicode != 13) {
             if (event.text.unicode == 8 && m_input.size() > 0)
                 m_input.pop_back();
@@ -112,6 +112,10 @@ namespace bya::ui {
                 m_input += static_cast<char>(event.text.unicode);
             }
             m_inputBox->setLabel(m_input);
+        }
+
+        if (isActive()) {
+            m_inputBox->setHovered();
         }
     }
 

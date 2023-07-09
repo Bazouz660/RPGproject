@@ -7,6 +7,8 @@
 
 #include "Renderer.hpp"
 #include "info.hpp"
+#include "logger.hpp"
+#include "parsing.hpp"
 
 namespace bya
 {
@@ -23,10 +25,12 @@ namespace bya
 
     void Renderer::init(sf::Vector2u size, const std::string &title, sf::Uint32 style, const sf::ContextSettings &settings)
     {
+        m_resolution = size;
         m_window.create(sf::VideoMode(size.x, size.y), title, style, settings);
+        m_window.setPosition(sf::Vector2i(0, 0));
         m_staticView = m_window.getDefaultView();
         info::setStaticView(m_staticView);
-        info::setContext(m_window);
+        info::setContext(m_window, size);
     }
 
     void Renderer::close()

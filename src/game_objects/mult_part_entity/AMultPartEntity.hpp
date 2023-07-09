@@ -83,7 +83,6 @@ namespace bya::gameObj
                 m_pivotPoint = pivotPoint;
                 m_collisionBox.setOrigin(pivotPoint);
                 m_orientedBox.setOrigin(pivotPoint);
-                sf::Vector2f pivot = m_orientedBox.getOrigin();
             }
 
             virtual void setPivotPoint(float x, float y) override {

@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:46
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-08 18:47:09
+ * @ Modified time: 2023-07-10 00:36:20
  * @ Description:
  */
 
@@ -21,7 +21,7 @@ namespace bya::ui {
         if (m_messageTimer >= m_messageDuration) {
             m_messageTimer = 0;
             if (m_messages.size() > 0) {
-                m_messages.erase(m_messages.end());
+                m_messages.erase(m_messages.begin());
             }
         }
     }
@@ -35,11 +35,12 @@ namespace bya::ui {
     {
         sf::Vector2f pos = m_position;
 
-        // iterate through messages backwards to render the oldest first only iterate through the max amount of messages
-        for (int i = m_messages.size() - 1; i >= 0 && i >= (int)m_messages.size() - (int)m_maxMessages; i--) {
-            m_messages[i]->setPosition(pos);
-            target.draw(*m_messages[i]);
-            pos.y += m_messages[i]->getGlobalBounds().height;
+        // start loop from begin to maxMessages
+        for (auto it = m_messages.begin(); it != m_messages.end() && it - m_messages.begin() < m_maxMessages; ++it) {
+            auto& msg = *it;
+            msg->setPosition(pos);
+            target.draw(*msg);
+            pos.y += msg->getGlobalBounds().height;
         }
     }
 
@@ -51,6 +52,15 @@ namespace bya::ui {
         text.setFillColor(m_color);
         text.setCharacterSize(m_fontSize);
         text.setOrigin(text.getGlobalBounds().width / 2, text.getGlobalBounds().height / 2);
+
+        if (!m_allowDuplicatesInQueue && m_messages.size() >= m_maxMessages) {
+            for (auto& msg : m_messages) {
+                if (msg->getString() == message) {
+                    return;
+                }
+            }
+        }
+
         m_messages.push_back(std::make_shared<sf::Text>(text));
     }
 
