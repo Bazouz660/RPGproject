@@ -18,6 +18,7 @@ namespace bya {
     Engine::Engine()
     : m_sceneManager(SceneManager::getInstance())
     {
+        m_context.setActive(true);
         Clock::getInstance().setTickRate(60);
     }
 

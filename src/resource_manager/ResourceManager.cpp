@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:32:15
+ *  Modified time: 2023-07-09 02:37:51
  *  Description:
  */
 
@@ -58,6 +58,7 @@ namespace bya {
         // load body textures
         loadTexture("human_head1", "asset/texture/body/human/head1.png");
         m_loaded = true;
+        //m_loadingThread->terminate();
     }
 
     ResourceManager& ResourceManager::getInstance()

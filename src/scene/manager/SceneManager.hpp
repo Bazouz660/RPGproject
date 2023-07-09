@@ -26,7 +26,7 @@
 
         private:
             std::unordered_map<std::string, std::shared_ptr<IScene>> m_scenes;
-            std::shared_ptr<IScene> m_currentScene;
+            std::shared_ptr<IScene> m_currentScene = nullptr;
     };
 
     }

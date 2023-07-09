@@ -19,8 +19,8 @@ namespace bya::gameObj
             virtual void addPart(std::string partName, std::shared_ptr<IMultPartEntity> part) = 0;
             virtual void removePart(std::shared_ptr<IMultPartEntity> part, std::string name = "") = 0;
             virtual std::shared_ptr<IMultPartEntity> getPart(std::string name) = 0;
-            virtual void render(sf::RenderTarget &target) = 0;
-            virtual void draw(sf::RenderTarget &target) = 0;
+            virtual void render(sf::RenderTarget &target, bool drawDebug = false) = 0;
+            virtual void draw(sf::RenderTarget &target, bool drawDebug) = 0;
 
             virtual void setPosition(sf::Vector2f pos) = 0;
             virtual void setPosition(float x, float y) = 0;
@@ -36,6 +36,7 @@ namespace bya::gameObj
 
             virtual void setSize(sf::Vector2f size) = 0;
             virtual void setSize(float x, float y) = 0;
+            virtual sf::Vector2f getSize() const = 0;
 
             virtual void setZIndex(int zIndex) = 0;
             virtual int getZIndex() const = 0;

@@ -32,7 +32,7 @@ namespace bya {
 
     void SceneManager::setCurrentScene(const std::string& identifier)
     {
-        if (m_currentScene)
+        if (m_currentScene != nullptr)
             m_currentScene->close();
         m_currentScene = m_scenes.at(identifier);
         m_currentScene->init();

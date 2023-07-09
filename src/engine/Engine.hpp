@@ -24,6 +24,7 @@
                 void setIcon(const std::string& name);
 
             private:
+                sf::Context m_context;
                 sf::Event m_event;
                 Renderer m_renderer;
                 SceneManager& m_sceneManager;
