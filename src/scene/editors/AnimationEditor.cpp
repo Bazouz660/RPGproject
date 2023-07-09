@@ -25,44 +25,50 @@ namespace bya {
             addUIelement("LoadModelButton", std::make_shared<ui::Button>());
             addUIelement("LoadNotification", std::make_shared<ui::PushNotification>());
 
-            addUIelement("PartName", std::make_shared<ui::EditableText>("", 24));
+            addUIelement("PartName", std::make_shared<ui::EditableText>("", 20));
             addUIelement("PartPosition", std::make_shared<ui::EditableTextList>());
             addUIelement("PartSize", std::make_shared<ui::EditableTextList>());
-            addUIelement("PartRotation", std::make_shared<ui::EditableText>("", 24));
+            addUIelement("PartRotation", std::make_shared<ui::EditableText>("", 20));
             addUIelement("PartPivot", std::make_shared<ui::EditableTextList>());
-            addUIelement("PartParent", std::make_shared<ui::EditableText>("", 24));
-            addUIelement("PartZIndex", std::make_shared<ui::EditableText>("", 24));
+            addUIelement("PartParent", std::make_shared<ui::EditableText>("", 20));
+            addUIelement("PartZIndex", std::make_shared<ui::EditableText>("", 20));
 
             {
                 auto posList = getUIelement<ui::EditableTextList>("PartPosition");
-                posList->addText(std::make_shared<ui::EditableText>("0", 24));
-                posList->addText(std::make_shared<ui::EditableText>("0", 24));
+                posList->addText(std::make_shared<ui::EditableText>("0", 20));
+                posList->addText(std::make_shared<ui::EditableText>("0", 20));
                 posList->getText(0)->setPrefix("Position: x[");
                 posList->getText(0)->setSuffix("]");
                 posList->getText(1)->setPrefix(" y[");
                 posList->getText(1)->setSuffix("]");
                 posList->getText(0)->onlyNumbers(true);
                 posList->getText(1)->onlyNumbers(true);
+                posList->getText(0)->setMaxLength(4);
+                posList->getText(1)->setMaxLength(4);
 
                 auto sizeList = getUIelement<ui::EditableTextList>("PartSize");
-                sizeList->addText(std::make_shared<ui::EditableText>("0", 24));
-                sizeList->addText(std::make_shared<ui::EditableText>("0", 24));
+                sizeList->addText(std::make_shared<ui::EditableText>("0", 20));
+                sizeList->addText(std::make_shared<ui::EditableText>("0", 20));
                 sizeList->getText(0)->setPrefix("Size: x[");
                 sizeList->getText(0)->setSuffix("]");
                 sizeList->getText(1)->setPrefix(" y[");
                 sizeList->getText(1)->setSuffix("]");
                 sizeList->getText(0)->onlyNumbers(true);
                 sizeList->getText(1)->onlyNumbers(true);
+                sizeList->getText(0)->setMaxLength(4);
+                sizeList->getText(1)->setMaxLength(4);
 
                 auto pivotList = getUIelement<ui::EditableTextList>("PartPivot");
-                pivotList->addText(std::make_shared<ui::EditableText>("0", 24));
-                pivotList->addText(std::make_shared<ui::EditableText>("0", 24));
+                pivotList->addText(std::make_shared<ui::EditableText>("0", 20));
+                pivotList->addText(std::make_shared<ui::EditableText>("0", 20));
                 pivotList->getText(0)->setPrefix("Pivot: x[");
                 pivotList->getText(0)->setSuffix("]");
                 pivotList->getText(1)->setPrefix(" y[");
                 pivotList->getText(1)->setSuffix("]");
                 pivotList->getText(0)->onlyNumbers(true);
                 pivotList->getText(1)->onlyNumbers(true);
+                pivotList->getText(0)->setMaxLength(4);
+                pivotList->getText(1)->setMaxLength(4);
 
                 float offset = 0.6f;
                 getUIelement<ui::EditableText>("PartName")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
@@ -74,13 +80,24 @@ namespace bya {
                 getUIelement<ui::EditableText>("PartZIndex")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
 
                 // add prefix
-                getUIelement<ui::EditableText>("PartName")->setPrefix("Name: ");
-                getUIelement<ui::EditableText>("PartRotation")->setPrefix("Rotation: ");
-                getUIelement<ui::EditableText>("PartParent")->setPrefix("Parent: ");
-                getUIelement<ui::EditableText>("PartZIndex")->setPrefix("Z-index: ");
+                getUIelement<ui::EditableText>("PartName")->setPrefix("Name: [");
+                getUIelement<ui::EditableText>("PartRotation")->setPrefix("Rotation: [");
+                getUIelement<ui::EditableText>("PartParent")->setPrefix("Parent: [");
+                getUIelement<ui::EditableText>("PartZIndex")->setPrefix("Z-index: [");
+
+                // add suffix
+                getUIelement<ui::EditableText>("PartName")->setSuffix("]");
+                getUIelement<ui::EditableText>("PartRotation")->setSuffix("]");
+                getUIelement<ui::EditableText>("PartParent")->setSuffix("]");
+                getUIelement<ui::EditableText>("PartZIndex")->setSuffix("]");
 
                 getUIelement<ui::EditableText>("PartRotation")->onlyNumbers(true);
                 getUIelement<ui::EditableText>("PartZIndex")->onlyNumbers(true);
+
+                getUIelement<ui::EditableText>("PartName")->setMaxLength(12);
+                getUIelement<ui::EditableText>("PartRotation")->setMaxLength(4);
+                getUIelement<ui::EditableText>("PartParent")->setMaxLength(12);
+                getUIelement<ui::EditableText>("PartZIndex")->setMaxLength(2);
             }
 
             auto inputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
@@ -96,7 +113,7 @@ namespace bya {
                     m_entity->loadFromJson(inputBox->getInput());
                     logger::log("Model: " + inputBox->getInput() + " loaded successfully");
                     sf::Vector2f pos = sf::Vector2f(info::getWindowSize());
-                    m_entity->setPosition({pos.x / 4, pos.y / 2});
+                    m_entity->setPosition({pos.x / 2, pos.y / 2});
                     auto inputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
                     inputBox->setOpen(false);
                     auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
@@ -127,9 +144,16 @@ namespace bya {
             loadNotification->setMaxMessages(3);
             loadNotification->setFontSize(20);
 
-            m_partInfoBackground.setSize(sf::Vector2f(300, wSize.y));
+            m_editorBackground.setSize(sf::Vector2f(310, wSize.y));
+            m_editorBackground.setOrigin(m_editorBackground.getSize() / 2.f);
+            m_editorBackground.setPosition(wSize.x - m_editorBackground.getSize().x / 2.f, wSize.y / 2.f);
+            m_editorBackground.setFillColor(sf::Color(50, 50, 50, 255));
+            m_editorBackground.setOutlineColor(sf::Color::Black);
+            m_editorBackground.setOutlineThickness(5);
+
+            m_partInfoBackground.setSize(sf::Vector2f(290, 350));
             m_partInfoBackground.setOrigin(m_partInfoBackground.getSize() / 2.f);
-            m_partInfoBackground.setPosition(wSize.x - m_partInfoBackground.getSize().x / 2.f, wSize.y / 2.f);
+            m_partInfoBackground.setPosition((wSize.x * 0.995) - m_partInfoBackground.getSize().x / 2.f, wSize.y * 0.81);
             m_partInfoBackground.setFillColor(sf::Color(50, 50, 50, 255));
             m_partInfoBackground.setOutlineColor(sf::Color::Black);
             m_partInfoBackground.setOutlineThickness(5);
@@ -184,7 +208,7 @@ namespace bya {
                 for (auto& part : parts) {
                     if (part != m_selectedPart)
                         part->setTint(sf::Color::White);
-                    if (part->isHovered() && !isHoveringUI()) {
+                    if (part->isHovered()) {
                         lastFound = part;
                         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                             m_selectedPart = part;
@@ -211,7 +235,7 @@ namespace bya {
                 m_selectedPart->setPosition(pos + m_entity->getPosition());
                 m_selectedPart->setSize(size);
                 m_selectedPart->setPivotPoint(pivot);
-                m_selectedPart->setFixedRotation(rotation);
+                m_selectedPart->setRotation(rotation);
                 m_selectedPart->setZIndex(zIndex);
                 m_entity->sortZIndex();
             }
@@ -223,6 +247,7 @@ namespace bya {
 
         void AnimationEditor::render(sf::RenderTarget &target)
         {
+            target.draw(m_editorBackground);
             target.draw(m_partInfoBackground);
             AScene::renderUi(target);
 

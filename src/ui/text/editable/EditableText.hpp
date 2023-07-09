@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 22:01:35
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-09 01:29:11
+ * @ Modified time: 2023-07-09 02:52:05
  * @ Description:
  */
 
@@ -16,7 +16,7 @@ namespace bya::ui
     {
         public:
             EditableText(const std::string& text = "", unsigned int size = 30,
-            const sf::Font& font = getResource().getFont("defaultFont"));
+            const sf::Font& font = getResource().getFont("gameFont"));
 
             virtual ~EditableText() = default;
 

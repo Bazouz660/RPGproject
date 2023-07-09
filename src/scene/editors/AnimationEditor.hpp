@@ -34,6 +34,7 @@ namespace bya
         std::shared_ptr<bya::gameObj::IMultPartEntity> m_entity = nullptr;
         bya::gameObj::IMultPartEntity *m_selectedPart = nullptr;
 
+        sf::RectangleShape m_editorBackground;
         sf::RectangleShape m_partInfoBackground;
     };
 
