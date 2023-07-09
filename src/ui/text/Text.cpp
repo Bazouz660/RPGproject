@@ -9,7 +9,7 @@
 
 namespace bya::ui
 {
-    Text::Text(const std::string &text, const sf::Font &font, unsigned int size)
+    Text::Text(const std::string &text, unsigned int size, const sf::Font &font)
         : sf::Text(text, font, size)
     {
     }

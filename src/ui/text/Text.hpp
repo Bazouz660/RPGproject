@@ -15,8 +15,8 @@ namespace bya::ui
     class Text : public AUIelement, public sf::Text
     {
         public:
-            Text(const std::string& text = "",
-            const sf::Font& font = getResource().getFont("defaultFont"), unsigned int size = 30);
+            Text(const std::string& text = "", unsigned int size = 30,
+            const sf::Font& font = getResource().getFont("defaultFont"));
 
             virtual ~Text() = default;
 

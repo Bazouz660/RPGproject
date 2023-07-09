@@ -48,16 +48,17 @@ namespace bya::gameObj
                 return m_parts[name];
             }
 
-            virtual void draw(sf::RenderTarget &target) override {
-                // target.draw(m_collisionBox);
+            virtual void draw(sf::RenderTarget &target, bool drawDebug) override {
+                if (drawDebug)
+                    target.draw(m_collisionBox);
                 m_orientedBox.render(target);
                 target.draw(m_pivotPointIndicator);
             }
 
-            virtual void render(sf::RenderTarget &target) override {
+            virtual void render(sf::RenderTarget &target, bool drawDebug = false) override {
                 sortZIndex();
                 for (auto &part : m_sortedZparts)
-                    part->draw(target);
+                    part->draw(target, drawDebug);
             }
 
             virtual void setPosition(sf::Vector2f pos) override {
@@ -192,6 +193,10 @@ namespace bya::gameObj
                 if (m_parent == nullptr)
                     return this;
                 return m_parent->getRoot();
+            }
+
+            virtual sf::Vector2f getSize() const override {
+                return m_collisionBox.getSize();
             }
 
             virtual bool isHovered() const override {

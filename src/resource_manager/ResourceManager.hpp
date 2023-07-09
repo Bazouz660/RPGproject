@@ -27,7 +27,7 @@ namespace bya {
             sf::Image& getTextureImage(const std::string& name);
         private:
             bool m_loaded = false;
-            std::thread m_loadingThread;
+            std::unique_ptr<sf::Thread> m_loadingThread;
             void loadTexture(const std::string &name, const std::string &filename);
             void loadTexturesFromFolder(const std::string &folder);
             void loadFont(const std::string& name, const std::string& filePath);

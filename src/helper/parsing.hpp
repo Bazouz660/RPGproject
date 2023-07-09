@@ -30,6 +30,37 @@ namespace bya {
             }
             return content;
         }
+
+        template<typename T>
+        static std::string Vec2Str(const sf::Vector2<T>& vec) {
+            std::stringstream ss;
+            ss << std::fixed << std::setprecision(1) << vec.x << ", " << vec.y;
+            return ss.str();
+        }
+
+        template<typename T>
+        static sf::Vector2<T> Str2Vec2(const std::string& str) {
+            std::string tmp = str;
+            std::stringstream ss(tmp);
+            std::string token;
+            std::vector<std::string> tokens;
+
+            // remove spaces
+            tmp.erase(std::remove(tmp.begin(), tmp.end(), ' '), tmp.end());
+
+            while (std::getline(ss, token, ',')) {
+                tokens.push_back(token);
+            }
+            if (tokens.size() != 2)
+                throw std::runtime_error("Invalid vector format: " + tmp);
+            return sf::Vector2<T>(std::stof(tokens[0]), std::stof(tokens[1]));
+        }
+
+        static std::string floatToString(float f, int precision = 1) {
+            std::stringstream ss;
+            ss << std::fixed << std::setprecision(precision) << f;
+            return ss.str();
+        }
     }
 }
 

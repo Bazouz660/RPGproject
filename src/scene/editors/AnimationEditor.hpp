@@ -27,8 +27,14 @@ namespace bya
         virtual void render(sf::RenderTarget &target) override;
 
     private:
-        bya::gameObj::HumanoidEntity m_humanoid;
-        bya::gameObj::PartEntity m_entity;
+        bool isHoveringUI();
+        void setPartInfo();
+
+    private:
+        std::shared_ptr<bya::gameObj::IMultPartEntity> m_entity = nullptr;
+        bya::gameObj::IMultPartEntity *m_selectedPart = nullptr;
+
+        sf::RectangleShape m_partInfoBackground;
     };
 
 }

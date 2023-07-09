@@ -32,8 +32,9 @@ namespace bya {
     void ResourceManager::init()
     {
         loadTexture("logo", "asset/texture/default/logo.png");
-        m_loadingThread = std::thread(&ResourceManager::loadAssets, this);
-        m_loadingThread.detach();
+        //m_loadingThread = std::make_unique<sf::Thread>(&ResourceManager::loadAssets, this);
+        //m_loadingThread->launch();
+        loadAssets();
     }
 
     void ResourceManager::loadAssets()
@@ -59,6 +60,7 @@ namespace bya {
         // load body textures
         loadTexture("human_head1", "asset/texture/body/human/head1.png");
         m_loaded = true;
+        //m_loadingThread->terminate();
     }
 
     ResourceManager& ResourceManager::getInstance()

@@ -29,13 +29,6 @@ namespace bya
         info::setContext(m_window);
     }
 
-    void Renderer::init(int width, int height, const std::string &title, sf::Uint32 style)
-    {
-        m_window.create(sf::VideoMode(width, height), title, style);
-        m_staticView = m_window.getDefaultView();
-        info::setContext(m_window);
-    }
-
     void Renderer::close()
     {
         m_window.close();

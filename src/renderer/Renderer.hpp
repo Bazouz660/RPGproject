@@ -17,7 +17,6 @@ namespace bya {
             ~Renderer();
 
             void init(sf::Vector2u size, const std::string& title, sf::Uint32 style = sf::Style::Default, const sf::ContextSettings& settings = sf::ContextSettings());
-            void init(int width, int height, const std::string& title, sf::Uint32 style = sf::Style::Default);
             void close();
             sf::RenderWindow& getWindow();
             sf::View& getView();
