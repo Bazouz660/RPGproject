@@ -8,6 +8,8 @@
 #pragma once
 
 #include "common.hpp"
+#include <iomanip>
+#include <sstream>
 #include <fstream>
 
 namespace bya {

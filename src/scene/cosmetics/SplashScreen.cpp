@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:34:35
+ *  Modified time: 2023-07-09 02:49:30
  *  Description:
  */
 
@@ -37,7 +37,7 @@ namespace bya
         m_loading.setScale(5, 5);
         m_splashIcon.setOrigin(m_splashIcon.getGlobalBounds().width / 2, m_splashIcon.getGlobalBounds().height / 2);
         m_splashIcon.setPosition(info::getWindowSize().x / 2, info::getWindowSize().y / 2);
-        fadeIn.setDuration(2.f);
+        fadeIn.setDuration(1.5f);
     }
 
     void SplashScreen::update(float)
