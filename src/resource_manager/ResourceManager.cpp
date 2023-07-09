@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:37:51
+ *  Modified time: 2023-07-10 01:47:28
  *  Description:
  */
 
@@ -45,6 +45,7 @@ namespace bya {
         loadTexture("defaultButton", "asset/texture/default/button.png");
         loadTexture("defaultSliderWagon", "asset/texture/default/wagon.png");
         loadTexture("defaultSliderRail", "asset/texture/default/rail.png");
+        loadTexture("logo", "asset/texture/default/logo.png");
 
         // load game textures
         loadTexture("tileset", "asset/texture/tileset/dirt.png");
@@ -58,7 +59,6 @@ namespace bya {
         // load body textures
         loadTexture("human_head1", "asset/texture/body/human/head1.png");
         m_loaded = true;
-        //m_loadingThread->terminate();
     }
 
     ResourceManager& ResourceManager::getInstance()

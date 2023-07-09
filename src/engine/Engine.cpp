@@ -2,12 +2,13 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:30:52
+ *  Modified time: 2023-07-10 01:44:59
  *  Description:
  */
 
 #include "SplashScreen.hpp"
 #include "AnimationEditor.hpp"
+#include "MainMenu.hpp"
 #include "Engine.hpp"
 #include "TestScene.hpp"
 #include "ResourceManager.hpp"
@@ -40,7 +41,7 @@ namespace bya {
         //m_window->setVerticalSyncEnabled(true);
         ResourceManager::getInstance().init();
         m_sceneManager.addScene("IntroLogo", std::make_shared<SplashScreen>());
-        setIcon("logo");
+        setIcon("splash");
         m_sceneManager.setCurrentScene("IntroLogo");
     }
 
@@ -55,7 +56,8 @@ namespace bya {
         m_fpsHint.setString("FPS: 0");
         m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
         m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
-        SceneManager::getInstance().setCurrentScene("AnimationEditor");
+        m_sceneManager.addScene("MainMenu", std::make_shared<MainMenu>());
+        SceneManager::getInstance().setCurrentScene("MainMenu");
     }
 
     void Engine::setIcon(const std::string& name)

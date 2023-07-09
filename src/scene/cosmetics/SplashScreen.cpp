@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:49:30
+ *  Modified time: 2023-07-10 01:45:04
  *  Description:
  */
 
@@ -18,7 +18,7 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
-        ResourceManager::getInstance().loadTexture("logo", "asset/texture/default/logo.png");
+        ResourceManager::getInstance().loadTexture("splash", "asset/texture/default/splash.png");
         ResourceManager::getInstance().loadTexture("loading", "asset/texture/default/loading.png");
     }
 
@@ -30,7 +30,7 @@ namespace bya
     {
         m_background.setSize(sf::Vector2f(info::getWindowSize().x, info::getWindowSize().y));
         m_background.setFillColor(sf::Color(20, 20, 20, 255));
-        m_splashIcon.setTexture(getResource().getTexture("logo"));
+        m_splashIcon.setTexture(getResource().getTexture("splash"));
         m_loading.setTexture(getResource().getTexture("loading"));
         m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
         m_loading.setPosition(info::getWindowSize().x / 2, info::getWindowSize().y / 2 + 400);
