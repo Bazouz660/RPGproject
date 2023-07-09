@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:40
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-08 18:42:16
+ * @ Modified time: 2023-07-10 00:29:52
  * @ Description:
  */
 
@@ -24,6 +24,9 @@ namespace bya::ui {
             virtual void pushMessage(const std::string& message);
             virtual void pushMessage(const std::string& message, sf::Color color);
 
+            virtual void allowDuplicatesInQueue(bool allow) { m_allowDuplicatesInQueue = allow; }
+            virtual bool isDuplicatesInQueueAllowed() const { return m_allowDuplicatesInQueue; }
+
             virtual void setDuration(float duration);
             virtual void setMaxMessages(unsigned int maxMessages);
             virtual void setColor(const sf::Color& color);
@@ -42,5 +45,6 @@ namespace bya::ui {
             unsigned int m_fontSize = 24;
             float m_messageDuration = 3;
             float m_messageTimer = 0;
+            bool m_allowDuplicatesInQueue = false;
     };
 }

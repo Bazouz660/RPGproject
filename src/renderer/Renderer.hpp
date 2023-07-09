@@ -26,6 +26,7 @@ namespace bya {
         private:
             sf::RenderWindow m_window;
             sf::View m_staticView;
+            sf::Vector2u m_resolution;
     };
 
 }

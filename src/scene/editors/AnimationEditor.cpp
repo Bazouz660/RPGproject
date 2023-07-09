@@ -70,7 +70,7 @@ namespace bya {
                 pivotList->getText(0)->setMaxLength(4);
                 pivotList->getText(1)->setMaxLength(4);
 
-                float offset = 0.6f;
+                float offset = 0.55f;
                 getUIelement<ui::EditableText>("PartName")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
                 getUIelement<ui::EditableTextList>("PartPosition")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
                 getUIelement<ui::EditableTextList>("PartSize")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
@@ -151,9 +151,9 @@ namespace bya {
             m_editorBackground.setOutlineColor(sf::Color::Black);
             m_editorBackground.setOutlineThickness(5);
 
-            m_partInfoBackground.setSize(sf::Vector2f(290, 350));
+            m_partInfoBackground.setSize(sf::Vector2f(290, 360));
             m_partInfoBackground.setOrigin(m_partInfoBackground.getSize() / 2.f);
-            m_partInfoBackground.setPosition((wSize.x * 0.995) - m_partInfoBackground.getSize().x / 2.f, wSize.y * 0.81);
+            m_partInfoBackground.setPosition((wSize.x * 0.995) - m_partInfoBackground.getSize().x / 2.f, wSize.y * 0.76);
             m_partInfoBackground.setFillColor(sf::Color(50, 50, 50, 255));
             m_partInfoBackground.setOutlineColor(sf::Color::Black);
             m_partInfoBackground.setOutlineThickness(5);
@@ -238,6 +238,7 @@ namespace bya {
                 m_selectedPart->setRotation(rotation);
                 m_selectedPart->setZIndex(zIndex);
                 m_entity->sortZIndex();
+
             }
         }
 
@@ -249,9 +250,10 @@ namespace bya {
         {
             target.draw(m_editorBackground);
             target.draw(m_partInfoBackground);
-            AScene::renderUi(target);
 
             if (m_entity)
                 m_entity->render(target, true);
+
+            AScene::renderUi(target);
         }
 }

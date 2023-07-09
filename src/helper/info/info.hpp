@@ -16,7 +16,7 @@
             extern sf::Vector2u getWindowSize();
             extern sf::RenderWindow *getWindowInstance();
             extern sf::View &getStaticView();
-            extern void setContext(const sf::RenderWindow& window);
+            extern void setContext(const sf::RenderWindow& window, sf::Vector2u resolution);
             extern void setStaticView(const sf::View& view);
         }
     }
