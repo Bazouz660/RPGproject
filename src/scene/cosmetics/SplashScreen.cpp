@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 01:45:04
+ *  Modified time: 2023-07-10 02:00:42
  *  Description:
  */
 
@@ -18,8 +18,8 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
-        ResourceManager::getInstance().loadTexture("splash", "asset/texture/default/splash.png");
-        ResourceManager::getInstance().loadTexture("loading", "asset/texture/default/loading.png");
+        ResourceManager::getInstance().loadTexture("splash", "asset/texture/gui/splash_screen/splash.png");
+        ResourceManager::getInstance().loadTexture("loading", "asset/texture/gui/splash_screen/loading.png");
     }
 
     SplashScreen::~SplashScreen()
@@ -45,7 +45,7 @@ namespace bya
         m_background.setFillColor(sf::Color(20, 20, 20, 255 * fadeIn.getAlpha()));
         m_splashIcon.setColor(sf::Color(255, 255, 255, 255 * fadeIn.getAlpha()));
         m_loading.setColor(sf::Color(255, 255, 255, 255 * fadeIn.getAlpha()));
-        m_loading.rotate(500 * Clock::getInstance().getFrameDt());
+        m_loading.rotate(700 * Clock::getInstance().getFrameDt());
         fadeIn.update();
 
         if (ResourceManager::getInstance().isLoaded() && fadeIn.isDone())
