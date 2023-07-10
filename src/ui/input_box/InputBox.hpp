@@ -16,7 +16,7 @@ namespace bya::ui {
             enum State { IDLE, HOVERED, PRESSED };
 
             InputBox(const InputBox& other) = delete;
-            InputBox(const sf::Texture& texture = getResource().getTexture("defaultButton"), const std::string& label = "");
+            InputBox(const sf::Texture& texture = getResource().getTexture("default", "button"), const std::string& label = "");
 
             void setLabel(const std::string& label);
 

@@ -17,8 +17,6 @@ namespace bya::gameObj
     {
         loadFromJson("humanoid.json");
 
-        getPart("head")->setTexture(getResource().getTexture("human_head1"));
-
         return;
     }
 

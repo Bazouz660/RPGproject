@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:04:22
+ *  Modified time: 2023-07-10 03:27:59
  *  Description:
  */
 
@@ -18,8 +18,8 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
-        ResourceManager::getInstance().loadTexture("splash", "asset/texture/gui/splash_screen/splash.png");
-        ResourceManager::getInstance().loadTexture("loading", "asset/texture/gui/splash_screen/loading.png");
+        ResourceManager::getInstance().loadTexture("asset/texture/gui/splash_screen/splash.png");
+        ResourceManager::getInstance().loadTexture("asset/texture/gui/splash_screen/loading.png");
     }
 
     SplashScreen::~SplashScreen()
@@ -30,8 +30,8 @@ namespace bya
     {
         m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
         m_background.setFillColor(sf::Color(15, 15, 15, 255));
-        m_splashIcon.setTexture(getResource().getTexture("splash"));
-        m_loading.setTexture(getResource().getTexture("loading"));
+        m_splashIcon.setTexture(getResource().getTexture("splash_screen", "splash"));
+        m_loading.setTexture(getResource().getTexture("splash_screen", "loading"));
         m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
         m_loading.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8f);
         m_loading.setScale(5, 5);

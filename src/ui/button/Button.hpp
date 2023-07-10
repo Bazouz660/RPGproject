@@ -19,7 +19,7 @@
         class Button : public AUIelement, public gameObj::Box {
             public:
                 enum State { IDLE, HOVERED, PRESSED };
-                Button(const sf::Texture& texture = getResource().getTexture("defaultButton"), const std::string& label = "");
+                Button(const sf::Texture& texture = getResource().getTexture("default", "button"), const std::string& label = "");
 
                 virtual void setCallback(std::function<void(void)> func);
                 virtual void setLabel(const std::string& label);

@@ -22,7 +22,7 @@ namespace bya::effects {
         m_maxSize = m_partSize * SMOKE_MAX_SCALE;
         m_partSpeed = 1;
         m_state = true;
-        m_texture = getResource().getTexture("smoke");
+        m_texture = getResource().getTexture("effect", "smoke");
         m_va.setPrimitiveType(sf::Quads);
     }
 
