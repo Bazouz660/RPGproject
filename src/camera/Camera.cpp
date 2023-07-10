@@ -8,13 +8,13 @@
 
 #include "Camera.hpp"
 #include "effects.hpp"
-#include "info.hpp"
+#include "context.hpp"
 
 namespace bya {
 
     Camera::Camera()
     {
-        sf::Vector2u wSize = info::getWindowSize();
+        sf::Vector2u wSize = context::getWindowSize();
         m_view = sf::View(sf::FloatRect(0, 0, wSize.x, wSize.y));
         setLetterbox(wSize.x, wSize.y);
         m_baseSize.x = wSize.x;
@@ -30,12 +30,12 @@ namespace bya {
 
     void Camera::activate()
     {
-        info::getWindowInstance()->setView(m_view);
+        context::getWindowInstance()->setView(m_view);
     }
 
     bool Camera::isActive() const
     {
-        return &info::getWindowInstance()->getView() == &m_view;
+        return &context::getWindowInstance()->getView() == &m_view;
     }
 
     void Camera::setRect(sf::IntRect rect)
@@ -95,7 +95,7 @@ namespace bya {
 
     void Camera::reset()
     {
-        sf::Vector2u wSize = info::getWindowSize();
+        sf::Vector2u wSize = context::getWindowSize();
         m_view.reset(sf::FloatRect(0, 0, wSize.x, wSize.y));
         m_baseSize.x = wSize.x;
         m_baseSize.y = wSize.y;
@@ -135,7 +135,7 @@ namespace bya {
         m_view.setSize(m_baseSize.x * m_zoom, m_baseSize.y * m_zoom);
         m_view.move((m_acceleration * m_speed) * dt);
         m_acceleration = sf::Vector2f(0, 0);
-        info::getWindowInstance()->setView(m_view);
+        context::getWindowInstance()->setView(m_view);
     }
 
     void Camera::shake(float intensity)

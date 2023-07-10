@@ -6,7 +6,7 @@
 */
 
 #include "Box.hpp"
-#include "info.hpp"
+#include "context.hpp"
 
 namespace bya {
 
@@ -72,7 +72,7 @@ namespace bya {
 
         bool Box::isHovered()
         {
-            sf::Vector2f mousePos = info::getMousePosition();
+            sf::Vector2f mousePos = context::getMousePosition();
             return getGlobalBounds().contains(mousePos);
         }
 

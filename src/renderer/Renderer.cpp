@@ -6,7 +6,7 @@
 */
 
 #include "Renderer.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "logger.hpp"
 #include "parsing.hpp"
 
@@ -29,12 +29,13 @@ namespace bya
         m_window.create(sf::VideoMode(size.x, size.y), title, style, settings);
         m_window.setPosition(sf::Vector2i(0, 0));
         m_staticView = m_window.getDefaultView();
-        info::setStaticView(m_staticView);
-        info::setContext(m_window, size);
+        context::setStaticView(m_staticView);
+        context::setContext(m_window, size);
     }
 
     void Renderer::close()
     {
+        logger::log("Stopping");
         m_window.close();
     }
 

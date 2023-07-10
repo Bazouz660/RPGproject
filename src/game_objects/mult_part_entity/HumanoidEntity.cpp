@@ -7,7 +7,7 @@
 
 #include "HumanoidEntity.hpp"
 #include "EntityPartBuilder.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "math.hpp"
 #include "Clock.hpp"
 
@@ -31,7 +31,7 @@ namespace bya::gameObj
         PartEntity *leftArm = dynamic_cast<PartEntity *>(getPart("leftArm").get());
 
         // get angle between head and mouse
-        sf::Vector2f mousePos = info::getMousePosition();
+        sf::Vector2f mousePos = context::getMousePosition();
         sf::Vector2f headPos = head->getPosition();
 
         float angle = math::toDeg(math::angle(headPos, mousePos));

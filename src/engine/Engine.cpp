@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 01:44:59
+ *  Modified time: 2023-07-10 03:14:41
  *  Description:
  */
 
@@ -13,7 +13,8 @@
 #include "TestScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
-#include "info.hpp"
+#include "logger.hpp"
+#include "context.hpp"
 
 namespace bya {
     Engine::Engine()
@@ -68,6 +69,11 @@ namespace bya {
 
     void Engine::handleEvents()
     {
+        if (context
+    ::shouldClose()) {
+            m_renderer.close();
+            return;
+        }
         while (m_renderer.getWindow().pollEvent(m_event)) {
             switch (m_event.type) {
                 case sf::Event::Closed:

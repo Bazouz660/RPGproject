@@ -9,7 +9,7 @@
 #include "ResourceManager.hpp"
 #include "SceneManager.hpp"
 #include "Clock.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "Button.hpp"
 #include "Slider.hpp"
 #include "Text.hpp"
@@ -23,7 +23,7 @@ namespace bya
 
     void TestScene::init()
     {
-        sf::Vector2u winSize = info::getWindowSize();
+        sf::Vector2u winSize = context::getWindowSize();
 
         m_oobb1.setPosition(sf::Vector2f(500, 500));
         m_oobb1.setSize(sf::Vector2f(100, 200));
@@ -52,7 +52,7 @@ namespace bya
 
 
         // test oobb //
-        if (m_oobb1.contains(info::getMousePosition()))
+        if (m_oobb1.contains(context::getMousePosition()))
             m_oobb1.setColor(sf::Color::Green);
         else
             m_oobb1.setColor(sf::Color(255, 0, 0, 100));

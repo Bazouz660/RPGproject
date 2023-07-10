@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPG3
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 15:16:34
+ *  Modified by: Clément Thomas
+ *  Modified time: 2023-07-10 02:28:03
 */
 
 #ifndef BUTTON_HPP_
@@ -21,12 +21,12 @@
                 enum State { IDLE, HOVERED, PRESSED };
                 Button(const sf::Texture& texture = getResource().getTexture("defaultButton"), const std::string& label = "");
 
-                void setCallback(std::function<void(void)> func);
-                void setLabel(const std::string& label);
-                sf::Text& getLabel() { return m_label; }
-                void drawBox(bool draw);
-                bool isBoxDrawn() const;
-                void setSize(const sf::Vector2f& size);
+                virtual void setCallback(std::function<void(void)> func);
+                virtual void setLabel(const std::string& label);
+                virtual sf::Text& getLabel() { return m_label; }
+                virtual void drawBox(bool draw);
+                virtual bool isBoxDrawn() const;
+                virtual void setSize(const sf::Vector2f& size);
 
                 virtual void setIdle();
                 virtual void setHovered();

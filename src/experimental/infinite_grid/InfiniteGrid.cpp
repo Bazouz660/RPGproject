@@ -14,8 +14,8 @@ namespace bya {
         m_cellSize = cellSize;
         m_vertices.setPrimitiveType(sf::Lines);
         m_vertices.resize(0);
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         for (float x = viewCenter.x - viewSize.x / 2; x < viewCenter.x + viewSize.x / 2; x += m_cellSize.x) {
             m_vertices.append(sf::Vertex(sf::Vector2f(x, viewCenter.y - viewSize.y / 2), sf::Color::White));
@@ -37,8 +37,8 @@ namespace bya {
         static bool first = true;
 
         m_vertices.clear();
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
         if (first) {
             m_lastViewCenter = viewCenter;
             m_lastViewSize = viewSize;
@@ -87,8 +87,8 @@ namespace bya {
 
     bool InfiniteGrid::isCellVisible(const sf::Vector2f& cellPos) const
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         if (cellPos.x < viewCenter.x - viewSize.x / 2 - m_cellSize.x || cellPos.x > viewCenter.x + viewSize.x / 2 + m_cellSize.x)
             return false;
@@ -109,8 +109,8 @@ namespace bya {
 
     void InfiniteGrid::setCellColor(const sf::Vector2i& cellIndex, const sf::Color& color)
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         sf::Vector2f cellPos = sf::Vector2f(cellIndex.x * (int)m_cellSize.x, cellIndex.y * (int)m_cellSize.y) + m_positionOffset;
         cellPos += viewCenter - viewSize / 2.f;
@@ -127,8 +127,8 @@ namespace bya {
 
     sf::Vector2i InfiniteGrid::getCellFromPos(const sf::Vector2f& position) const
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         sf::Vector2f cellPos = position - viewCenter + viewSize / 2.f;
         cellPos -= m_positionOffset;
@@ -146,8 +146,8 @@ namespace bya {
 
     bool InfiniteGrid::isCellVisible(const sf::Vector2i& cellIndex) const
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         sf::Vector2f cellPos = sf::Vector2f(cellIndex.x * (int)m_cellSize.x, cellIndex.y * (int)m_cellSize.y) + m_positionOffset;
         cellPos += viewCenter - viewSize / 2.f;
@@ -161,8 +161,8 @@ namespace bya {
 
     sf::Vector2u InfiniteGrid::getSize() const
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         sf::Vector2f cellPos = sf::Vector2f(0, 0) + m_positionOffset;
         cellPos += viewCenter - viewSize / 2.f;
@@ -184,8 +184,8 @@ namespace bya {
 
     sf::Vector2f InfiniteGrid::getPosFromCell(const sf::Vector2i& cellIndex) const
     {
-        sf::Vector2f viewSize = info::getWindowInstance()->getView().getSize();
-        sf::Vector2f viewCenter = info::getWindowInstance()->getView().getCenter();
+        sf::Vector2f viewSize = context::getWindowInstance()->getView().getSize();
+        sf::Vector2f viewCenter = context::getWindowInstance()->getView().getCenter();
 
         sf::Vector2f cellPos = sf::Vector2f(cellIndex.x * (int)m_cellSize.x, cellIndex.y * (int)m_cellSize.y) + m_positionOffset;
         cellPos += viewCenter - viewSize / 2.f;

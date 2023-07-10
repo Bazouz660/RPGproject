@@ -7,7 +7,7 @@
  */
 
 #include "EditableText.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "Clock.hpp"
 
 namespace bya::ui
@@ -76,11 +76,11 @@ namespace bya::ui
     void EditableText::handleEvent(sf::Event event, const sf::RenderWindow &window)
     {
         if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
-            && !getBounds().contains(info::getMousePosition()) && isActive())
+            && !getBounds().contains(context::getMousePosition()) && isActive())
             || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
             setActive(false);
         } else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
-            && getBounds().contains(info::getMousePosition()) && !isActive()) {
+            && getBounds().contains(context::getMousePosition()) && !isActive()) {
             setActive(true);
         }
 

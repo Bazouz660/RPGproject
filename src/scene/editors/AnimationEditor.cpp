@@ -6,7 +6,7 @@
 */
 
 #include "AnimationEditor.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "Button.hpp"
 #include "InputBox.hpp"
 #include "PushNotification.hpp"
@@ -19,7 +19,7 @@ namespace bya {
 
         void AnimationEditor::init()
         {
-            sf::Vector2f wSize = sf::Vector2f(info::getWindowSize());
+            sf::Vector2f wSize = sf::Vector2f(context::getWindowSize());
 
             addUIelement("LoadModelInputBox", std::make_shared<ui::InputBox>());
             addUIelement("LoadModelButton", std::make_shared<ui::Button>());
@@ -112,7 +112,7 @@ namespace bya {
                         m_entity = std::make_shared<gameObj::PartEntity>();
                     m_entity->loadFromJson(inputBox->getInput());
                     logger::log("Model: " + inputBox->getInput() + " loaded successfully");
-                    sf::Vector2f pos = sf::Vector2f(info::getWindowSize());
+                    sf::Vector2f pos = sf::Vector2f(context::getWindowSize());
                     m_entity->setPosition({pos.x / 2, pos.y / 2});
                     auto inputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
                     inputBox->setOpen(false);
@@ -161,7 +161,7 @@ namespace bya {
 
         bool AnimationEditor::isHoveringUI()
         {
-            sf::Vector2f mousePos = info::getMousePosition();
+            sf::Vector2f mousePos = context::getMousePosition();
 
             for (auto &element : m_UIelements) {
                 if (element.second->getBounds().contains(mousePos))

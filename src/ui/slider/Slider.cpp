@@ -7,7 +7,7 @@
 
 #include "Slider.hpp"
 #include "ResourceManager.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "math.hpp"
 
 namespace bya::ui
@@ -53,7 +53,7 @@ namespace bya::ui
 
     void Slider::handleEvent(sf::Event e, const sf::RenderWindow &window)
     {
-        sf::Vector2f mousePos = info::getMousePosition();
+        sf::Vector2f mousePos = context::getMousePosition();
         sf::FloatRect railBound = m_internRail.getGlobalBounds();
         sf::FloatRect detectionBound = railBound;
         sf::Vector2f diff;

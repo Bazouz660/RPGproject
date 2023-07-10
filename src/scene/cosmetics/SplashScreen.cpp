@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 02:00:42
+ *  Modified time: 2023-07-10 03:04:22
  *  Description:
  */
 
@@ -12,7 +12,7 @@
 #include "logger.hpp"
 #include "Clock.hpp"
 #include "Engine.hpp"
-#include "info.hpp"
+#include "context.hpp"
 
 namespace bya
 {
@@ -28,21 +28,21 @@ namespace bya
 
     void SplashScreen::init()
     {
-        m_background.setSize(sf::Vector2f(info::getWindowSize().x, info::getWindowSize().y));
-        m_background.setFillColor(sf::Color(20, 20, 20, 255));
+        m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
+        m_background.setFillColor(sf::Color(15, 15, 15, 255));
         m_splashIcon.setTexture(getResource().getTexture("splash"));
         m_loading.setTexture(getResource().getTexture("loading"));
         m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
-        m_loading.setPosition(info::getWindowSize().x / 2, info::getWindowSize().y / 2 + 400);
+        m_loading.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8f);
         m_loading.setScale(5, 5);
         m_splashIcon.setOrigin(m_splashIcon.getGlobalBounds().width / 2, m_splashIcon.getGlobalBounds().height / 2);
-        m_splashIcon.setPosition(info::getWindowSize().x / 2, info::getWindowSize().y / 2);
+        m_splashIcon.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y / 2);
         fadeIn.setDuration(1.5f);
     }
 
     void SplashScreen::update(float)
     {
-        m_background.setFillColor(sf::Color(20, 20, 20, 255 * fadeIn.getAlpha()));
+        m_background.setFillColor(sf::Color(15, 15, 15, 255 * fadeIn.getAlpha()));
         m_splashIcon.setColor(sf::Color(255, 255, 255, 255 * fadeIn.getAlpha()));
         m_loading.setColor(sf::Color(255, 255, 255, 255 * fadeIn.getAlpha()));
         m_loading.rotate(700 * Clock::getInstance().getFrameDt());

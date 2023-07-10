@@ -10,7 +10,7 @@
 #pragma once
 
 #include "IMultPartEntity.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "parsing.hpp"
 #include "json.hpp"
 #include "OrientedBoundingBox.hpp"
@@ -199,7 +199,7 @@ namespace bya::gameObj
             }
 
             virtual bool isHovered() const override {
-                return m_orientedBox.contains(info::getMousePosition());
+                return m_orientedBox.contains(context::getMousePosition());
             }
 
             virtual void flipX() override {

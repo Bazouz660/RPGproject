@@ -8,7 +8,7 @@
 
 #include "InputBox.hpp"
 #include "logger.hpp"
-#include "info.hpp"
+#include "context.hpp"
 #include "Clock.hpp"
 
 namespace bya::ui {
@@ -95,7 +95,7 @@ namespace bya::ui {
         m_cancelButton->handleEvent(event, window);
 
         if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
-            && !m_inputBox->getBounds().contains(info::getMousePosition()))
+            && !m_inputBox->getBounds().contains(context::getMousePosition()))
             || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
             setActive(false);
         }
