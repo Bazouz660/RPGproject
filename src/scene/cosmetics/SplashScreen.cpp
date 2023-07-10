@@ -2,7 +2,7 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:27:59
+ *  Modified time: 2023-07-10 03:39:44
  *  Description:
  */
 
@@ -34,7 +34,7 @@ namespace bya
         m_loading.setTexture(getResource().getTexture("splash_screen", "loading"));
         m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
         m_loading.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8f);
-        m_loading.setScale(5, 5);
+        m_loading.setScale(3, 3);
         m_splashIcon.setOrigin(m_splashIcon.getGlobalBounds().width / 2, m_splashIcon.getGlobalBounds().height / 2);
         m_splashIcon.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y / 2);
         fadeIn.setDuration(1.5f);
