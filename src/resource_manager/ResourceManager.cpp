@@ -1,18 +1,20 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 01:57:18
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-10 22:54:41
  *  Description:
  */
 
 #ifdef _WIN32
     #include <experimental/filesystem>
+    #define OS "Windows"
     namespace std {
         namespace filesystem = experimental::filesystem;
     }
 #else
     #include <filesystem>
+    #define OS "Linux"
 #endif
 
 #include "ResourceManager.hpp"
@@ -104,11 +106,11 @@ namespace bya {
         // iterate over the directory
         for (const auto& entry : std::filesystem::directory_iterator(directory)) {
             // if the entry is a directory and recursive is true, load textures from it
-            if (entry.is_directory() && recursive) {
+
+            if (std::filesystem::is_directory(entry) && recursive) {
                 loadTexturesFromFolder(entry.path().string(), recursive);
-            }
-            // if the entry is a file, load the texture
-            else if (entry.is_regular_file()) {
+            } else {
+                // if the entry is a file, load it as a texture
                 loadTexture(entry.path().string());
             }
         }
