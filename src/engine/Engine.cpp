@@ -62,7 +62,7 @@ namespace bya {
 
     void Engine::setIcon(const std::string& name)
     {
-        sf::Image& icon = ResourceManager::getInstance().getTextureImage(name);
+        sf::Image& icon = ResourceManager::getInstance().getTextureImage("splash_screen", name);
         m_renderer.getWindow().setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
     }
 

@@ -20,8 +20,8 @@
                 enum State { IDLE, HOVERED, GRABBED };
                 enum Orientation { VERTICAL, HORIZONTAL };
 
-                Slider(const sf::Texture& wagonTexture = getResource().getTexture("defaultSliderWagon"),
-                    const sf::Texture& railTexture = getResource().getTexture("defaultSliderRail"),
+                Slider(const sf::Texture& wagonTexture = getResource().getTexture("default", "wagon"),
+                    const sf::Texture& railTexture = getResource().getTexture("default", "rail"),
                     Orientation orientation = HORIZONTAL);
 
                 void setWagonPadding(float padding);

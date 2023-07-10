@@ -41,26 +41,7 @@ namespace bya {
         loadFont("defaultFont", "asset/font/default/debug_font.ttf");
         loadFont("gameFont", "asset/font/game_font.ttf");
 
-        // load default textures
-        loadTexture("defaultButton", "asset/texture/default/button.png");
-        loadTexture("defaultSliderWagon", "asset/texture/default/wagon.png");
-        loadTexture("defaultSliderRail", "asset/texture/default/rail.png");
-        loadTexture("logo", "asset/texture/gui/main_menu/logo.png");
-
-        // load game textures
-        loadTexture("tileset", "asset/texture/tileset/dirt.png");
-
-        // load gui textures
-        loadTexture("editor_add_part", "asset/texture/gui/model_editor/add_part.png");
-
-        // load effects textures
-        loadTexture("smoke", "asset/texture/effect/smoke.png");
-
-        // load armor textures
-        loadTexture("steel_helm", "asset/texture/armor/steel_helm.png");
-
-        // load body textures
-        loadTexture("human_head1", "asset/texture/body/human/head1.png");
+        loadTexturesFromFolder("asset/texture", true);
         m_loaded = true;
     }
 
@@ -70,39 +51,66 @@ namespace bya {
         return instance;
     }
 
-    void ResourceManager::loadTexture(const std::string &name, const std::string &filename)
+    void ResourceManager::loadTexture(const std::string &filePath)
     {
+        std::filesystem::path path(filePath);
+        std::string fileName = parsing::removeExtension(path.filename().string());
+        std::string directory = path.parent_path().string();
+        std::string directoryName = path.parent_path().filename().string();
+
         // Create a new texture and load it from the specified file.
         std::shared_ptr<sf::Texture> texture = std::make_shared<sf::Texture>();
-        texture->loadFromFile(filename);
+        texture->loadFromFile(filePath);
 
-        logger::log("Loaded texture as \"" + name + "\" from " + "\"" + filename + "\"");
-
-        // Insert the texture into the map using the name as the key.
-        m_textures[name] = texture;
-    }
-
-    sf::Texture& ResourceManager::getTexture(const std::string &name) {
-        if (m_textures.find(name) == m_textures.end())
-            throw std::runtime_error("Texture not found: " + name);
-        return *m_textures.at(name);
-    }
-
-    sf::Image& ResourceManager::getTextureImage(const std::string &name)
-    {
-        if (m_images.find(name) == m_images.end()) {
-            if (m_textures.find(name) == m_textures.end())
-                throw std::runtime_error("Texture not found: " + name);
-            sf::Image image = m_textures.at(name)->copyToImage();
-            m_images[name] = std::make_shared<sf::Image>(image);
+        // try to find a texture map for the directory
+        if (m_textures.find(directoryName) == m_textures.end()) {
+            // if not found, create a new one
+            m_textures[directoryName] = std::make_shared<TextureMap>();
         }
-        return *m_images.at(name);
+
+        // add the texture to the map if it doesn't already exist
+        if (m_textures.at(directoryName)->find(fileName) == m_textures.at(directoryName)->end()) {
+            m_textures[directoryName]->insert({fileName, texture});
+        } else
+            return;
+
+        logger::log("Loaded texture as \"" + fileName + "\" from " + "\"" + filePath + "\"");
     }
 
-    void ResourceManager::loadTexturesFromFolder(const std::string& directory)
+    sf::Texture& ResourceManager::getTexture(const std::string& location, const std::string &name)
     {
-        for (const auto &entry : std::filesystem::directory_iterator(directory)) {
-            loadTexture(parsing::removeExtension(entry.path().filename().string()), entry.path().string());
+        assertResourceExist(location, name, m_textures);
+        return *m_textures.at(location)->at(name);
+    }
+
+    sf::Image& ResourceManager::getTextureImage(const std::string& location, const std::string &name)
+    {
+        auto& texture = getTexture(location, name);
+        std::shared_ptr<sf::Image> image = std::make_shared<sf::Image>(m_textures.at(location)->at(name)->copyToImage());
+        // add image to the map of ImageMap
+        if (m_images.find(location) == m_images.end()) {
+            // if not found, create a new one
+            m_images[location] = std::make_shared<ImageMap>();
+        }
+        m_images[location]->insert({name, image});
+        return *m_images.at(location)->at(name);
+    }
+
+    void ResourceManager::loadTexturesFromFolder(const std::string& directory, bool recursive)
+    {
+        std::filesystem::path path(directory);
+        std::string directoryName = path.filename().string();
+
+        // iterate over the directory
+        for (const auto& entry : std::filesystem::directory_iterator(directory)) {
+            // if the entry is a directory and recursive is true, load textures from it
+            if (entry.is_directory() && recursive) {
+                loadTexturesFromFolder(entry.path().string(), recursive);
+            }
+            // if the entry is a file, load the texture
+            else if (entry.is_regular_file()) {
+                loadTexture(entry.path().string());
+            }
         }
     }
 

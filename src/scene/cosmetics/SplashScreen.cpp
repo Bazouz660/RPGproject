@@ -18,8 +18,8 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
-        ResourceManager::getInstance().loadTexture("splash", "asset/texture/gui/splash_screen/splash.png");
-        ResourceManager::getInstance().loadTexture("loading", "asset/texture/gui/splash_screen/loading.png");
+        ResourceManager::getInstance().loadTexture("asset/texture/gui/splash_screen/splash.png");
+        ResourceManager::getInstance().loadTexture("asset/texture/gui/splash_screen/loading.png");
     }
 
     SplashScreen::~SplashScreen()
@@ -30,8 +30,8 @@ namespace bya
     {
         m_background.setSize(sf::Vector2f(info::getWindowSize().x, info::getWindowSize().y));
         m_background.setFillColor(sf::Color(20, 20, 20, 255));
-        m_splashIcon.setTexture(getResource().getTexture("splash"));
-        m_loading.setTexture(getResource().getTexture("loading"));
+        m_splashIcon.setTexture(getResource().getTexture("splash_screen", "splash"));
+        m_loading.setTexture(getResource().getTexture("splash_screen", "loading"));
         m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
         m_loading.setPosition(info::getWindowSize().x / 2, info::getWindowSize().y / 2 + 400);
         m_loading.setScale(5, 5);

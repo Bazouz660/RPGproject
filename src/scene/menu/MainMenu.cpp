@@ -22,7 +22,7 @@ namespace bya
 
     void MainMenu::init()
     {
-        m_gameLogo.setTexture(getResource().getTexture("logo"));
+        m_gameLogo.setTexture(getResource().getTexture("main_menu", "logo"));
         m_gameLogo.setPosition(
                 (info::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
                 (info::getWindowSize().y - m_gameLogo.getGlobalBounds().height) / 2 - 300);
