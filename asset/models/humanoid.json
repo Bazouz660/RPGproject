@@ -14,7 +14,7 @@
                 "pivot": [20.0, 0.0],
                 "tint": [255, 255, 255, 255],
                 "zIndex": 0,
-                "rotation": 8.0,
+                "rotation": 0.0,
                 "parts": {}
             },
             "head": {
