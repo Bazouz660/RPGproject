@@ -14,7 +14,7 @@ namespace bya::gameObj
 
     void AMultPartEntity::parseRotation(const std::string& name, const nlohmann::json& json)
     {
-        getPart(name)->setFixedRotation(json["rotation"].get<float>());
+        getPart(name)->setRotation(json["rotation"].get<float>());
 
         if (json.contains("parts")) {
             for (auto& [partName, part] : json.at("parts").items()) {
@@ -64,7 +64,7 @@ namespace bya::gameObj
         setTint(sf::Color(root["tint"][0].get<float>(), root["tint"][1].get<float>(),
             root["tint"][2].get<float>(), root["tint"][3].get<float>()));
         setZIndex(root.at("zIndex").get<int>());
-        setFixedRotation(root.at("rotation").get<float>());
+        setRotation(root.at("rotation").get<float>());
 
         for (auto& [partName, part] : parts.items())
             parsePart(partName, part, this);

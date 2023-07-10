@@ -93,14 +93,27 @@ namespace bya::gameObj
                 return m_pivotPoint;
             }
 
-            virtual void setRotation(float angle) override {
+            virtual float getOwnRotation() const override {
+                return m_ownRotation;
+            }
+
+            virtual float getHeritedRotation() const override
+            {
+                return m_rotation - m_ownRotation;
+            }
+
+            virtual void setRotation(float angle, bool changeOwn = true) override {
                 m_previousRotation = m_rotation;
-                if (m_parent)
-                    angle += m_parent->getRotation();
-                m_rotation = angle + m_ownRotation;
-                float offset = (m_rotation - m_ownRotation) - (m_previousRotation - m_previousOwnRotation);
-                m_collisionBox.setRotation(angle * m_orientedBox.getScale().x);
-                m_orientedBox.setRotation(angle);
+                if (changeOwn) {
+                    m_previousOwnRotation = m_ownRotation;
+                    m_ownRotation = angle;
+                    m_rotation = m_ownRotation;
+                } else {
+                    m_rotation = angle + m_ownRotation;
+                }
+                float offset = m_rotation - m_previousRotation;
+                m_collisionBox.setRotation(m_rotation * m_orientedBox.getScale().x);
+                m_orientedBox.setRotation(getGlobalRotation());
                 m_pivotPointIndicator.setPosition(m_position);
 
                 sf::Transform transform = sf::Transform::Identity;
@@ -111,18 +124,11 @@ namespace bya::gameObj
                     sf::Vector2f pos = part->getPosition();
                     pos = transform.transformPoint(pos);
                     part->setPosition(pos);
-                    part->setRotation(offset);
+                    part->setRotation(getGlobalRotation(), false);
                 }
             }
 
-            virtual void setFixedRotation(float angle) override {
-                m_ownRotation = angle;
-                setRotation(angle);
-                m_previousRotation = m_rotation;
-                m_previousOwnRotation = m_ownRotation;
-            }
-
-            virtual float getRotation() const override {
+            virtual float getGlobalRotation() const override {
                 return m_rotation;
             }
 

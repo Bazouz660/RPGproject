@@ -176,7 +176,7 @@ namespace bya {
                 return;
 
             getUIelement<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
-            getUIelement<ui::EditableText>("PartRotation")->setString(parsing::floatToString(m_selectedPart->getRotation()));
+            getUIelement<ui::EditableText>("PartRotation")->setString(parsing::floatToString(m_selectedPart->getOwnRotation()));
 
             auto posList = getUIelement<ui::EditableTextList>("PartPosition");
             posList->getText(0)->setString(parsing::floatToString(m_selectedPart->getPosition().x - m_entity->getPosition().x));
@@ -235,7 +235,7 @@ namespace bya {
                 m_selectedPart->setPosition(pos + m_entity->getPosition());
                 m_selectedPart->setSize(size);
                 m_selectedPart->setPivotPoint(pivot);
-                m_selectedPart->setRotation(rotation);
+                m_selectedPart->setRotation(rotation + m_selectedPart->getHeritedRotation());
                 m_selectedPart->setZIndex(zIndex);
                 m_entity->sortZIndex();
 

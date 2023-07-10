@@ -30,9 +30,10 @@ namespace bya::gameObj
             virtual void setPivotPoint(float x, float y) = 0;
             virtual sf::Vector2f getPivotPoint() const = 0;
 
-            virtual void setRotation(float angle) = 0;
-            virtual void setFixedRotation(float angle) = 0;
-            virtual float getRotation() const = 0;
+            virtual void setRotation(float angle, bool changeOwn = true) = 0;
+            virtual float getGlobalRotation() const = 0;
+            virtual float getOwnRotation() const = 0;
+            virtual float getHeritedRotation() const = 0;
 
             virtual void setSize(sf::Vector2f size) = 0;
             virtual void setSize(float x, float y) = 0;
