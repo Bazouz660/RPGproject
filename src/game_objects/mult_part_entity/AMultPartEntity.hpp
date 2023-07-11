@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 14:17:00
+ *  Modified time: 2023-07-12 00:20:27
  *  Description:
 */
 
@@ -103,6 +103,7 @@ namespace bya::gameObj
             }
 
             virtual void setRotation(float angle, bool changeOwn = true) override {
+                // I have no idea how this fucking works but it does, guess i'll leave that way
                 m_previousRotation = m_rotation;
                 if (changeOwn) {
                     m_previousOwnRotation = m_ownRotation;
@@ -124,7 +125,6 @@ namespace bya::gameObj
                     sf::Vector2f pos = part->getPosition();
                     pos = transform.transformPoint(pos);
                     part->setPosition(pos);
-                    part->setRotation(getGlobalRotation(), false);
                 }
             }
 
@@ -239,12 +239,14 @@ namespace bya::gameObj
                 }
             }
 
-            std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const {
+            std::vector<std::shared_ptr<IMultPartEntity>> getChildren(bool recursive = true) const {
                 std::vector<std::shared_ptr<IMultPartEntity>> parts;
                 for (auto &[partName, part] : m_parts) {
                     parts.push_back(part);
-                    std::vector<std::shared_ptr<IMultPartEntity>> childs = part->getChildren();
-                    parts.insert(parts.end(), childs.begin(), childs.end());
+                    if (recursive) {
+                        std::vector<std::shared_ptr<IMultPartEntity>> childs = part->getChildren(recursive);
+                        parts.insert(parts.end(), childs.begin(), childs.end());
+                    }
                 }
                 return parts;
             }
@@ -261,10 +263,12 @@ namespace bya::gameObj
             virtual sf::Texture* getTexture() const { return m_orientedBox.getTexture(); }
 
             virtual void loadFromJson(std::string path) override;
+            virtual void saveToJson(std::string path) override;
 
         private:
             void parsePart(const std::string& name, const nlohmann::json& json, IMultPartEntity* parent = nullptr);
             void parseRotation(const std::string& name, const nlohmann::json& json);
+            void savePartToJson(IMultPartEntity* part, nlohmann::json& json, std::map<std::string, float>& rotationMap);
 
         protected:
             AMultPartEntity(IMultPartEntity* parent = nullptr)

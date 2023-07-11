@@ -20,7 +20,7 @@ namespace bya {
         sf::Vector2f normalize(sf::Vector2f v);
         float dot(sf::Vector2f v1, sf::Vector2f v2);
         float cross(sf::Vector2f v1, sf::Vector2f v2);
-        float angle(sf::Vector2f v1, sf::Vector2f v2, float offset = 0.f);
+        float angle(sf::Vector2f v1, sf::Vector2f v2);
         float length(sf::Vector2f v);
         sf::Vector2f unit(sf::Vector2f v);
         sf::Vector2f lerp(sf::Vector2f v1, sf::Vector2f v2, float t);

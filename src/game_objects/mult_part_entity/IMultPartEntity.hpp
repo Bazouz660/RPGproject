@@ -57,7 +57,7 @@ namespace bya::gameObj
             virtual void setParent(IMultPartEntity* parent) = 0;
             virtual IMultPartEntity* getParent() const = 0;
             virtual IMultPartEntity* getRoot() = 0;
-            virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const = 0;
+            virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren(bool recursive) const = 0;
 
             virtual void setName(const std::string& name) = 0;
             virtual std::string getName() const = 0;
@@ -68,6 +68,7 @@ namespace bya::gameObj
             virtual sf::Vector2f getScale() const = 0;
 
             virtual void loadFromJson(std::string path) = 0;
+            virtual void saveToJson(std::string path) = 0;
     };
 
 }

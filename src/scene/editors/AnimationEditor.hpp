@@ -27,6 +27,8 @@ namespace bya
         virtual void render(sf::RenderTarget &target) override;
 
     private:
+        void configureLoadButton();
+        void configureSaveButton();
         bool isHoveringUI();
         void setPartInfo();
 

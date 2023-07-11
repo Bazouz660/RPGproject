@@ -83,13 +83,11 @@ namespace bya {
             return v1.x * v2.y - v1.y * v2.x;
         }
 
-        float angle(sf::Vector2f v1, sf::Vector2f v2, float offset)
+        float angle(sf::Vector2f v1, sf::Vector2f v2)
         {
-            float offsetRad = toRad(offset);
             double dx = v2.x - v1.x;
             double dy = v2.y - v1.y;
             double angle = atan2(dy, dx);
-            angle += offsetRad;
 
             if (angle < -PI)
                 angle += 2 * PI;

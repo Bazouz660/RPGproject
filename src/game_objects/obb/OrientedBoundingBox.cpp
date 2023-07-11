@@ -184,7 +184,7 @@ namespace bya::gameObj
         updateTexCoords();
     }
 
-    sf::FloatRect OrientedBoundingBox::getGlobalBounds() const
+    sf::FloatRect OrientedBoundingBox::getBounds() const
     {
         auto corners = getCorners();
         float left = corners[0].x;
