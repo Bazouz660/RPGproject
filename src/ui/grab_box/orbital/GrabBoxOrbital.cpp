@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-10 23:05:30
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-12 03:06:33
+ *  Modified time: 2023-07-12 03:36:25
  *  Description:
  */
 
@@ -22,9 +22,6 @@ namespace bya::ui {
 
     void GrabBoxOrbital::handleEvent(sf::Event event, const sf::RenderWindow &window)
     {
-        if (!isEnabled())
-            return;
-
         sf::Vector2f mousePos = context::getMousePosition();
 
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {

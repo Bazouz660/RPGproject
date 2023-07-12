@@ -26,31 +26,34 @@ namespace bya {
         {
             sf::Vector2f wSize = sf::Vector2f(context::getWindowSize());
 
-            addUIelement("LoadModelInputBox", std::make_shared<ui::InputBox>());
-            addUIelement("LoadModelButton", std::make_shared<ui::Button>());
-            addUIelement("SaveModelInputBox", std::make_shared<ui::InputBox>());
-            addUIelement("SaveModelButton", std::make_shared<ui::Button>());
-            addUIelement("LoadNotification", std::make_shared<ui::PushNotification>());
+            m_UIelements.add("LoadModelInputBox", std::make_shared<ui::InputBox>());
+            m_UIelements.add("LoadModelButton", std::make_shared<ui::Button>());
+            m_UIelements.add("SaveModelInputBox", std::make_shared<ui::InputBox>());
+            m_UIelements.add("SaveModelButton", std::make_shared<ui::Button>());
+            m_UIelements.add("LoadNotification", std::make_shared<ui::PushNotification>());
 
-            addUIelement("PartName", std::make_shared<ui::EditableText>("", 20));
-            addUIelement("PartPosition", std::make_shared<ui::EditableTextList>());
-            addUIelement("PartSize", std::make_shared<ui::EditableTextList>());
-            addUIelement("PartRotation", std::make_shared<ui::EditableText>("", 20));
-            addUIelement("PartPivot", std::make_shared<ui::EditableTextList>());
-            addUIelement("PartParent", std::make_shared<ui::EditableText>("", 20));
-            addUIelement("PartZIndex", std::make_shared<ui::EditableText>("", 20));
+            m_UIelements.add("PartName", std::make_shared<ui::EditableText>("", 20));
+            m_UIelements.add("PartPosition", std::make_shared<ui::EditableTextList>());
+            m_UIelements.add("PartSize", std::make_shared<ui::EditableTextList>());
+            m_UIelements.add("PartRotation", std::make_shared<ui::EditableText>("", 20));
+            m_UIelements.add("PartPivot", std::make_shared<ui::EditableTextList>());
+            m_UIelements.add("PartParent", std::make_shared<ui::EditableText>("", 20));
+            m_UIelements.add("PartZIndex", std::make_shared<ui::EditableText>("", 20));
 
-            addUIelement("RotationGrab", std::make_shared<ui::GrabBoxOrbital>());
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setSize(sf::Vector2f(70, 20));
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setOrigin(sf::Vector2f(35, 10));
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setRadius(100);
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setTexture(getResource().getTexture("model_editor", "rotation_hint"));
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(false);
+            m_UIelements.add("RotationGrab", std::make_shared<ui::GrabBoxOrbital>());
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setSize(sf::Vector2f(70, 20));
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setOrigin(sf::Vector2f(35, 10));
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setRadius(100);
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(getResource().getTexture("model_editor", "rotation_hint"));
+
+            m_UIelements.disable("RotationGrab");
+            m_UIelements.disable("LoadModelInputBox");
+            m_UIelements.disable("SaveModelInputBox");
 
             {
-                auto posList = getUIelement<ui::EditableTextList>("PartPosition");
+                auto posList = m_UIelements.get<ui::EditableTextList>("PartPosition");
                 posList->addText(std::make_shared<ui::EditableText>("0", 20));
                 posList->addText(std::make_shared<ui::EditableText>("0", 20));
                 posList->getText(0)->setPrefix("Position: x[");
@@ -62,7 +65,7 @@ namespace bya {
                 posList->getText(0)->setMaxLength(4);
                 posList->getText(1)->setMaxLength(4);
 
-                auto sizeList = getUIelement<ui::EditableTextList>("PartSize");
+                auto sizeList = m_UIelements.get<ui::EditableTextList>("PartSize");
                 sizeList->addText(std::make_shared<ui::EditableText>("0", 20));
                 sizeList->addText(std::make_shared<ui::EditableText>("0", 20));
                 sizeList->getText(0)->setPrefix("Size: x[");
@@ -74,7 +77,7 @@ namespace bya {
                 sizeList->getText(0)->setMaxLength(4);
                 sizeList->getText(1)->setMaxLength(4);
 
-                auto pivotList = getUIelement<ui::EditableTextList>("PartPivot");
+                auto pivotList = m_UIelements.get<ui::EditableTextList>("PartPivot");
                 pivotList->addText(std::make_shared<ui::EditableText>("0", 20));
                 pivotList->addText(std::make_shared<ui::EditableText>("0", 20));
                 pivotList->getText(0)->setPrefix("Pivot: x[");
@@ -87,39 +90,39 @@ namespace bya {
                 pivotList->getText(1)->setMaxLength(4);
 
                 float offset = 0.615f;
-                getUIelement<ui::EditableText>("PartName")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableTextList>("PartPosition")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableTextList>("PartSize")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableText>("PartRotation")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableTextList>("PartPivot")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableText>("PartParent")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
-                getUIelement<ui::EditableText>("PartZIndex")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableText>("PartName")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableTextList>("PartPosition")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableTextList>("PartSize")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableText>("PartRotation")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableTextList>("PartPivot")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableText>("PartParent")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
+                m_UIelements.get<ui::EditableText>("PartZIndex")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
 
                 // add prefix
-                getUIelement<ui::EditableText>("PartName")->setPrefix("Name: [");
-                getUIelement<ui::EditableText>("PartRotation")->setPrefix("Rotation: [");
-                getUIelement<ui::EditableText>("PartParent")->setPrefix("Parent: [");
-                getUIelement<ui::EditableText>("PartZIndex")->setPrefix("Z-index: [");
+                m_UIelements.get<ui::EditableText>("PartName")->setPrefix("Name: [");
+                m_UIelements.get<ui::EditableText>("PartRotation")->setPrefix("Rotation: [");
+                m_UIelements.get<ui::EditableText>("PartParent")->setPrefix("Parent: [");
+                m_UIelements.get<ui::EditableText>("PartZIndex")->setPrefix("Z-index: [");
 
                 // add suffix
-                getUIelement<ui::EditableText>("PartName")->setSuffix("]");
-                getUIelement<ui::EditableText>("PartRotation")->setSuffix("]");
-                getUIelement<ui::EditableText>("PartParent")->setSuffix("]");
-                getUIelement<ui::EditableText>("PartZIndex")->setSuffix("]");
+                m_UIelements.get<ui::EditableText>("PartName")->setSuffix("]");
+                m_UIelements.get<ui::EditableText>("PartRotation")->setSuffix("]");
+                m_UIelements.get<ui::EditableText>("PartParent")->setSuffix("]");
+                m_UIelements.get<ui::EditableText>("PartZIndex")->setSuffix("]");
 
-                getUIelement<ui::EditableText>("PartRotation")->onlyNumbers(true);
-                getUIelement<ui::EditableText>("PartZIndex")->onlyNumbers(true);
+                m_UIelements.get<ui::EditableText>("PartRotation")->onlyNumbers(true);
+                m_UIelements.get<ui::EditableText>("PartZIndex")->onlyNumbers(true);
 
-                getUIelement<ui::EditableText>("PartName")->setMaxLength(12);
-                getUIelement<ui::EditableText>("PartRotation")->setMaxLength(4);
-                getUIelement<ui::EditableText>("PartParent")->setMaxLength(12);
-                getUIelement<ui::EditableText>("PartZIndex")->setMaxLength(2);
+                m_UIelements.get<ui::EditableText>("PartName")->setMaxLength(12);
+                m_UIelements.get<ui::EditableText>("PartRotation")->setMaxLength(4);
+                m_UIelements.get<ui::EditableText>("PartParent")->setMaxLength(12);
+                m_UIelements.get<ui::EditableText>("PartZIndex")->setMaxLength(2);
             }
 
             configureLoadButton();
             configureSaveButton();
 
-            auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
+            auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
             loadNotification->setPosition(sf::Vector2f(wSize.x / 2, wSize.y * 0.2));
             loadNotification->setDuration(3);
             loadNotification->setColor(sf::Color::Red);
@@ -145,8 +148,8 @@ namespace bya {
         {
             auto wSize = sf::Vector2f(context::getWindowSize());
 
-            auto inputBox = getUIelement<ui::InputBox>("SaveModelInputBox");
-            auto saveButton = getUIelement<ui::Button>("SaveModelButton");
+            auto inputBox = m_UIelements.get<ui::InputBox>("SaveModelInputBox");
+            auto saveButton = m_UIelements.get<ui::Button>("SaveModelButton");
 
             sf::FloatRect inputBoxBounds = inputBox->getBounds();
             inputBox->setPosition({wSize.x / 2, wSize.y / 2});
@@ -157,27 +160,30 @@ namespace bya {
                 try {
                     m_entity->saveToJson(inputBox->getInput());
                     logger::log("Model: " + inputBox->getInput() + " saved successfully");
-                    auto inputBox = getUIelement<ui::InputBox>("SaveModelInputBox");
-                    inputBox->setOpen(false);
-                    auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
+                    m_UIelements.disable("SaveModelInputBox");
+                    auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage("Model saved successfully", sf::Color::Green);
                 } catch (std::exception &e) {
-                    auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
+                    auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage(e.what());
                     logger::error(e.what());
                 }
+            });
+            inputBox->getCancelButton()->setCallback([this]() {
+                m_UIelements.get<ui::InputBox>("SaveModelInputBox")->setActive(false);
+                m_UIelements.get<ui::InputBox>("SaveModelInputBox")->setLabel("");
+                m_UIelements.disable("SaveModelInputBox");
             });
 
             saveButton->setLabel("Save to json");
             sf::FloatRect bounds =  saveButton->getBounds();
             saveButton->setPosition({wSize.x - bounds.width / 1.9f, bounds.height * 1.6f});
             saveButton->setCallback([this]() {
-                if (getUIelement<ui::InputBox>("LoadModelInputBox")->isOpen())
-                    getUIelement<ui::InputBox>("LoadModelInputBox")->setOpen(false);
-                auto saveModelInputBox = getUIelement<ui::InputBox>("SaveModelInputBox");
-                saveModelInputBox->setOpen(!saveModelInputBox->isOpen());
-                if (saveModelInputBox->isOpen())
-                    saveModelInputBox->setActive(true);
+                if (m_UIelements.isEnabled("LoadModelInputBox"))
+                    m_UIelements.disable("LoadModelInputBox");
+                m_UIelements.toggle("SaveModelInputBox");
+                if (m_UIelements.isEnabled("SaveModelInputBox"))
+                    m_UIelements.get<ui::InputBox>("SaveModelInputBox")->setActive(true);
             });
         }
 
@@ -185,7 +191,7 @@ namespace bya {
         {
             auto wSize = sf::Vector2f(context::getWindowSize());
 
-            auto inputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
+            auto inputBox = m_UIelements.get<ui::InputBox>("LoadModelInputBox");
             sf::FloatRect inputBoxBounds = inputBox->getBounds();
             inputBox->setPosition({wSize.x / 2, wSize.y / 2});
             inputBox->setLabel("Load file from:");
@@ -194,87 +200,79 @@ namespace bya {
                     return;
                 try {
                     m_selectedPart = nullptr;
-                    getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(false);
+                    m_UIelements.disable("RotationGrab");
                     if (m_entity == nullptr)
                         m_entity = std::make_shared<gameObj::PartEntity>();
                     m_entity->loadFromJson(inputBox->getInput());
                     logger::log("Model: " + inputBox->getInput() + " loaded successfully");
                     sf::Vector2f pos = sf::Vector2f(context::getWindowSize());
                     m_entity->setPosition({pos.x / 2, pos.y / 2});
-                    auto inputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
-                    inputBox->setOpen(false);
-                    auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
+                    m_UIelements.disable("LoadModelInputBox");
+                    auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage("Model loaded successfully", sf::Color::Green);
                 } catch (std::exception &e) {
-                    auto loadNotification = getUIelement<ui::PushNotification>("LoadNotification");
+                    auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage(e.what());
                     logger::error(e.what());
                 }
             });
+            inputBox->getCancelButton()->setCallback([this]() {
+                m_UIelements.get<ui::InputBox>("LoadModelInputBox")->setActive(false);
+                m_UIelements.get<ui::InputBox>("LoadModelInputBox")->setLabel("");
+                m_UIelements.disable("LoadModelInputBox");
+            });
 
-            auto loadModelButton = getUIelement<ui::Button>("LoadModelButton");
+            auto loadModelButton = m_UIelements.get<ui::Button>("LoadModelButton");
             sf::FloatRect bounds = loadModelButton->getBounds();
             loadModelButton->setLabel("Load from json");
             loadModelButton->setPosition({wSize.x - bounds.width / 1.9f, bounds.height / 2});
             loadModelButton->setCallback([this]() {
-                if (getUIelement<ui::InputBox>("SaveModelInputBox")->isOpen())
-                    getUIelement<ui::InputBox>("SaveModelInputBox")->setOpen(false);
-                auto loadModelInputBox = getUIelement<ui::InputBox>("LoadModelInputBox");
-                loadModelInputBox->setOpen(!loadModelInputBox->isOpen());
-                if (loadModelInputBox->isOpen())
-                    loadModelInputBox->setActive(true);
+                if (m_UIelements.isEnabled("SaveModelInputBox"))
+                    m_UIelements.disable("SaveModelInputBox");
+                m_UIelements.toggle("LoadModelInputBox");
+                if (m_UIelements.isEnabled("LoadModelInputBox"))
+                    m_UIelements.get<ui::InputBox>("LoadModelInputBox")->setActive(true);
             });
-        }
-
-        bool AnimationEditor::isHoveringUI()
-        {
-            sf::Vector2f mousePos = context::getMousePosition();
-
-            for (auto &element : m_UIelements) {
-                if (element.second->getBounds().contains(mousePos))
-                    return true;
-            }
-            return false;
         }
 
         void AnimationEditor::setPartInfo()
         {
-            getUIelement<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
+            m_UIelements.get<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
 
             float rotation = m_selectedPart->getOwnRotation();
-            getUIelement<ui::EditableText>("PartRotation")->setString(parsing::floatToString(rotation));
+            m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(rotation));
 
-            auto posList = getUIelement<ui::EditableTextList>("PartPosition");
+            auto posList = m_UIelements.get<ui::EditableTextList>("PartPosition");
             sf::Vector2f position = m_selectedPart->getPosition();
             posList->getText(0)->setString(parsing::floatToString(position.x - m_entity->getPosition().x));
             posList->getText(1)->setString(parsing::floatToString(position.y - m_entity->getPosition().y));
 
-            auto sizeList = getUIelement<ui::EditableTextList>("PartSize");
+            auto sizeList = m_UIelements.get<ui::EditableTextList>("PartSize");
             sizeList->getText(0)->setString(parsing::floatToString(m_selectedPart->getSize().x));
             sizeList->getText(1)->setString(parsing::floatToString(m_selectedPart->getSize().y));
 
-            auto pivotList = getUIelement<ui::EditableTextList>("PartPivot");
+            auto pivotList = m_UIelements.get<ui::EditableTextList>("PartPivot");
             pivotList->getText(0)->setString(parsing::floatToString(m_selectedPart->getPivotPoint().x));
             pivotList->getText(1)->setString(parsing::floatToString(m_selectedPart->getPivotPoint().y));
 
-            auto partParent = getUIelement<ui::EditableText>("PartParent");
+            auto partParent = m_UIelements.get<ui::EditableText>("PartParent");
             auto parent = m_selectedPart->getParent();
             if (parent)
                 partParent->setString(parent->getName());
             else
                 partParent->setString("None");
 
-            getUIelement<ui::EditableText>("PartZIndex")->setString(std::to_string(m_selectedPart->getZIndex()));
+            m_UIelements.get<ui::EditableText>("PartZIndex")->setString(std::to_string(m_selectedPart->getZIndex()));
 
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(true);
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setCenter(position);
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setAngle(rotation);
-            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->applyTransform(rotation);
+            m_UIelements.enable("RotationGrab");
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setCenter(position);
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setAngle(rotation);
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->applyTransform(rotation);
         }
 
         void AnimationEditor::handleEvent(sf::Event &event, sf::RenderWindow &window)
         {
-            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("RotationGrab");
+            auto rotationGrabBox = m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab");
 
             if (m_entity != nullptr) {
                 auto& parts = m_entity->getSortedZParts();
@@ -297,14 +295,14 @@ namespace bya {
             }
 
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter && m_selectedPart) {
-                sf::Vector2f pos = sf::Vector2f(std::atof(getUIelement<ui::EditableTextList>("PartPosition")->getText(0)->getInput().c_str()),
-                                    std::atof(getUIelement<ui::EditableTextList>("PartPosition")->getText(1)->getInput().c_str()));
-                sf::Vector2f size = sf::Vector2f(std::atof(getUIelement<ui::EditableTextList>("PartSize")->getText(0)->getInput().c_str()),
-                                    std::atof(getUIelement<ui::EditableTextList>("PartSize")->getText(1)->getInput().c_str()));
-                sf::Vector2f pivot = sf::Vector2f(std::atof(getUIelement<ui::EditableTextList>("PartPivot")->getText(0)->getInput().c_str()),
-                                    std::atof(getUIelement<ui::EditableTextList>("PartPivot")->getText(1)->getInput().c_str()));
-                float rotation = std::atof(getUIelement<ui::EditableText>("PartRotation")->getInput().c_str());
-                int zIndex = std::atoi(getUIelement<ui::EditableText>("PartZIndex")->getInput().c_str());
+                sf::Vector2f pos = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(0)->getInput().c_str()),
+                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->getInput().c_str()));
+                sf::Vector2f size = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartSize")->getText(0)->getInput().c_str()),
+                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->getInput().c_str()));
+                sf::Vector2f pivot = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(0)->getInput().c_str()),
+                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->getInput().c_str()));
+                float rotation = std::atof(m_UIelements.get<ui::EditableText>("PartRotation")->getInput().c_str());
+                int zIndex = std::atoi(m_UIelements.get<ui::EditableText>("PartZIndex")->getInput().c_str());
 
                 m_selectedPart->setPosition(pos + m_entity->getPosition());
                 m_selectedPart->setSize(size);
@@ -317,13 +315,12 @@ namespace bya {
 
         void AnimationEditor::update(float dt)
         {
-            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("RotationGrab");
+            auto rotationGrabBox = m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab");
 
             if (m_entity && rotationGrabBox->isGrabbed()) {
                 float angle = rotationGrabBox->getAngle();
                 m_selectedPart->setRotation(angle);
-                getUIelement<ui::EditableText>("PartRotation")->setString(parsing::floatToString(angle));
-                // FIX ROTATION
+                m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(angle));
             }
         }
 

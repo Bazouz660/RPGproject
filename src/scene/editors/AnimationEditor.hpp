@@ -29,7 +29,6 @@ namespace bya
     private:
         void configureLoadButton();
         void configureSaveButton();
-        bool isHoveringUI();
         void setPartInfo();
 
     private:

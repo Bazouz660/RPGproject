@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:14:41
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-12 03:48:50
  *  Description:
  */
 
@@ -10,7 +10,6 @@
 #include "AnimationEditor.hpp"
 #include "MainMenu.hpp"
 #include "Engine.hpp"
-#include "TestScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
 #include "logger.hpp"
@@ -55,7 +54,6 @@ namespace bya {
         m_fpsHint.setOutlineThickness(1);
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
-        m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
         m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
         m_sceneManager.addScene("MainMenu", std::make_shared<MainMenu>());
         SceneManager::getInstance().setCurrentScene("MainMenu");

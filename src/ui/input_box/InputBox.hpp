@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-07 15:11:27
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 15:32:08
+ *  Modified time: 2023-07-12 03:55:47
  *  Description:
  */
 
@@ -34,8 +34,6 @@ namespace bya::ui {
 
             void setActive(bool active);
             bool isActive() const { return m_isActive; }
-            void setOpen(bool open) { m_isOpen = open; m_input = ""; setActive(open); }
-            bool isOpen() const { return m_isOpen; }
 
         private:
             bool isInputContained() const;
@@ -46,7 +44,6 @@ namespace bya::ui {
             std::shared_ptr<Button> m_inputBox;
 
             bool m_isActive;
-            bool m_isOpen = false;
             float m_cursorBlinkTimer = 0;
 
             sf::Text m_label;

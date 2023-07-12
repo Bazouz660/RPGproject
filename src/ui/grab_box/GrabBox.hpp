@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-10 23:00:40
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-12 03:05:50
+ *  Modified time: 2023-07-12 03:36:11
  *  Description:
  */
 
@@ -27,11 +27,7 @@ namespace bya::ui {
             virtual void setGrabbed(bool grabbed) { m_grabbed = grabbed; }
             virtual bool isGrabbed() const { return m_grabbed; }
 
-            virtual void setEnabled(bool enabled) { m_isEnabled = enabled; }
-            virtual bool isEnabled() const { return m_isEnabled; }
-
         protected:
-            bool m_isEnabled = true;
             bool m_grabbed = false;
             sf::Vector2f m_diffToOrigin = {0, 0};
     };
