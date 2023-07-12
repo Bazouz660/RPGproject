@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-11 02:18:19
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-11 03:11:41
+ *  Modified time: 2023-07-12 03:04:48
  *  Description:
  */
 
@@ -18,7 +18,6 @@ namespace bya::ui {
             ~GrabBoxOrbital() = default;
 
             void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
-            virtual void render(sf::RenderTarget &target) override;
             virtual void setPosition(const sf::Vector2f &pos) override { OrientedBoundingBox::setPosition(pos); }
             virtual sf::FloatRect getBounds() const override { return OrientedBoundingBox::getBounds(); }
 

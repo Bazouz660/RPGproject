@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-07 04:56:01
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-12 00:20:39
+ *  Modified time: 2023-07-12 00:37:24
  *  Description:
  */
 
@@ -132,8 +132,8 @@ namespace bya::gameObj
         for (auto& [partName, rotation] : rotationMap)
             getPart(partName)->setRotation(rotation);
 
-        //for (auto& [partName, part] : m_partMapping)
-        //    json["partMapping"][partName] = part;
+        for (auto& [partName, part] : m_partMapping)
+            json["partMapping"][partName] = part;
 
         std::ofstream file(folder + path);
         file << json.dump(4);

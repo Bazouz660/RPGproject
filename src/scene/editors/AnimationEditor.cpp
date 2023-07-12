@@ -40,13 +40,14 @@ namespace bya {
             addUIelement("PartParent", std::make_shared<ui::EditableText>("", 20));
             addUIelement("PartZIndex", std::make_shared<ui::EditableText>("", 20));
 
-            addUIelement("GrabBox", std::make_shared<ui::GrabBoxOrbital>());
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setSize(sf::Vector2f(70, 20));
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setOrigin(sf::Vector2f(35, 10));
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setRadius(100);
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setTexture(getResource().getTexture("model_editor", "rotation_hint"));
+            addUIelement("RotationGrab", std::make_shared<ui::GrabBoxOrbital>());
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setSize(sf::Vector2f(70, 20));
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setOrigin(sf::Vector2f(35, 10));
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setRadius(100);
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setTexture(getResource().getTexture("model_editor", "rotation_hint"));
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(false);
 
             {
                 auto posList = getUIelement<ui::EditableTextList>("PartPosition");
@@ -193,6 +194,7 @@ namespace bya {
                     return;
                 try {
                     m_selectedPart = nullptr;
+                    getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(false);
                     if (m_entity == nullptr)
                         m_entity = std::make_shared<gameObj::PartEntity>();
                     m_entity->loadFromJson(inputBox->getInput());
@@ -237,9 +239,6 @@ namespace bya {
 
         void AnimationEditor::setPartInfo()
         {
-            if (m_selectedPart == nullptr)
-                return;
-
             getUIelement<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
 
             float rotation = m_selectedPart->getOwnRotation();
@@ -267,14 +266,15 @@ namespace bya {
 
             getUIelement<ui::EditableText>("PartZIndex")->setString(std::to_string(m_selectedPart->getZIndex()));
 
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setCenter(position);
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->setAngle(rotation);
-            getUIelement<ui::GrabBoxOrbital>("GrabBox")->applyTransform(rotation);
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setEnabled(true);
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setCenter(position);
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->setAngle(rotation);
+            getUIelement<ui::GrabBoxOrbital>("RotationGrab")->applyTransform(rotation);
         }
 
         void AnimationEditor::handleEvent(sf::Event &event, sf::RenderWindow &window)
         {
-            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("GrabBox");
+            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("RotationGrab");
 
             if (m_entity != nullptr) {
                 auto& parts = m_entity->getSortedZParts();
@@ -317,7 +317,7 @@ namespace bya {
 
         void AnimationEditor::update(float dt)
         {
-            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("GrabBox");
+            auto rotationGrabBox = getUIelement<ui::GrabBoxOrbital>("RotationGrab");
 
             if (m_entity && rotationGrabBox->isGrabbed()) {
                 float angle = rotationGrabBox->getAngle();
