@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPGproject
-** File description:
-** AnimationEditor
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-07-14 01:35:52
 */
 
 #include "AnimationEditor.hpp"
@@ -51,7 +51,7 @@ namespace bya {
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setRadius(100);
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
-            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(getResource().getTexture("model_editor", "rotation_hint"));
+            m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(RESOURCE().getTexture("model_editor", "rotation_hint"));
 
             m_UIelements.disable("RotationGrab");
             m_UIelements.disable("LoadModelInputBox");

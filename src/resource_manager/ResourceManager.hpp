@@ -1,46 +1,129 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-09 02:38:30
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-07-14 01:54:33
  *  Description:
  */
 
 #pragma once
 
-#include <thread>
-#include "common.hpp"
+#ifdef _WIN32
+    #include <experimental/filesystem>
+    #define OS "Windows"
+    namespace std {
+        namespace filesystem = experimental::filesystem;
+    }
+#else
+    #include <filesystem>
+    #define OS "Linux"
+#endif
 
-#define getResource() ResourceManager::getInstance()
+#include <thread>
+
+#include "common.hpp"
+#include "parsing.hpp"
+#include "logger.hpp"
+
+#define RESOURCE() ResourceManager::getInstance()
 
 namespace bya {
 
     class ResourceManager {
         public:
-            bool isLoaded();
             static ResourceManager& getInstance();
             void init();
             void loadAssets();
-            void loadTexture(const std::string &filePath);
-
-            void loadFont(const std::string& name, const std::string& filePath);
-            void loadSoundBuffer(const std::string& name, const std::string& filePath);
-
-            void loadTexturesFromFolder(const std::string& folderPath, bool recursive = false);
+            bool isLoaded() const { return m_loaded; }
 
             sf::Texture& getTexture(const std::string& location, const std::string &name);
-            sf::Font& getFont(const std::string& name);
-            sf::SoundBuffer& getSoundBuffer(const std::string& name);
+            sf::Font& getFont(const std::string& location, const std::string& name);
+            sf::SoundBuffer& getSoundBuffer(const std::string& location, const std::string& name);
             sf::Image& getTextureImage(const std::string& location, const std::string& name);
 
+            template<typename T>
+            void loadFromFolder(const std::string& folderPath, bool recursive = false)
+            {
+                auto& map = getMap<T>();
+                std::filesystem::path path(folderPath);
+                std::string directoryName = path.filename().string();
+
+                // iterate over the directory
+                for (const auto& entry : std::filesystem::directory_iterator(folderPath)) {
+                    // if the entry is a directory and recursive is true, load textures from it
+
+                    if (std::filesystem::is_directory(entry) && recursive) {
+                        loadFromFolder<T>(entry.path().string(), recursive);
+                    } else {
+                        // if the entry is a file, load it as a texture
+                        loadResource<T>(entry.path().string());
+                    }
+                }
+            }
+
+            template<typename T>
+            bool loadResource(const std::string& filePath)
+            {
+                auto& map = getMap<T>();
+                std::filesystem::path path(filePath);
+                std::string fileName = parsing::removeExtension(path.filename().string());
+                std::string directory = path.parent_path().string();
+                std::string directoryName = path.parent_path().filename().string();
+
+                std::shared_ptr<T> resource = std::make_shared<T>();
+                resource->loadFromFile(filePath);
+
+                if (map.find(directoryName) == map.end()) {
+                    // if not found, create a new one
+                    map[directoryName] = std::make_shared<ResourceMap<T>>();
+                }
+                if (map.at(directoryName)->find(fileName) == map.at(directoryName)->end()) {
+                    map[directoryName]->insert({fileName, resource});
+                } else {
+                    return false;
+                }
+                return true;
+            }
+
         private:
-            ResourceManager();
+            ResourceManager() = default;
             ResourceManager(const ResourceManager&) = delete;
             ResourceManager& operator=(const ResourceManager&) = delete;
 
             template<typename T>
-            void assertResourceExist(const std::string& location, const std::string& name, const std::map<std::string, std::shared_ptr<T>>& map)
+            using ResourceMap = std::map<std::string, std::shared_ptr<T>>;
+            template<typename T>
+            using ResourceMultimap = std::map<std::string, std::shared_ptr<ResourceMap<T>>>;
+
+            // generic get resource function
+            template<typename T>
+            T& getResourceInternal(const std::string& location, const std::string& name)
             {
+                auto& map = getMap<T>();
+                assertResourceExist<T>(location, name);
+                return *map.at(location)->at(name);
+            }
+
+            template<typename ResourceType>
+            ResourceMultimap<ResourceType>& getMap()
+            {
+                if constexpr (std::is_same_v<ResourceType, sf::Texture>) {
+                    return m_textures;
+                } else if constexpr (std::is_same_v<ResourceType, sf::Font>) {
+                    return m_fonts;
+                } else if constexpr (std::is_same_v<ResourceType, sf::SoundBuffer>) {
+                    return m_soundBuffers;
+                } else if constexpr (std::is_same_v<ResourceType, sf::Image>) {
+                    return m_images;
+                } else {
+                    throw std::runtime_error("Unknown resource type");
+                }
+            }
+
+            template<typename T>
+            void assertResourceExist(const std::string& location, const std::string& name)
+            {
+                auto& map = getMap<T>();
                 if (map.find(location) == map.end()) {
                     // check if the requested texture is in another ImageMap
                     for (auto& [location, imageMap] : m_images) {
@@ -62,17 +145,12 @@ namespace bya {
             }
 
         private:
-            typedef std::map<std::string, std::shared_ptr<sf::Texture>> TextureMap;
-            typedef std::map<std::string, std::shared_ptr<sf::Font>> FontMap;
-            typedef std::map<std::string, std::shared_ptr<sf::SoundBuffer>> SoundBufferMap;
-            typedef std::map<std::string, std::shared_ptr<sf::Image>> ImageMap;
-
             bool m_loaded = false;
             std::thread m_loadingThread;
 
-            std::map<std::string, std::shared_ptr<TextureMap>>  m_textures;
-            std::map<std::string, std::shared_ptr<sf::Font>> m_fonts;
-            std::map<std::string, std::shared_ptr<sf::SoundBuffer>> m_soundBuffers;
-            std::map<std::string, std::shared_ptr<ImageMap>> m_images;
+            ResourceMultimap<sf::Texture> m_textures;
+            ResourceMultimap<sf::Font> m_fonts;
+            ResourceMultimap<sf::SoundBuffer> m_soundBuffers;
+            ResourceMultimap<sf::Image> m_images;
     };
 }

@@ -21,7 +21,7 @@ namespace bya::ui
         Box::setSize(sf::Vector2f(texture.getSize().x, texture.getSize().y));
         setOrigin(getSize() * 0.5f);
         m_label.setString(label);
-        m_label.setFont(getResource().getFont("gameFont"));
+        m_label.setFont(RESOURCE().getFont("font", "game_font"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(this->getPosition());
         m_label.setFillColor(sf::Color(30, 30, 30, 255));

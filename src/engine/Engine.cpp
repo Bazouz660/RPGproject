@@ -47,7 +47,7 @@ namespace bya {
 
     void Engine::init()
     {
-        m_fpsHint.setFont(ResourceManager::getInstance().getFont("defaultFont"));
+        m_fpsHint.setFont(RESOURCE().getFont("default", "debug_font"));
         m_fpsHint.setCharacterSize(20);
         m_fpsHint.setFillColor(sf::Color::Green);
         m_fpsHint.setOutlineColor(sf::Color::Black);

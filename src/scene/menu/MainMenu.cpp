@@ -24,7 +24,7 @@ namespace bya
     void MainMenu::init()
     {
         m_background.setFillColor(sf::Color(15, 15, 15, 255));
-        m_gameLogo.setTexture(getResource().getTexture("main_menu", "logo"));
+        m_gameLogo.setTexture(RESOURCE().getTexture("main_menu", "logo"));
         m_gameLogo.setPosition(
                 (context::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
                 (context::getWindowSize().y - m_gameLogo.getGlobalBounds().height) * 0.2f);

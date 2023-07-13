@@ -42,7 +42,8 @@ namespace bya {
             return sf::Vector2<T>(v.x * cs - v.y * sn, v.x * sn + v.y * cs);
         }
 
-        template <typename T> int sgn(T val) {
+        template <typename T>
+        int sgn(T val) {
             return (T(0) < val) - (val < T(0));
         }
     }

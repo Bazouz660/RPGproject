@@ -17,7 +17,7 @@ namespace bya::ui {
     : m_isActive(false)
     {
         m_label.setString(label);
-        m_label.setFont(getResource().getFont("gameFont"));
+        m_label.setFont(RESOURCE().getFont("font", "game_font"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + m_label.getCharacterSize()));
 
