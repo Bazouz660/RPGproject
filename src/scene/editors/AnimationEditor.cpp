@@ -42,8 +42,8 @@ namespace bya {
             m_UIelements.add("PartZIndex", std::make_shared<ui::EditableText>("", 20));
 
             m_UIelements.add("Timeline", std::make_shared<ui::Timeline>());
-            m_UIelements.get<ui::Timeline>("Timeline")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y * 0.8));
-            m_UIelements.get<ui::Timeline>("Timeline")->setSize(sf::Vector2f(wSize.x * 0.3, 20));
+            m_UIelements.get<ui::Timeline>("Timeline")->setPosition(sf::Vector2f(wSize.x * 0.5, wSize.y * 0.85));
+            m_UIelements.get<ui::Timeline>("Timeline")->setSize(sf::Vector2f(wSize.x * 0.4, 20));
 
             m_UIelements.add("RotationGrab", std::make_shared<ui::GrabBoxOrbital>());
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setSize(sf::Vector2f(70, 20));

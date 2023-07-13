@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-13 03:19:12
+ *  Modified time: 2023-07-13 16:40:25
  *  Description:
  */
 
@@ -18,6 +18,20 @@ namespace bya::ui {
 
     class Timeline : public AUIelement {
         public:
+            class Keyframe : public Button {
+                public:
+                    Keyframe(float time, float maxTime, Slider& slider) : m_time(time), m_maxTime(maxTime), m_slider(slider) {}
+                    virtual ~Keyframe() override = default;
+
+                    float getTime() const { return m_time; }
+                    void setPosition();
+
+                private:
+                    float m_time;
+                    float& m_maxTime;
+                    Slider& m_slider;
+            };
+
             Timeline();
             virtual ~Timeline() override = default;
 
@@ -32,6 +46,7 @@ namespace bya::ui {
             virtual void pause() { m_playing = false; }
 
             virtual void setMarkerZoom(float zoom);
+            virtual float getMarkerZoom() const { return m_markerZoom; }
 
             virtual void setMaxTime(float time);
 
@@ -40,6 +55,12 @@ namespace bya::ui {
         private:
             std::string formatTime(float time) const;
             void updateMarkersPos();
+            void addMarker(unsigned int index);
+            void addMarkers();
+
+            void addKeyframe(float time);
+            void removeKeyframe(std::shared_ptr<Button> keyframe);
+            void updateKeyframesPos();
 
         protected:
             Timeline(const Timeline& other) = delete;
@@ -47,6 +68,8 @@ namespace bya::ui {
 
             Slider m_slider;
             Text m_currentTimeText;
+
+            std::vector<std::shared_ptr<Keyframe>> m_keyframes;
 
             std::vector<std::shared_ptr<Button>> m_markers;
             unsigned int m_markerCount = 10;
