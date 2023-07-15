@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-06 22:23:37
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-14 01:54:33
+ * @ Modified time: 2023-07-15 03:01:33
  *  Description:
  */
 
@@ -22,6 +22,7 @@
 #include <thread>
 
 #include "common.hpp"
+#include "MusicManager.hpp"
 #include "parsing.hpp"
 #include "logger.hpp"
 
@@ -70,18 +71,23 @@ namespace bya {
                 std::string directory = path.parent_path().string();
                 std::string directoryName = path.parent_path().filename().string();
 
+                int status = 0;
                 std::shared_ptr<T> resource = std::make_shared<T>();
-                resource->loadFromFile(filePath);
+                if constexpr (std::is_same_v<T, sf::Music>) {
+                    status = resource->openFromFile(filePath);
+                    resource->setVolume(MusicManager::getInstance().getMusicVolume());
+                    MusicManager::getInstance().addTrack(fileName, resource.get());
+                } else
+                    status = resource->loadFromFile(filePath);
+                if (status == -1)
+                    throw std::runtime_error("Failed to load resource: " + filePath);
 
-                if (map.find(directoryName) == map.end()) {
-                    // if not found, create a new one
+                if (map.find(directoryName) == map.end())
                     map[directoryName] = std::make_shared<ResourceMap<T>>();
-                }
                 if (map.at(directoryName)->find(fileName) == map.at(directoryName)->end()) {
                     map[directoryName]->insert({fileName, resource});
-                } else {
+                } else
                     return false;
-                }
                 return true;
             }
 
@@ -115,6 +121,8 @@ namespace bya {
                     return m_soundBuffers;
                 } else if constexpr (std::is_same_v<ResourceType, sf::Image>) {
                     return m_images;
+                } else if constexpr (std::is_same_v<ResourceType, sf::Music>) {
+                    return m_musics;
                 } else {
                     throw std::runtime_error("Unknown resource type");
                 }
@@ -152,5 +160,6 @@ namespace bya {
             ResourceMultimap<sf::Font> m_fonts;
             ResourceMultimap<sf::SoundBuffer> m_soundBuffers;
             ResourceMultimap<sf::Image> m_images;
+            ResourceMultimap<sf::Music> m_musics;
     };
 }

@@ -18,6 +18,7 @@ namespace bya {
 
     void ResourceManager::init()
     {
+        sf::Music music;
         m_loadingThread = std::thread(&ResourceManager::loadAssets, this);
         m_loadingThread.detach();
     }
@@ -28,6 +29,7 @@ namespace bya {
         loadResource<sf::Font>("asset/font/default/debug_font.ttf");
         loadResource<sf::Font>("asset/font/game_font.ttf");
 
+        loadFromFolder<sf::Music>("asset/audio/music", true);
         loadFromFolder<sf::Texture>("asset/texture", true);
         m_loaded = true;
     }
@@ -59,4 +61,5 @@ namespace bya {
     {
         return getResourceInternal<sf::SoundBuffer>(location, name);
     }
+
 }

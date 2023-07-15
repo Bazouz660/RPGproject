@@ -23,6 +23,8 @@ namespace bya
 
     void MainMenu::init()
     {
+        MusicManager::getInstance().switchTrack("main_theme", 1.f, true, false);
+
         m_background.setFillColor(sf::Color(15, 15, 15, 255));
         m_gameLogo.setTexture(RESOURCE().getTexture("main_menu", "logo"));
         m_gameLogo.setPosition(

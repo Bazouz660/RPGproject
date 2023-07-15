@@ -114,6 +114,9 @@ namespace bya {
     {
         getClock().update();
         updateFpsHint();
+
+        MusicManager::getInstance().update(getClock().getFrameDt());
+
         m_sceneManager.getCurrentScene()->updateUI(getClock().getFrameDt());
         m_sceneManager.getCurrentScene()->update(getClock().getFrameDt());
     }

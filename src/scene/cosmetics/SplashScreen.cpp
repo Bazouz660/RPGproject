@@ -28,6 +28,8 @@ namespace bya
 
     void SplashScreen::init()
     {
+        MusicManager::getInstance().switchTrack("Aleph", 0.5f, false, false);
+
         m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
         m_background.setFillColor(sf::Color(15, 15, 15, 255));
         m_splashIcon.setTexture(RESOURCE().getTexture("splash_screen", "splash"));
