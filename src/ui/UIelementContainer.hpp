@@ -24,62 +24,62 @@ namespace bya::ui {
                 return std::dynamic_pointer_cast<T>(m_elements.at(id).first);
             }
 
-            void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
+            virtual void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
             {
                 m_elements[id] = {element, true};
             }
 
-            void remove(const std::string &id)
+            virtual void remove(const std::string &id)
             {
                 exists(id);
                 m_elements.erase(id);
             }
 
-            void disable(const std::string &id)
+            virtual void disable(const std::string &id)
             {
                 exists(id);
                 m_elements[id].second = false;
             }
 
-            void enable(const std::string &id)
+            virtual void enable(const std::string &id)
             {
                 exists(id);
                 m_elements[id].second = true;
             }
 
-            void toggle(const std::string &id)
+            virtual void toggle(const std::string &id)
             {
                 exists(id);
                 m_elements[id].second = !m_elements[id].second;
             }
 
-            bool isEnabled(const std::string &id) const
+            virtual bool isEnabled(const std::string &id) const
             {
                 exists(id);
                 return m_elements.at(id).second;
             }
 
-            void update(float dt) override
+            virtual void update(float dt) override
             {
                 for (auto &[key, elem] : m_elements)
                     if (elem.second)
                         elem.first->update(dt);
             }
 
-            void handleEvent(sf::Event event, const sf::RenderWindow &window) override
+            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override
             {
                 for (auto &[key, elem] : m_elements)
                     if (elem.second)
                         elem.first->handleEvent(event, window);
             }
 
-            void setPosition(const sf::Vector2f &pos) override
+            virtual void setPosition(const sf::Vector2f &pos) override
             {
                 for (auto &[key, elem] : m_elements)
                     elem.first->setPosition(pos);
             }
 
-            sf::FloatRect getBounds() const
+            virtual sf::FloatRect getBounds() const
             {
                 float left = 0;
                 float top = 0;
@@ -108,7 +108,7 @@ namespace bya::ui {
                         elem.first->render(target);
             }
 
-        private:
+        protected:
             void exists(const std::string &id) const
             {
                 if (m_elements.find(id) == m_elements.end())

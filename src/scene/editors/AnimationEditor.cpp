@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-14 01:35:52
+ * @ Modified time: 2023-07-15 17:27:42
 */
 
 #include "AnimationEditor.hpp"
@@ -14,6 +14,7 @@
 #include "EditableText.hpp"
 #include "EditableTextList.hpp"
 #include "Timeline.hpp"
+#include "ScrollBox.hpp"
 
 #include "ResourceManager.hpp"
 
@@ -52,6 +53,16 @@ namespace bya {
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setCenter(sf::Vector2f(wSize.x / 2, wSize.y / 2));
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(RESOURCE().getTexture("model_editor", "rotation_hint"));
+
+            m_UIelements.add("TestScrollBox", std::make_shared<ui::ScrollBox<ui::Text>>());
+            auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("TestScrollBox");
+            scrollBox->setPosition(sf::Vector2f(300, 300));
+            scrollBox->addElement(std::make_shared<ui::Text>("Test1"));
+            scrollBox->addElement(std::make_shared<ui::Text>("Test2"));
+            scrollBox->addElement(std::make_shared<ui::Text>("Test3"));
+            scrollBox->addElement(std::make_shared<ui::Text>("Test4"));
+            scrollBox->addElement(std::make_shared<ui::Text>("Test5"));
+
 
             m_UIelements.disable("RotationGrab");
             m_UIelements.disable("LoadModelInputBox");
