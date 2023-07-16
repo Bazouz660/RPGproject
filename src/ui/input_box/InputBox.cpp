@@ -68,6 +68,12 @@ namespace bya::ui {
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
     }
 
+    void InputBox::reset()
+    {
+        m_input = "";
+        m_inputBox->setLabel("Enter text here...");
+    }
+
     bool InputBox::isInputContained() const
     {
         sf::FloatRect inputBounds = m_inputBox->getBounds();

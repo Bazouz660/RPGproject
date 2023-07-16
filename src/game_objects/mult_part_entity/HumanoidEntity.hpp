@@ -15,7 +15,7 @@ namespace bya::gameObj
     {
         public:
             HumanoidEntity();
-            ~HumanoidEntity() = default;
+            virtual ~HumanoidEntity() override = default;
 
             void update(float dt) override;
     };

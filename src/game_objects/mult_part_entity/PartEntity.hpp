@@ -15,7 +15,7 @@ namespace bya::gameObj
     {
         public:
             PartEntity() = default;
-            ~PartEntity() = default;
+            virtual ~PartEntity() override = default;
 
             void update(float dt) override;
     };

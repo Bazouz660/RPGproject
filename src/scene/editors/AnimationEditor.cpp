@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-15 17:27:42
+ * @ Modified time: 2023-07-16 18:23:51
 */
 
 #include "AnimationEditor.hpp"
@@ -54,15 +54,10 @@ namespace bya {
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(RESOURCE().getTexture("model_editor", "rotation_hint"));
 
-            m_UIelements.add("TestScrollBox", std::make_shared<ui::ScrollBox<ui::Text>>());
-            auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("TestScrollBox");
-            scrollBox->setPosition(sf::Vector2f(300, 300));
-            scrollBox->addElement(std::make_shared<ui::Text>("Test1"));
-            scrollBox->addElement(std::make_shared<ui::Text>("Test2"));
-            scrollBox->addElement(std::make_shared<ui::Text>("Test3"));
-            scrollBox->addElement(std::make_shared<ui::Text>("Test4"));
-            scrollBox->addElement(std::make_shared<ui::Text>("Test5"));
-
+            m_UIelements.add("PartScrollBox", std::make_shared<ui::ScrollBox<ui::Text>>());
+            auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("PartScrollBox");
+            scrollBox->setPosition(sf::Vector2f(wSize.x * 0.85f, wSize.y * 0.610f));
+            scrollBox->addElement(std::make_shared<ui::Text>("No part selected", 20));
 
             m_UIelements.disable("RotationGrab");
             m_UIelements.disable("LoadModelInputBox");
@@ -179,15 +174,16 @@ namespace bya {
                     m_UIelements.disable("SaveModelInputBox");
                     auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage("Model saved successfully", sf::Color::Green);
+                    inputBox->reset();
                 } catch (std::exception &e) {
                     auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage(e.what());
                     logger::error(e.what());
                 }
             });
-            inputBox->getCancelButton()->setCallback([this]() {
-                m_UIelements.get<ui::InputBox>("SaveModelInputBox")->setActive(false);
-                m_UIelements.get<ui::InputBox>("SaveModelInputBox")->setLabel("");
+            inputBox->getCancelButton()->setCallback([this, inputBox]() {
+                inputBox->setActive(false);
+                inputBox->reset();
                 m_UIelements.disable("SaveModelInputBox");
             });
 
@@ -226,15 +222,23 @@ namespace bya {
                     m_UIelements.disable("LoadModelInputBox");
                     auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage("Model loaded successfully", sf::Color::Green);
+                    inputBox->setActive(false);
+                    inputBox->reset();
+                    auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("PartScrollBox");
+                    scrollBox->clear();
+                    scrollBox->addElement(std::make_shared<ui::Text>("No part selected", 20));
+                    for (auto &part : m_entity->getSortedZParts()) {
+                        scrollBox->addElement(std::make_shared<ui::Text>(part->getName(), 20));
+                    }
                 } catch (std::exception &e) {
                     auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage(e.what());
                     logger::error(e.what());
                 }
             });
-            inputBox->getCancelButton()->setCallback([this]() {
-                m_UIelements.get<ui::InputBox>("LoadModelInputBox")->setActive(false);
-                m_UIelements.get<ui::InputBox>("LoadModelInputBox")->setLabel("");
+            inputBox->getCancelButton()->setCallback([this, inputBox]() {
+                inputBox->setActive(false);
+                inputBox->reset();
                 m_UIelements.disable("LoadModelInputBox");
             });
 
@@ -251,8 +255,27 @@ namespace bya {
             });
         }
 
+        void AnimationEditor::resetPartInfo()
+        {
+            m_UIelements.get<ui::EditableText>("PartName")->setString("No part selected");
+            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(0)->setString("0");
+            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->setString("0");
+            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(0)->setString("0");
+            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->setString("0");
+            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(0)->setString("0");
+            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->setString("0");
+            m_UIelements.get<ui::EditableText>("PartRotation")->setString("0");
+            m_UIelements.get<ui::EditableText>("PartParent")->setString("No parent");
+            m_UIelements.get<ui::EditableText>("PartZIndex")->setString("0");
+        }
+
         void AnimationEditor::setPartInfo()
         {
+            if (m_selectedPart == nullptr) {
+                resetPartInfo();
+                return;
+            }
+
             m_UIelements.get<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
 
             float rotation = m_selectedPart->getOwnRotation();
@@ -289,10 +312,11 @@ namespace bya {
         void AnimationEditor::handleEvent(sf::Event &event, sf::RenderWindow &window)
         {
             auto rotationGrabBox = m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab");
+            auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("PartScrollBox");
 
             if (m_entity != nullptr) {
                 auto& parts = m_entity->getSortedZParts();
-                gameObj::IMultPartEntity* lastFound = nullptr;
+                std::shared_ptr<gameObj::IMultPartEntity> lastFound = nullptr;
                 for (auto& part : parts) {
                     if (part != m_selectedPart)
                         part->setTint(sf::Color::White);
@@ -300,6 +324,13 @@ namespace bya {
                         lastFound = part;
                         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                             m_selectedPart = part;
+                            auto scrollBoxElems = scrollBox->getElements();
+                            for (auto& elem : scrollBoxElems) {
+                                if (elem->getString() == part->getName()) {
+                                    scrollBox->setSelectedElement(elem);
+                                    break;
+                                }
+                            }
                             setPartInfo();
                         }
                     }
@@ -310,13 +341,27 @@ namespace bya {
                     m_selectedPart->setTint(sf::Color::Yellow);
             }
 
+            if (m_entity) {
+                auto& parts = m_entity->getSortedZParts();
+                for (int i = 0; i < parts.size(); i++) {
+                    if (parts[i]->getName() == scrollBox->getSelectedElement()->getString() && parts[i] != m_selectedPart) {
+                        if (m_selectedPart)
+                            m_selectedPart->setTint(sf::Color::White);
+                        m_selectedPart = parts[i];
+                        m_selectedPart->setTint(sf::Color::Yellow);
+                        setPartInfo();
+                        break;
+                    }
+                }
+            }
+
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter && m_selectedPart) {
                 sf::Vector2f pos = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(0)->getInput().c_str()),
-                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->getInput().c_str()));
+                std::atof(m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->getInput().c_str()));
                 sf::Vector2f size = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartSize")->getText(0)->getInput().c_str()),
-                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->getInput().c_str()));
+                std::atof(m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->getInput().c_str()));
                 sf::Vector2f pivot = sf::Vector2f(std::atof(m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(0)->getInput().c_str()),
-                                    std::atof(m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->getInput().c_str()));
+                std::atof(m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->getInput().c_str()));
                 float rotation = std::atof(m_UIelements.get<ui::EditableText>("PartRotation")->getInput().c_str());
                 int zIndex = std::atoi(m_UIelements.get<ui::EditableText>("PartZIndex")->getInput().c_str());
 
@@ -333,7 +378,7 @@ namespace bya {
         {
             auto rotationGrabBox = m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab");
 
-            if (m_entity && rotationGrabBox->isGrabbed()) {
+            if (m_entity && rotationGrabBox->isGrabbed() && m_selectedPart) {
                 float angle = rotationGrabBox->getAngle();
                 m_selectedPart->setRotation(angle);
                 m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(angle));

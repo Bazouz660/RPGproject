@@ -47,7 +47,7 @@ namespace bya::ui {
     void Timeline::Keyframe::setPosition()
     {
         sf::FloatRect bounds = m_slider.getBounds();
-        Button::setPosition({bounds.left + bounds.width * m_time / m_maxTime, bounds.top + bounds.height / 2});
+        Button::setPosition({bounds.left + (bounds.width * (this->getTime() / m_maxTime)) * 2, bounds.top + bounds.height / 2.f});
     }
 
     void Timeline::addKeyframe(float time)

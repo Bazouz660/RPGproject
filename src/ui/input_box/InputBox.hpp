@@ -19,6 +19,7 @@ namespace bya::ui {
             InputBox(const sf::Texture& texture = RESOURCE().getTexture("default", "button"), const std::string& label = "");
 
             void setLabel(const std::string& label);
+            void reset();
 
             virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
             virtual void update(float dt) override;

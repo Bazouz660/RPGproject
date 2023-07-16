@@ -47,9 +47,8 @@ namespace bya::gameObj
             virtual sf::IntRect getTextureRect() const = 0;
             virtual sf::Texture* getTexture() const = 0;
 
-            virtual bool needsSorting() const = 0;
-            virtual std::vector<IMultPartEntity*> sortZIndex() = 0;
-            virtual std::vector<IMultPartEntity*>& getSortedZParts() = 0;
+            virtual void sortZIndex() = 0;
+            virtual std::vector<std::shared_ptr<IMultPartEntity>>& getSortedZParts() = 0;
 
             virtual void setTint(sf::Color tint) = 0;
             virtual sf::Color getTint() const = 0;

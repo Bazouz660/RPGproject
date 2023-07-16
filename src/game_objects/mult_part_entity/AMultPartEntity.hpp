@@ -149,30 +149,20 @@ namespace bya::gameObj
                 return m_zIndex;
             }
 
-            bool needsSorting() const override {
-                if (m_sortedZparts.size() != m_parts.size())
-                    return true;
-                return false;
-            }
-
-            std::vector<IMultPartEntity*> sortZIndex() override {
-                if (needsSorting()) {
-                    m_sortedZparts.clear();
-                    m_sortedZparts.push_back(this);
-                    for (auto &[partName, part] : m_parts) {
-                        m_sortedZparts.push_back(part.get());
-                        std::vector<IMultPartEntity*> childs = part->sortZIndex();
-                        m_sortedZparts.insert(m_sortedZparts.end(), childs.begin(), childs.end());
-                    }
-                    std::sort(m_sortedZparts.begin(), m_sortedZparts.end(),
-                        [](IMultPartEntity* a, IMultPartEntity* b) {
-                        return a->getZIndex() < b->getZIndex();
-                    });
+            void sortZIndex() override
+            {
+                m_sortedZparts.clear();
+                m_sortedZparts.push_back(shared_from_this());
+                for (auto &part : getChildren()) {
+                    m_sortedZparts.push_back(part);
                 }
-                return m_sortedZparts;
+                std::sort(m_sortedZparts.begin(), m_sortedZparts.end(), [](std::shared_ptr<IMultPartEntity> a, std::shared_ptr<IMultPartEntity> b) {
+                    return a->getZIndex() < b->getZIndex();
+                });
             }
 
-            virtual std::vector<IMultPartEntity*>& getSortedZParts() override {
+            virtual std::vector<std::shared_ptr<IMultPartEntity>>& getSortedZParts() override
+            {
                 return m_sortedZparts;
             }
 
@@ -297,7 +287,7 @@ namespace bya::gameObj
             sf::CircleShape m_pivotPointIndicator;
 
             IMultPartEntity* m_parent = nullptr;
-            std::vector<IMultPartEntity*> m_sortedZparts;
+            std::vector<std::shared_ptr<IMultPartEntity>> m_sortedZparts;
             std::map<std::string, std::string> m_partMapping;
             std::map<std::string, std::shared_ptr<IMultPartEntity>> m_parts;
     };
