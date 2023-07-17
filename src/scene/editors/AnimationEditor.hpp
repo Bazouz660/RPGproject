@@ -27,12 +27,14 @@ namespace bya
         virtual void render(sf::RenderTarget &target) override;
 
     private:
-        bool isHoveringUI();
+        void configureLoadButton();
+        void configureSaveButton();
         void setPartInfo();
+        void resetPartInfo();
 
     private:
         std::shared_ptr<bya::gameObj::IMultPartEntity> m_entity = nullptr;
-        bya::gameObj::IMultPartEntity *m_selectedPart = nullptr;
+        std::shared_ptr<bya::gameObj::IMultPartEntity> m_selectedPart = nullptr;
 
         sf::RectangleShape m_editorBackground;
         sf::RectangleShape m_partInfoBackground;

@@ -1,0 +1,112 @@
+{
+  "root": {
+    "name": "torso",
+    "position": [0.0, -30.0],
+    "size": [45.0, 50.0],
+    "pivot": [22.5, 20.0],
+    "tint": [255, 255, 255, 255],
+    "zIndex": 0,
+    "rotation": -3.0,
+    "parts": {
+      "head": {
+        "position": [2.0, -60.0],
+        "size": [42.75, 47.5],
+        "pivot": [19.0, 47.5],
+        "tint": [255, 255, 255, 255],
+        "zIndex": 1,
+        "rotation": 0.0,
+        "parts": {}
+      },
+      "rightArm": {
+        "position": [-15.0, -40.0],
+        "size": [20.0, 50.0],
+        "pivot": [10.0, 10.0],
+        "tint": [255, 255, 0, 255],
+        "zIndex": 2,
+        "rotation": -10.0,
+        "parts": {
+          "rightForearm": {
+            "position": [-15.0, 0.0],
+            "size": [20.0, 50.0],
+            "pivot": [10.0, 0.0],
+            "tint": [255, 255, 0, 255],
+            "zIndex": 2,
+            "rotation": -40.0,
+            "parts": {}
+          }
+        }
+      },
+      "leftArm": {
+        "position": [15.0, -40.0],
+        "size": [20.0, 50.0],
+        "pivot": [10.0, 10.0],
+        "tint": [255, 0, 0, 255],
+        "zIndex": -2,
+        "rotation": -20.0,
+        "parts": {
+          "leftForearm": {
+            "position": [15.0, 0.0],
+            "size": [20.0, 50.0],
+            "pivot": [10.0, 0.0],
+            "tint": [255, 0, 0, 255],
+            "zIndex": -2,
+            "rotation": -40.0,
+            "parts": {}
+          }
+        }
+      },
+      "abdomen": {
+        "position": [0.0, 0.0],
+        "size": [40.0, 50.0],
+        "pivot": [20.0, 0.0],
+        "tint": [255, 255, 255, 255],
+        "zIndex": 0,
+        "rotation": 0.0,
+        "parts": {
+          "rightThigh": {
+            "position": [-15.0, 40.0],
+            "size": [22, 50.0],
+            "pivot": [11.0, 0.0],
+            "tint": [255, 255, 0, 255],
+            "zIndex": 2,
+            "rotation": 0.0,
+            "parts": {
+              "rightTibia": {
+                "position": [-15.0, 90.0],
+                "size": [20.0, 55.0],
+                "pivot": [10.0, 0.0],
+                "tint": [255, 255, 0, 255],
+                "zIndex": 1,
+                "rotation": 10.0,
+                "parts": {}
+              }
+            }
+          },
+          "leftThigh": {
+            "position": [15.0, 40.0],
+            "size": [22, 50.0],
+            "pivot": [11.0, 0.0],
+            "tint": [0, 0, 255, 255],
+            "zIndex": -2,
+            "rotation": -5.0,
+            "parts": {
+              "leftTibia": {
+                "position": [15.0, 90.0],
+                "size": [20.0, 55.0],
+                "pivot": [10.0, 0.0],
+                "tint": [0, 0, 255, 255],
+                "zIndex": -1,
+                "rotation": 10.0,
+                "parts": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "partMapping": {
+    "rightArm": "leftArm",
+    "rightThigh": "leftThigh"
+  }
+}

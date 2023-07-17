@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-07 15:20:09
  *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-07 15:33:25
+ *  Modified time: 2023-07-12 03:56:07
  *  Description:
  */
 
@@ -17,7 +17,7 @@ namespace bya::ui {
     : m_isActive(false)
     {
         m_label.setString(label);
-        m_label.setFont(getResource().getFont("gameFont"));
+        m_label.setFont(RESOURCE().getFont("font", "game_font"));
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
         m_label.setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + m_label.getCharacterSize()));
 
@@ -43,19 +43,12 @@ namespace bya::ui {
         m_applyButton->setLabel("Apply");
         m_applyButton->setSize(sf::Vector2f(100, 75));
         m_applyButton->setPosition(getPosition() + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
-        m_applyButton->setCallback([this]() {
-        });
 
         m_cancelButton = std::make_shared<Button>();
         m_cancelButton->getLabel().setCharacterSize(20);
         m_cancelButton->setLabel("Cancel");
         m_cancelButton->setSize(sf::Vector2f(100, 75));
         m_cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
-        m_cancelButton->setCallback([this]() {
-            setActive(false);
-            m_input = "";
-            setOpen(false);
-        });
     }
 
     void InputBox::setActive(bool active)
@@ -75,6 +68,12 @@ namespace bya::ui {
         m_label.setOrigin(m_label.getGlobalBounds().width / 2, m_label.getGlobalBounds().height / 2);
     }
 
+    void InputBox::reset()
+    {
+        m_input = "";
+        m_inputBox->setLabel("Enter text here...");
+    }
+
     bool InputBox::isInputContained() const
     {
         sf::FloatRect inputBounds = m_inputBox->getBounds();
@@ -87,9 +86,6 @@ namespace bya::ui {
 
     void InputBox::handleEvent(sf::Event event, const sf::RenderWindow& window)
     {
-        if (!isOpen())
-            return;
-
         m_inputBox->handleEvent(event, window);
         m_applyButton->handleEvent(event, window);
         m_cancelButton->handleEvent(event, window);
@@ -135,9 +131,6 @@ namespace bya::ui {
 
     void InputBox::update(float dt)
     {
-        if (!isOpen())
-            return;
-
         if (getTime().asSeconds() > m_cursorBlinkTimer + 0.75 && isActive()) {
             m_cursorBlinkTimer = getTime().asSeconds();
             m_inputBox->setLabel(m_input + "|");
@@ -152,9 +145,6 @@ namespace bya::ui {
 
     void InputBox::render(sf::RenderTarget& target)
     {
-        if (!isOpen())
-            return;
-
         target.draw(m_background);
         target.draw(m_label);
         m_inputBox->render(target);

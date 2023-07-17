@@ -6,6 +6,9 @@ project(${PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 set(CMAKE_CXX_STANDARD 20)
 
+# add -g flag
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
 link_libraries(stdc++fs)
 
 # Add the SFML library

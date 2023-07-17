@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2023
 ** RPGproject
-** File description:
-** OrientedBoundingBox
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-11 17:45:33
 */
 
 #pragma once
@@ -40,7 +40,7 @@ namespace bya::gameObj
             sf::Vector2f getScale() const { return m_scale; }
             std::array<sf::Vector2f, 4> getCorners() const;
             sf::Vector2f getCenter() const;
-            sf::FloatRect getGlobalBounds() const;
+            sf::FloatRect getBounds() const;
             sf::Texture* getTexture() const { return m_texture; }
             sf::IntRect getTextureRect() const { return m_textureRect; }
 

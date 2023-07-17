@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-11 17:59:29
+ *  Modified time: 2023-07-17 22:57:37
  *  Description:
  */
 
@@ -10,7 +10,6 @@
 #include "AnimationEditor.hpp"
 #include "MainMenu.hpp"
 #include "Engine.hpp"
-#include "TestScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
 #include "context.hpp"
@@ -47,14 +46,13 @@ namespace bya {
 
     void Engine::init()
     {
-        m_fpsHint.setFont(ResourceManager::getInstance().getFont("defaultFont"));
+        m_fpsHint.setFont(RESOURCE().getFont("default", "debug_font"));
         m_fpsHint.setCharacterSize(20);
         m_fpsHint.setFillColor(sf::Color::Green);
         m_fpsHint.setOutlineColor(sf::Color::Black);
         m_fpsHint.setOutlineThickness(1);
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
-        m_sceneManager.addScene("TestScene", std::make_shared<TestScene>());
         m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
         m_sceneManager.addScene("MainMenu", std::make_shared<MainMenu>());
         SceneManager::getInstance().setCurrentScene("MainMenu");
@@ -115,6 +113,9 @@ namespace bya {
     {
         getClock().update();
         updateFpsHint();
+
+        MusicManager::getInstance().update(getClock().getFrameDt());
+
         m_sceneManager.getCurrentScene()->updateUI(getClock().getFrameDt());
         m_sceneManager.getCurrentScene()->update(getClock().getFrameDt());
     }

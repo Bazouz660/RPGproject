@@ -16,7 +16,7 @@ namespace bya::ui
     {
         public:
             Text(const std::string& text = "", unsigned int size = 30,
-            const sf::Font& font = getResource().getFont("defaultFont"));
+            const sf::Font& font = RESOURCE().getFont("font", "game_font"));
 
             virtual ~Text() = default;
 

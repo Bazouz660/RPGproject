@@ -1,14 +1,14 @@
 /*
  *  Author: Clément Thomas
  *  Create Time: 2023-07-06 23:29:16
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:16:51
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-12 03:38:31
  *  Description:
  */
 
 #pragma once
 
-#include "IUIelement.hpp"
+#include "UIelementContainer.hpp"
 #include "IScene.hpp"
 #include "context.hpp"
 
@@ -21,37 +21,28 @@ namespace bya
 
             virtual void handleUIEvent(sf::Event &event, sf::RenderWindow &window) override final
             {
-                for (auto &[key, elem] : m_UIelements)
-                    elem->handleEvent(event, window);
+                m_UIelements.handleEvent(event, window);
                 if (event.type == sf::Event::Resized)
                     m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
             }
 
             virtual void updateUI(float dt) override final
             {
-                for (auto &[key, elem] : m_UIelements)
-                    elem->update(dt);
+                m_UIelements.update(dt);
             }
 
             virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override {}
 
             virtual void renderUi(sf::RenderTarget &target)
             {
-                for (auto &[key, elem] : m_UIelements)
-                    elem->render(target);
+                m_UIelements.render(target);
             }
 
             virtual void close() override {}
             virtual void reset() override {}
 
-            template<typename T>
-            std::shared_ptr<T> getUIelement(const std::string &id)
-            {
-                return std::dynamic_pointer_cast<T>(m_UIelements.at(id));
-            }
-
         protected:
-            std::map<std::string, std::shared_ptr<ui::IUIelement>> m_UIelements;
+            ui::UIelementContainer m_UIelements;
             sf::RectangleShape m_background;
 
             AScene()
@@ -59,9 +50,5 @@ namespace bya
                 m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
                 m_background.setFillColor(sf::Color(15, 15, 15, 255));
             };
-            void addUIelement(const std::string &id, std::shared_ptr<ui::IUIelement> element)
-            {
-                m_UIelements.insert(std::make_pair(id, std::move(element)));
-            }
     };
 }

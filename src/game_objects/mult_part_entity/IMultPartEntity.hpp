@@ -30,9 +30,10 @@ namespace bya::gameObj
             virtual void setPivotPoint(float x, float y) = 0;
             virtual sf::Vector2f getPivotPoint() const = 0;
 
-            virtual void setRotation(float angle) = 0;
-            virtual void setFixedRotation(float angle) = 0;
-            virtual float getRotation() const = 0;
+            virtual void setRotation(float angle, bool changeOwn = true) = 0;
+            virtual float getGlobalRotation() const = 0;
+            virtual float getOwnRotation() const = 0;
+            virtual float getHeritedRotation() const = 0;
 
             virtual void setSize(sf::Vector2f size) = 0;
             virtual void setSize(float x, float y) = 0;
@@ -46,9 +47,8 @@ namespace bya::gameObj
             virtual sf::IntRect getTextureRect() const = 0;
             virtual sf::Texture* getTexture() const = 0;
 
-            virtual bool needsSorting() const = 0;
-            virtual std::vector<IMultPartEntity*> sortZIndex() = 0;
-            virtual std::vector<IMultPartEntity*>& getSortedZParts() = 0;
+            virtual void sortZIndex() = 0;
+            virtual std::vector<std::shared_ptr<IMultPartEntity>>& getSortedZParts() = 0;
 
             virtual void setTint(sf::Color tint) = 0;
             virtual sf::Color getTint() const = 0;
@@ -56,7 +56,7 @@ namespace bya::gameObj
             virtual void setParent(IMultPartEntity* parent) = 0;
             virtual IMultPartEntity* getParent() const = 0;
             virtual IMultPartEntity* getRoot() = 0;
-            virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren() const = 0;
+            virtual std::vector<std::shared_ptr<IMultPartEntity>> getChildren(bool recursive) const = 0;
 
             virtual void setName(const std::string& name) = 0;
             virtual std::string getName() const = 0;
@@ -67,6 +67,7 @@ namespace bya::gameObj
             virtual sf::Vector2f getScale() const = 0;
 
             virtual void loadFromJson(std::string path) = 0;
+            virtual void saveToJson(std::string path) = 0;
     };
 
 }

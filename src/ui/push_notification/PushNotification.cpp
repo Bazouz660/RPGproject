@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:46
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-10 00:36:20
+ * @ Modified time: 2023-07-14 01:51:20
  * @ Description:
  */
 
@@ -47,7 +47,7 @@ namespace bya::ui {
     void PushNotification::pushMessage(const std::string& message)
     {
         sf::Text text;
-        text.setFont(getResource().getFont("gameFont"));
+        text.setFont(RESOURCE().getFont("font", "game_font"));
         text.setString(message);
         text.setFillColor(m_color);
         text.setCharacterSize(m_fontSize);
@@ -67,7 +67,7 @@ namespace bya::ui {
     void PushNotification::pushMessage(const std::string& message, sf::Color color)
     {
         sf::Text text;
-        text.setFont(getResource().getFont("gameFont"));
+        text.setFont(RESOURCE().getFont("font", "game_font"));
         text.setString(message);
         text.setFillColor(color);
         text.setCharacterSize(m_fontSize);

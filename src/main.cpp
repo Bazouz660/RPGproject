@@ -17,7 +17,7 @@ int main(int argc, char **argv)
         engine.run();
     } catch (std::exception &e) {
         logger::error(e.what());
-        return 1;
+        return 84;
     }
     return 0;
 }
