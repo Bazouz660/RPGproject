@@ -8,16 +8,7 @@
 
 #pragma once
 
-#ifdef _WIN32
-    #include <experimental/filesystem>
-    #define OS "Windows"
-    namespace std {
-        namespace filesystem = experimental::filesystem;
-    }
-#else
-    #include <filesystem>
-    #define OS "Linux"
-#endif
+#include <filesystem>
 
 #include <thread>
 

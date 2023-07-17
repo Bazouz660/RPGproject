@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPG3
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-11 02:42:12
+ *  Modified time: 2023-07-17 23:58:03
 */
 
 #ifndef BUTTON_HPP_
@@ -19,7 +19,7 @@
         class Button : public AUIelement, public gameObj::Box {
             public:
                 enum State { IDLE, HOVERED, PRESSED, DISABLED };
-                Button(const sf::Texture& texture = getResource().getTexture("default", "button"), const std::string& label = "");
+                Button(const sf::Texture& texture = RESOURCE().getTexture("default", "button"), const std::string& label = "");
 
                 virtual void setCallback(std::function<void(void)> func);
                 virtual void setLabel(const std::string& label);
