@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-16 17:53:16
+ * @ Modified time: 2023-07-17 21:02:57
  * @ Description:
  */
 
@@ -74,6 +74,7 @@ namespace bya::ui {
             m_selectedElement = element;
         }
     }
+
 
     template<typename T>
     void ScrollBox<T>::update(float dt)

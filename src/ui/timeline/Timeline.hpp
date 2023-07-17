@@ -1,36 +1,30 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-13 16:40:25
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-07-17 21:41:34
  *  Description:
  */
 
 #pragma once
 
+// ui includes
 #include "AUIelement.hpp"
 #include "Box.hpp"
 #include "Slider.hpp"
 #include "Text.hpp"
+#include "ScrollBox.hpp"
 #include "Button.hpp"
+
+// MultPartAnimation includes
+#include "MultiPartAnimation.hpp"
+#include "Keyframe.hpp"
+#include "KeyframeHolder.hpp"
 
 namespace bya::ui {
 
     class Timeline : public AUIelement {
         public:
-            class Keyframe : public Button {
-                public:
-                    Keyframe(float time, float maxTime, Slider& slider) : m_time(time), m_maxTime(maxTime), m_slider(slider) {}
-                    virtual ~Keyframe() override = default;
-
-                    float getTime() const { return m_time; }
-                    void setPosition();
-
-                private:
-                    float m_time;
-                    float& m_maxTime;
-                    Slider& m_slider;
-            };
 
             Timeline();
             virtual ~Timeline() override = default;
@@ -42,13 +36,21 @@ namespace bya::ui {
             virtual void setPosition(const sf::Vector2f &pos) override;
             virtual void setSize(const sf::Vector2f &size);
 
-            virtual void play() { m_playing = true; }
-            virtual void pause() { m_playing = false; }
+            virtual void play();
+            virtual void pause();
+
+            void setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity);
+            std::shared_ptr<gameObj::IMultPartEntity> getEntity() const { return m_entity; }
+
+            void setSelectedPart(std::shared_ptr<gameObj::IMultPartEntity> selectedPart);
+            std::shared_ptr<gameObj::IMultPartEntity> getSelectedPart() const { return m_selectedPart; }
 
             virtual void setMarkerZoom(float zoom);
             virtual float getMarkerZoom() const { return m_markerZoom; }
 
             virtual void setMaxTime(float time);
+
+            virtual void clear();
 
             virtual sf::FloatRect getBounds() const override { return m_slider.getBounds(); }
 
@@ -58,10 +60,6 @@ namespace bya::ui {
             void addMarker(unsigned int index);
             void addMarkers();
 
-            void addKeyframe(float time);
-            void removeKeyframe(std::shared_ptr<Button> keyframe);
-            void updateKeyframesPos();
-
         protected:
             Timeline(const Timeline& other) = delete;
             void operator=(const Timeline& other) = delete;
@@ -69,7 +67,12 @@ namespace bya::ui {
             Slider m_slider;
             Text m_currentTimeText;
 
-            std::vector<std::shared_ptr<Keyframe>> m_keyframes;
+            std::shared_ptr<gameObj::IMultPartEntity> m_entity = nullptr;
+            std::shared_ptr<gameObj::IMultPartEntity> m_selectedPart = nullptr;
+
+            Animation::MultiPartAnimation m_animation;
+
+            ScrollBox<KeyframeHolder> m_keyframeHolders;
 
             std::vector<std::shared_ptr<Button>> m_markers;
             unsigned int m_markerCount = 10;

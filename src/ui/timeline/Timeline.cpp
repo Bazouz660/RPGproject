@@ -1,8 +1,8 @@
 /*
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-13 16:49:48
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-07-17 22:30:24
  *  Description:
  */
 
@@ -10,6 +10,8 @@
 
 #include "logger.hpp"
 #include "parsing.hpp"
+
+#include "KeyframeHolder.hpp"
 
 namespace bya::ui {
 
@@ -44,32 +46,30 @@ namespace bya::ui {
         }
     }
 
-    void Timeline::Keyframe::setPosition()
-    {
-        sf::FloatRect bounds = m_slider.getBounds();
-        Button::setPosition({bounds.left + (bounds.width * (this->getTime() / m_maxTime)) * 2, bounds.top + bounds.height / 2.f});
-    }
-
-    void Timeline::addKeyframe(float time)
-    {
-        std::shared_ptr<Keyframe> keyframe = std::make_shared<Keyframe>(time, m_maxTime, m_slider);
-        keyframe->setSize({10, 10});
-        keyframe->setCallback([this, keyframe]() {
-            m_timer = keyframe->getTime();
-            m_slider.setProgress(m_timer / m_maxTime);
-        });
-        keyframe->setPosition();
-        m_keyframes.push_back(keyframe);
-    }
-
-    void Timeline::removeKeyframe(std::shared_ptr<Button> keyframe)
-    {
-        m_keyframes.erase(std::remove(m_keyframes.begin(), m_keyframes.end(), keyframe), m_keyframes.end());
-    }
-
     void Timeline::setMaxTime(float time)
     {
         m_maxTime = time;
+        m_slider.setProgress(0);
+
+        // update markers
+        addMarkers();
+
+        //// check if keyframes are still in range
+        //for (auto& partTimeline : m_partsTimelines.getElements()) {
+        //    for (auto& keyframe : partTimeline->getKeyframeMarkers()) {
+        //        if (keyframe->getTime() > m_maxTime) {
+        //            removeKeyframeMarker(keyframe);
+        //            break;
+        //        }
+        //    }
+        //}
+//
+        //// update keyframes
+        //for (auto& partTimeline : m_partsTimelines.getElements()) {
+        //    for (auto& keyframe : partTimeline->getKeyframeMarkers()) {
+        //        keyframe->setPosition();
+        //    }
+        //}
     }
 
     void Timeline::addMarkers()
@@ -118,13 +118,47 @@ namespace bya::ui {
         return std::to_string(seconds) + ":" + std::to_string(milliseconds);
     }
 
+    void Timeline::setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity)
+    {
+        m_entity = entity;
+
+        if (m_selectedPart == nullptr) {
+            setSelectedPart(m_entity);
+        }
+    }
+
+    void Timeline::setSelectedPart(std::shared_ptr<gameObj::IMultPartEntity> part)
+    {
+        m_selectedPart = part;
+
+        if (m_selectedPart == nullptr)
+            return;
+
+        bool found = false;
+        for (auto& keyframeHolder : m_keyframeHolders.getElements()) {
+            if (keyframeHolder->getPart() == part) {
+                found = true;
+                m_keyframeHolders.setSelectedElement(keyframeHolder);
+                break;
+            }
+        }
+        if (!found) {
+            auto holder = std::make_shared<KeyframeHolder>(part, m_timer, m_maxTime, m_slider, m_animation);
+            m_keyframeHolders.addElement(holder);
+            m_keyframeHolders.setSelectedElement(holder);
+        }
+    }
+
     void Timeline::handleEvent(sf::Event event, const sf::RenderWindow &window)
     {
+        if (m_entity == nullptr)
+            return;
+
         for (auto& marker : m_markers)
             marker->handleEvent(event, window);
-        for (auto& keyframe : m_keyframes)
-            keyframe->handleEvent(event, window);
         m_slider.handleEvent(event, window);
+
+        m_keyframeHolders.handleEvent(event, window);
 
         if (m_slider.getState() == Slider::State::GRABBED && !m_playing)
             m_timer = m_slider.getProgress() * m_maxTime;
@@ -135,19 +169,6 @@ namespace bya::ui {
         }
 
         if (event.type == sf::Event::KeyPressed) {
-
-            if (event.key.code == sf::Keyboard::Add) {
-                addKeyframe(m_currentTime);
-            }
-            if (event.key.code == sf::Keyboard::Subtract) {
-                for (auto& keyframe : m_keyframes) {
-                    if (keyframe->isHovered()) {
-                        removeKeyframe(keyframe);
-                        break;
-                    }
-                }
-            }
-
             if (event.key.code == sf::Keyboard::Space) {
                 if (m_playing)
                     pause();
@@ -178,16 +199,18 @@ namespace bya::ui {
             }
             m_timer += dt;
             m_slider.setProgress(m_timer / m_maxTime);
+            m_animation.setTimer(m_timer);
+            m_animation.update();
         }
     }
 
     void Timeline::render(sf::RenderTarget &target)
     {
         m_slider.render(target);
+        m_keyframeHolders.setPosition({m_slider.getBounds().left, m_slider.getBounds().top + m_slider.getBounds().height + 10});
+        m_keyframeHolders.render(target);
         for (auto& marker : m_markers)
             marker->render(target);
-        for (auto& keyframe : m_keyframes)
-            keyframe->render(target);
         target.draw(m_currentTimeText);
     }
 
@@ -195,20 +218,28 @@ namespace bya::ui {
     {
         m_slider.setSize({size.x, size.y});
         updateMarkersPos();
-        updateKeyframesPos();
-    }
-
-    void Timeline::updateKeyframesPos()
-    {
-        for (auto& keyframe : m_keyframes)
-            keyframe->setPosition();
     }
 
     void Timeline::setPosition(const sf::Vector2f &pos)
     {
         m_slider.setPosition(pos);
         updateMarkersPos();
-        updateKeyframesPos();
+    }
+
+    void Timeline::clear()
+    {
+    }
+
+    void Timeline::play()
+    {
+        m_animation.play();
+        m_playing = true;
+    }
+
+    void Timeline::pause()
+    {
+        m_playing = false;
+        m_animation.pause();
     }
 
 }

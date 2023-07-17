@@ -120,7 +120,7 @@ namespace bya::gameObj
                 sf::Transform transform = sf::Transform::Identity;
                 transform.rotate(offset * m_orientedBox.getScale().x, m_position);
 
-                // rotate childs
+                // move childs
                 for (auto &[partName, part] : m_parts) {
                     sf::Vector2f pos = part->getPosition();
                     pos = transform.transformPoint(pos);
@@ -273,7 +273,6 @@ namespace bya::gameObj
             }
             sf::Vector2f m_pivotPoint = {0, 0};
             sf::Vector2f m_position = {0, 0};
-
             int m_zIndex = 0;
             float m_rotation = 0;
             float m_ownRotation = 0;

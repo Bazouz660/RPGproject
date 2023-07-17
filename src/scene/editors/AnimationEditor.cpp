@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-16 18:23:51
+ * @ Modified time: 2023-07-17 21:13:37
 */
 
 #include "AnimationEditor.hpp"
@@ -44,7 +44,8 @@ namespace bya {
 
             m_UIelements.add("Timeline", std::make_shared<ui::Timeline>());
             m_UIelements.get<ui::Timeline>("Timeline")->setPosition(sf::Vector2f(wSize.x * 0.5, wSize.y * 0.85));
-            m_UIelements.get<ui::Timeline>("Timeline")->setSize(sf::Vector2f(wSize.x * 0.4, 20));
+            m_UIelements.get<ui::Timeline>("Timeline")->setSize(sf::Vector2f(wSize.x * 0.4, 2));
+            m_UIelements.get<ui::Timeline>("Timeline")->setMaxTime(2);
 
             m_UIelements.add("RotationGrab", std::make_shared<ui::GrabBoxOrbital>());
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setSize(sf::Vector2f(70, 20));
@@ -230,6 +231,7 @@ namespace bya {
                     for (auto &part : m_entity->getSortedZParts()) {
                         scrollBox->addElement(std::make_shared<ui::Text>(part->getName(), 20));
                     }
+                    m_UIelements.get<ui::Timeline>("Timeline")->setEntity(m_entity);
                 } catch (std::exception &e) {
                     auto loadNotification = m_UIelements.get<ui::PushNotification>("LoadNotification");
                     loadNotification->pushMessage(e.what());
@@ -383,6 +385,10 @@ namespace bya {
                 m_selectedPart->setRotation(angle);
                 m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(angle));
             }
+
+            auto timeline = m_UIelements.get<ui::Timeline>("Timeline");
+            if (m_selectedPart != timeline->getSelectedPart())
+                timeline->setSelectedPart(m_selectedPart);
         }
 
         void AnimationEditor::render(sf::RenderTarget &target)
