@@ -2,12 +2,12 @@
  *  Author: Clément Thomas
  *  Create Time: 2023-07-09 20:21:17
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:22:14
+ *  Modified time: 2023-07-11 02:17:30
  *  Description:
  */
 
 #include "AScene.hpp"
-#include "MainMenuButton.hpp"
+#include "MenuButton.hpp"
 
 namespace bya
 {

@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-03 18:50:24
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 03:14:41
+ *  Modified time: 2023-07-11 17:59:29
  *  Description:
  */
 
@@ -13,7 +13,6 @@
 #include "TestScene.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
-#include "logger.hpp"
 #include "context.hpp"
 
 namespace bya {

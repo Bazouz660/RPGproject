@@ -10,10 +10,10 @@
 
 namespace bya::ui
 {
-    class MainMenuButton : public Button
+    class MenuButton : public Button
     {
         public:
-            MainMenuButton();
+            MenuButton();
             void setIdle() override;
             void setHovered() override;
             void setPressed() override;

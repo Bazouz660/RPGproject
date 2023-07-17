@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPG3
  *  Modified by: Clément Thomas
- *  Modified time: 2023-07-10 02:28:03
+ *  Modified time: 2023-07-11 02:42:12
 */
 
 #ifndef BUTTON_HPP_
@@ -18,7 +18,7 @@
     namespace bya::ui {
         class Button : public AUIelement, public gameObj::Box {
             public:
-                enum State { IDLE, HOVERED, PRESSED };
+                enum State { IDLE, HOVERED, PRESSED, DISABLED };
                 Button(const sf::Texture& texture = getResource().getTexture("default", "button"), const std::string& label = "");
 
                 virtual void setCallback(std::function<void(void)> func);
@@ -31,6 +31,7 @@
                 virtual void setIdle();
                 virtual void setHovered();
                 virtual void setPressed();
+                virtual void setDisabled();
 
                 virtual State getState() const { return m_state; }
 

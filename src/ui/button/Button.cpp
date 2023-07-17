@@ -56,11 +56,6 @@ namespace bya::ui
         m_label.setFillColor(sf::Color::White);
     }
 
-    void Button::activate()
-    {
-        m_callback();
-    }
-
     void Button::setPressed()
     {
         m_state = PRESSED;
@@ -69,8 +64,23 @@ namespace bya::ui
         m_label.setFillColor(sf::Color::White);
     }
 
+    void Button::setDisabled()
+    {
+        m_state = DISABLED;
+        setScale(m_scaling.getState(0));
+        setFillColor(sf::Color(85, 85, 85, 180));
+        m_label.setFillColor(sf::Color(50, 50, 50, 255));
+    }
+
+    void Button::activate()
+    {
+        m_callback();
+    }
+
     void Button::handleEvent(sf::Event event, const sf::RenderWindow &window)
     {
+        if (getState() == DISABLED)
+            return;
         if (isHovered()) {
             if (m_state == PRESSED && !isClicked()) {
                 m_callback();
