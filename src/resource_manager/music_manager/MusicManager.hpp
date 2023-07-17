@@ -36,6 +36,8 @@ namespace bya {
 
             void update(float dt);
 
+            bool isLoaded(const std::string& name);
+
         private:
             struct SwitchInfo {
                 std::string newTrackName;

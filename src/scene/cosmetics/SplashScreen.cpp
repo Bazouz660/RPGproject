@@ -1,8 +1,8 @@
 /*
  *  Author: Clément Thomas
  *  Create Time: 2023-07-07 01:08:15
- *  Modified by: Clément Thomas
- *  Modified time: 2023-07-18 00:11:04
+ *  Modified by: Basile Trebus--Hamann
+ *  Modified time: 2023-07-18 00:35:43
  *  Description:
  */
 
@@ -18,6 +18,7 @@ namespace bya
 {
     SplashScreen::SplashScreen()
     {
+        RESOURCE().loadResource<sf::Music>("asset/audio/music/Aleph.ogg");
         RESOURCE().loadResource<sf::Texture>("asset/texture/gui/splash_screen/splash.png");
         RESOURCE().loadResource<sf::Texture>("asset/texture/gui/splash_screen/loading.png");
     }

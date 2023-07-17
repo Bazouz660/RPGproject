@@ -11,6 +11,7 @@
 #include <filesystem>
 
 #include <thread>
+#include <mutex>
 
 #include "common.hpp"
 #include "MusicManager.hpp"
@@ -56,6 +57,7 @@ namespace bya {
             template<typename T>
             bool loadResource(const std::string& filePath)
             {
+                std::lock_guard<std::mutex> lock(m_loadMutex);
                 auto& map = getMap<T>();
                 std::filesystem::path path(filePath);
                 std::string fileName = parsing::removeExtension(path.filename().string());
@@ -65,6 +67,9 @@ namespace bya {
                 int status = 0;
                 std::shared_ptr<T> resource = std::make_shared<T>();
                 if constexpr (std::is_same_v<T, sf::Music>) {
+                    // check if the music is already loaded
+                    if (MusicManager::getInstance().isLoaded(fileName))
+                        return false;
                     status = resource->openFromFile(filePath);
                     resource->setVolume(MusicManager::getInstance().getMusicVolume());
                     MusicManager::getInstance().addTrack(fileName, resource.get());
@@ -146,6 +151,7 @@ namespace bya {
         private:
             bool m_loaded = false;
             std::thread m_loadingThread;
+            std::mutex m_loadMutex;
 
             ResourceMultimap<sf::Texture> m_textures;
             ResourceMultimap<sf::Font> m_fonts;

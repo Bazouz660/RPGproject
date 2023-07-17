@@ -14,6 +14,7 @@ namespace bya {
     MusicManager& MusicManager::getInstance()
     {
         static MusicManager instance;
+        instance.setMusicVolume(10.0f);
         return instance;
     }
 
@@ -178,6 +179,11 @@ namespace bya {
         }
 
         m_musicMap[name] = track;
+    }
+
+    bool MusicManager::isLoaded(const std::string& name)
+    {
+        return m_musicMap.find(name) != m_musicMap.end();
     }
 
 }
