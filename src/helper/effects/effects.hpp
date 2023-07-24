@@ -12,7 +12,7 @@
 namespace bya {
     namespace effects {
 
-        sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight)
+        static sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight)
         {
             float windowRatio = windowWidth / (float)windowHeight;
             float viewRatio = view.getSize().x / (float)view.getSize().y;

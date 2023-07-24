@@ -31,7 +31,7 @@ namespace bya
 
             virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override {}
 
-            virtual void renderUi(sf::RenderTarget &target)
+            virtual void renderUi(sf::RenderTarget &target) override final
             {
                 m_UIelements.render(target);
             }

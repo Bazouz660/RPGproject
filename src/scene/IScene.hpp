@@ -23,6 +23,7 @@
             virtual void updateUI(float dt) = 0;
             virtual void update(float dt) = 0;
             virtual void render(sf::RenderTarget& target) = 0;
+            virtual void renderUi(sf::RenderTarget &target) = 0;
     };
 
     }

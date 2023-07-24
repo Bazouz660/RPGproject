@@ -13,6 +13,7 @@
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
 #include "context.hpp"
+#include "effects.hpp"
 
 namespace bya {
     Engine::Engine()
@@ -66,18 +67,21 @@ namespace bya {
 
     void Engine::handleEvents()
     {
+        auto& window = m_renderer.getWindow();
+
         if (context::shouldClose()) {
             m_renderer.close();
             return;
         }
-        while (m_renderer.getWindow().pollEvent(m_event)) {
+        while (window.pollEvent(m_event)) {
             switch (m_event.type) {
                 case sf::Event::Closed:
                     m_renderer.close();
                     break;
                 case sf::Event::Resized:
-                    logger::debug("main loop window resized");
-                    logger::debug("main loop window size = x: " + std::to_string(m_renderer.getWindow().getSize().x) + ", y: " + std::to_string(m_renderer.getWindow().getSize().y));
+                    sf::View& staticView = m_renderer.getView();
+                    staticView = effects::getLetterboxView(window.getView(), m_event.size.width, m_event.size.height);
+                    window.setView(staticView);
                     break;
             }
             m_sceneManager.getCurrentScene()->handleUIEvent(m_event, m_renderer.getWindow());
@@ -92,6 +96,7 @@ namespace bya {
         window.clear();
         m_sceneManager.getCurrentScene()->render(window);
         window.setView(m_renderer.getView());
+        m_sceneManager.getCurrentScene()->renderUi(window);
         window.draw(m_fpsHint);
         window.display();
     }

@@ -9,6 +9,8 @@
 #include "context.hpp"
 #include "logger.hpp"
 #include "parsing.hpp"
+#include "effects.hpp"
+#include "math.hpp"
 
 namespace bya
 {
@@ -27,31 +29,17 @@ namespace bya
     {
         m_window.create(sf::VideoMode(size.x, size.y), title, style, settings);
         m_window.setPosition(sf::Vector2i(0, 0));
-        m_staticView = m_window.getDefaultView();
-
-        logger::debug("size = x: " + std::to_string(size.x) + ", y: " + std::to_string(size.y));
-        logger::debug("window size = x: " + std::to_string(m_window.getSize().x) + ", y: " + std::to_string(m_window.getSize().y));
 
         sf::Event event;
         while (m_window.pollEvent(event)) {
             if (event.type == sf::Event::Resized) {
-                logger::debug("window resized");
-                logger::debug("window size = x: " + std::to_string(m_window.getSize().x) + ", y: " + std::to_string(m_window.getSize().y));
-                m_window.setSize(sf::Vector2u(size.x, size.y));
-                m_staticView.setSize(size.x, size.y);
-                m_window.setView(m_staticView);
-                logger::debug("window size reset");
-                logger::debug("window size = x: " + std::to_string(m_window.getSize().x) + ", y: " + std::to_string(m_window.getSize().y));
+                m_window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
             }
         }
 
-        float titleBarHeight = size.y - m_window.getSize().y;
-        if (titleBarHeight > 0) {
-            logger::debug("title bar height = " + std::to_string(titleBarHeight));
-        }
-
+        m_staticView = m_window.getView();
         context::setStaticView(m_staticView);
-        context::setContext(m_window, size);
+        context::setContext(m_window, m_window.getSize());
     }
 
     void Renderer::close()

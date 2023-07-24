@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 21:59:50
+ * @ Modified time: 2023-07-25 00:38:18
 */
 
 #include "AnimationEditor.hpp"
@@ -57,7 +57,7 @@ namespace bya {
 
             m_UIelements.add("PartScrollBox", std::make_shared<ui::ScrollBox<ui::Text>>());
             auto scrollBox = m_UIelements.get<ui::ScrollBox<ui::Text>>("PartScrollBox");
-            scrollBox->setPosition(sf::Vector2f(wSize.x * 0.85f, wSize.y * 0.550f));
+            scrollBox->setPosition(sf::Vector2f(wSize.x * 0.85f, wSize.y * 0.610f));
             scrollBox->addElement(std::make_shared<ui::Text>("No part selected", 20));
 
             m_UIelements.disable("RotationGrab");
@@ -101,7 +101,7 @@ namespace bya {
                 pivotList->getText(0)->setMaxLength(4);
                 pivotList->getText(1)->setMaxLength(4);
 
-                float offset = 0.555f;
+                float offset = 0.615f;
                 m_UIelements.get<ui::EditableText>("PartName")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
                 m_UIelements.get<ui::EditableTextList>("PartPosition")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
                 m_UIelements.get<ui::EditableTextList>("PartSize")->setPosition({wSize.x * 0.85f, wSize.y * (offset += 0.05f)});
@@ -141,8 +141,6 @@ namespace bya {
             loadNotification->setMaxMessages(3);
             loadNotification->setFontSize(20);
 
-            logger::debug("wSize: " + parsing::Vec2Str(wSize));
-
             m_editorBackground.setSize(sf::Vector2f(wSize.x * 0.16, wSize.y));
             m_editorBackground.setOrigin(m_editorBackground.getSize() / 2.f);
             m_editorBackground.setPosition(wSize.x - m_editorBackground.getSize().x / 2.f, wSize.y / 2.f);
@@ -152,7 +150,7 @@ namespace bya {
 
             m_partInfoBackground.setSize(sf::Vector2f(wSize.x * 0.15, wSize.y * 0.33));
             m_partInfoBackground.setOrigin(m_partInfoBackground.getSize() / 2.f);
-            m_partInfoBackground.setPosition((wSize.x * 0.995) - m_partInfoBackground.getSize().x / 2.f, wSize.y * 0.76);
+            m_partInfoBackground.setPosition((wSize.x * 0.995) - m_partInfoBackground.getSize().x / 2.f, wSize.y * 0.82);
             m_partInfoBackground.setFillColor(sf::Color(50, 50, 50, 255));
             m_partInfoBackground.setOutlineColor(sf::Color::Black);
             m_partInfoBackground.setOutlineThickness(5);
@@ -400,7 +398,5 @@ namespace bya {
 
             if (m_entity)
                 m_entity->render(target, true);
-
-            AScene::renderUi(target);
         }
 }

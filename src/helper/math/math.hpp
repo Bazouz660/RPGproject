@@ -37,6 +37,34 @@ namespace bya {
 
         extern sf::FloatRect combineRects(const sf::FloatRect& r1, const sf::FloatRect& r2);
 
+        // Function to compute the greatest common divisor (GCD) using Euclidean algorithm
+        static int gcd(int a, int b) {
+            while (b != 0) {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        // Function to calculate the aspect ratio in X:Y format
+        static sf::Vector2i aspectRatio(int width, int height) {
+            // Ensure width and height are positive integers
+            if (width <= 0 || height <= 0) {
+                throw std::invalid_argument("Width and height must be greater than 0");
+            }
+
+            // Calculate the greatest common divisor (GCD) to simplify the ratio
+            int divisor = gcd(width, height);
+
+            // Calculate the simplified width and height
+            int simplifiedWidth = width / divisor;
+            int simplifiedHeight = height / divisor;
+
+            // Return the aspect ratio as a string in the format X:Y
+            return sf::Vector2i(simplifiedWidth, simplifiedHeight);
+        }
+
         template <typename T>
         sf::Vector2<T> rotate(sf::Vector2<T> v, float angle)
         {

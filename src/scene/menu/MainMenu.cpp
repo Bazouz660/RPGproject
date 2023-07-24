@@ -81,6 +81,5 @@ namespace bya
     {
         target.draw(m_background);
         target.draw(m_gameLogo);
-        AScene::renderUi(target);
     }
 }
