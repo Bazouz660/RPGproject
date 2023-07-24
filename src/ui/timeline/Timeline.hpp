@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 21:41:34
+ * @ Modified time: 2023-07-24 16:36:17
  *  Description:
  */
 
@@ -29,8 +29,6 @@ namespace bya::ui {
             Timeline();
             virtual ~Timeline() override = default;
 
-            virtual void update(float dt) override;
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
             virtual void render(sf::RenderTarget &target) override;
 
             virtual void setPosition(const sf::Vector2f &pos) override;
@@ -52,7 +50,7 @@ namespace bya::ui {
 
             virtual void clear();
 
-            virtual sf::FloatRect getBounds() const override { return m_slider.getBounds(); }
+            virtual sf::FloatRect getBounds() const override;
 
         private:
             std::string formatTime(float time) const;
@@ -63,16 +61,18 @@ namespace bya::ui {
         protected:
             Timeline(const Timeline& other) = delete;
             void operator=(const Timeline& other) = delete;
+            virtual void anyEventHandler(sf::Event& event);
+            virtual void updateHandler(float dt);
 
-            Slider m_slider;
-            Text m_currentTimeText;
+            std::shared_ptr<Slider> m_slider;
+            std::shared_ptr<Text> m_currentTimeText;
 
             std::shared_ptr<gameObj::IMultPartEntity> m_entity = nullptr;
             std::shared_ptr<gameObj::IMultPartEntity> m_selectedPart = nullptr;
 
             Animation::MultiPartAnimation m_animation;
 
-            ScrollBox<KeyframeHolder> m_keyframeHolders;
+            std::shared_ptr<ScrollBox<KeyframeHolder>> m_keyframeHolders;
 
             std::vector<std::shared_ptr<Button>> m_markers;
             unsigned int m_markerCount = 10;

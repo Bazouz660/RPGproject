@@ -14,7 +14,6 @@ namespace bya {
 
         static sf::RenderWindow *windowInstance = nullptr;
         static sf::View *staticView = nullptr;
-        static sf::Vector2u resolution;
         static bool shouldclose = false;
 
         sf::Vector2f getMousePosition()
@@ -27,13 +26,12 @@ namespace bya {
 
         sf::Vector2u getWindowSize()
         {
-            return context::resolution;
+            return context::windowInstance->getSize();
         }
 
         void setContext(const sf::RenderWindow &window, sf::Vector2u resolution)
         {
             context::windowInstance = const_cast<sf::RenderWindow *>(&window);
-            context::resolution = resolution;
         }
 
         bool shouldClose()

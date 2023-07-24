@@ -8,104 +8,108 @@
 
 #pragma once
 
-#include "IUIelement.hpp"
+#include "AUIelement.hpp"
+#include "math.hpp"
+
+// change this to inherit from AUIelement
 
 namespace bya::ui {
 
-    class UIelementContainer : public IUIelement {
+    class UIelementContainer {
         public:
             UIelementContainer() = default;
-            virtual ~UIelementContainer() override = default;
+            ~UIelementContainer() = default;
 
             template<typename T>
             std::shared_ptr<T> get(const std::string &id)
             {
                 exists(id);
-                return std::dynamic_pointer_cast<T>(m_elements.at(id).first);
+                return std::dynamic_pointer_cast<T>(m_elements.at(id).handle);
             }
 
-            virtual void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
+            void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
             {
                 m_elements[id] = {element, true};
             }
 
-            virtual void remove(const std::string &id)
+            void remove(const std::string &id)
             {
                 exists(id);
                 m_elements.erase(id);
             }
 
-            virtual void disable(const std::string &id)
+            void disable(const std::string &id)
             {
                 exists(id);
-                m_elements[id].second = false;
+                m_elements[id].enabled = false;
             }
 
-            virtual void enable(const std::string &id)
+            void enable(const std::string &id)
             {
                 exists(id);
-                m_elements[id].second = true;
+                m_elements[id].enabled = true;
             }
 
-            virtual void toggle(const std::string &id)
+            void toggle(const std::string &id)
             {
                 exists(id);
-                m_elements[id].second = !m_elements[id].second;
+                m_elements[id].enabled = !m_elements[id].enabled;
             }
 
-            virtual bool isEnabled(const std::string &id) const
+            bool isEnabled(const std::string &id) const
             {
                 exists(id);
-                return m_elements.at(id).second;
+                return m_elements.at(id).enabled;
             }
 
-            virtual void update(float dt) override
+            void handleEvent(sf::Event event, const sf::RenderWindow &window)
+            {
+                // check if mouse is hovering over an element, parse map in reverse order (because of z-index)
+                for (auto it = m_elements.rbegin(); it != m_elements.rend(); ++it) {
+                    auto &[key, elem] = *it;
+                    if (!elem.enabled)
+                        continue;
+                    if (elem.handle->getBounds().contains(context::getMousePosition())) {
+                        elem.handle->handleHoverInput(event, window);
+                        break;
+                    }
+                }
+
+                // check if keyboard input is being handled by an element, order doesn't matter
+                for (auto &[key, elem] : m_elements) {
+                    if (!elem.enabled)
+                        continue;
+                    elem.handle->handleInputAny(event, window);
+                }
+            }
+
+            void update(float dt)
             {
                 for (auto &[key, elem] : m_elements)
-                    if (elem.second)
-                        elem.first->update(dt);
+                    if (elem.enabled)
+                        elem.handle->update(dt);
             }
 
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override
+            sf::FloatRect getBounds() const
             {
-                for (auto &[key, elem] : m_elements)
-                    if (elem.second)
-                        elem.first->handleEvent(event, window);
-            }
-
-            virtual void setPosition(const sf::Vector2f &pos) override
-            {
-                for (auto &[key, elem] : m_elements)
-                    elem.first->setPosition(pos);
-            }
-
-            virtual sf::FloatRect getBounds() const
-            {
-                float left = 0;
-                float top = 0;
-                float width = 0;
-                float height = 0;
+                std::unique_ptr<sf::FloatRect> resBounds = nullptr;
 
                 for (auto &[key, elem] : m_elements)
                 {
-                    auto bounds = elem.first->getBounds();
-                    if (bounds.left < left)
-                        left = bounds.left;
-                    if (bounds.top < top)
-                        top = bounds.top;
-                    if (bounds.width > width)
-                        width = bounds.width;
-                    if (bounds.height > height)
-                        height = bounds.height;
+                    auto bounds = elem.handle->getBounds();
+                    if (resBounds == nullptr)
+                        resBounds = std::make_unique<sf::FloatRect>(bounds);
+                    else
+                        *resBounds = math::combineRects(*resBounds, bounds);
                 }
-                return sf::FloatRect(left, top, width, height);
+                return *resBounds;
             }
 
-            virtual void render(sf::RenderTarget &target)
+            void render(sf::RenderTarget &target)
             {
                 for (auto &[key, elem] : m_elements)
-                    if (elem.second)
-                        elem.first->render(target);
+                    if (elem.enabled)
+                        elem.handle->render(target);
             }
 
         protected:
@@ -116,7 +120,12 @@ namespace bya::ui {
             }
 
         protected:
-            std::map<std::string, std::pair<std::shared_ptr<ui::IUIelement>, bool>> m_elements;
+            struct Element {
+                std::shared_ptr<ui::IUIelement> handle;
+                bool enabled = true;
+            };
+
+            std::map<std::string, Element> m_elements;
 
     };
 

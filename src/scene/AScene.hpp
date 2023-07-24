@@ -22,8 +22,6 @@ namespace bya
             virtual void handleUIEvent(sf::Event &event, sf::RenderWindow &window) override final
             {
                 m_UIelements.handleEvent(event, window);
-                if (event.type == sf::Event::Resized)
-                    m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
             }
 
             virtual void updateUI(float dt) override final

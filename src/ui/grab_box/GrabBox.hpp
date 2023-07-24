@@ -19,13 +19,16 @@ namespace bya::ui {
             GrabBox() = default;
             ~GrabBox() = default;
 
-            void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
             virtual void render(sf::RenderTarget &target) override;
             virtual void setPosition(const sf::Vector2f &pos) override { OrientedBoundingBox::setPosition(pos); }
             virtual sf::FloatRect getBounds() const override { return OrientedBoundingBox::getBounds(); }
 
             virtual void setGrabbed(bool grabbed) { m_grabbed = grabbed; }
             virtual bool isGrabbed() const { return m_grabbed; }
+
+        protected:
+            virtual void anyEventHandler(sf::Event &event) override;
+            virtual void hoverEventHandler(sf::Event &event) override;
 
         protected:
             bool m_grabbed = false;

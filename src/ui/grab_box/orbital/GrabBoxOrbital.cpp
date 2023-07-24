@@ -20,7 +20,19 @@ namespace bya::ui {
         m_angle = math::toDeg(angle);
     }
 
-    void GrabBoxOrbital::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void GrabBoxOrbital::anyEventHandler(sf::Event& event)
+    {
+        if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && m_grabbed) {
+                m_grabbed = false;
+        } else if (event.type == sf::Event::MouseMoved) {
+            if (m_grabbed) {
+                float angle = math::toDeg(math::angle(m_center, context::getMousePosition()));
+                applyTransform(angle);
+            }
+        }
+    }
+
+    void GrabBoxOrbital::hoverEventHandler(sf::Event& event)
     {
         sf::Vector2f mousePos = context::getMousePosition();
 
@@ -28,13 +40,6 @@ namespace bya::ui {
             if (contains(mousePos)) {
                 m_diffToOrigin =  getPosition() - mousePos;
                 m_grabbed = true;
-            }
-        } else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && m_grabbed) {
-                m_grabbed = false;
-        } else if (event.type == sf::Event::MouseMoved) {
-            if (m_grabbed) {
-                float angle = math::toDeg(math::angle(m_center, mousePos));
-                applyTransform(angle);
             }
         }
     }

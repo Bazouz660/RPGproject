@@ -29,6 +29,33 @@ namespace bya::ui
         setIdle();
     }
 
+    void Button::anyEventHandler(sf::Event& event)
+    {
+        if (getState() == DISABLED)
+            return;
+        if (m_state != IDLE && (!isHovered() || !m_catchedMouseEvent))
+            setIdle();
+        m_catchedMouseEvent = false;
+    }
+
+    void Button::hoverEventHandler(sf::Event& event)
+    {
+        m_catchedMouseEvent = true;
+        if (getState() == DISABLED)
+            return;
+        if (isHovered()) {
+            if (m_state == PRESSED && !isClicked()) {
+                m_callback();
+                setIdle();
+            } else if (isClicked())
+                setPressed();
+            if (m_state == IDLE)
+                setHovered();
+        } else if (m_state != IDLE) {
+            setIdle();
+        }
+    }
+
     void Button::setLabel(const std::string &label)
     {
         m_label.setString(label);
@@ -75,23 +102,6 @@ namespace bya::ui
     void Button::activate()
     {
         m_callback();
-    }
-
-    void Button::handleEvent(sf::Event event, const sf::RenderWindow &window)
-    {
-        if (getState() == DISABLED)
-            return;
-        if (isHovered()) {
-            if (m_state == PRESSED && !isClicked()) {
-                m_callback();
-                setIdle();
-            } else if (isClicked())
-                setPressed();
-            if (m_state == IDLE)
-                setHovered();
-        } else if (m_state != IDLE) {
-            setIdle();
-        }
     }
 
     void Button::setPosition(const sf::Vector2f &pos)

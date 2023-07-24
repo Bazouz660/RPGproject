@@ -14,10 +14,6 @@ namespace bya::ui
     {
     }
 
-    void Text::handleEvent(sf::Event event, const sf::RenderWindow &window)
-    {
-    }
-
     void Text::setPosition(const sf::Vector2f &pos)
     {
         sf::Text::setPosition(pos);

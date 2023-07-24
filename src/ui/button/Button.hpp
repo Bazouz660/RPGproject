@@ -37,16 +37,19 @@
 
                 virtual void activate();
 
-                virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
-
                 virtual void setPosition(const sf::Vector2f& pos) override;
                 virtual sf::FloatRect getBounds() const override;
 
                 virtual void render(sf::RenderTarget& target) override;
 
             protected:
+                virtual void hoverEventHandler(sf::Event& event) override;
+                virtual void anyEventHandler(sf::Event& event) override;
+
+            protected:
                 sf::Text m_label;
                 bool m_drawBox = true;
+                bool m_catchedMouseEvent = false;
                 Animation::Scaling m_scaling;
                 State m_state = IDLE;
                 std::function<void(void)> m_callback = []() {};

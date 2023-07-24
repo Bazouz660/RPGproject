@@ -7,8 +7,8 @@
  */
 
 #include "SplashScreen.hpp"
-#include "AnimationEditor.hpp"
 #include "MainMenu.hpp"
+#include "AnimationEditor.hpp"
 #include "Engine.hpp"
 #include "ResourceManager.hpp"
 #include "Clock.hpp"
@@ -66,8 +66,7 @@ namespace bya {
 
     void Engine::handleEvents()
     {
-        if (context
-    ::shouldClose()) {
+        if (context::shouldClose()) {
             m_renderer.close();
             return;
         }
@@ -75,6 +74,10 @@ namespace bya {
             switch (m_event.type) {
                 case sf::Event::Closed:
                     m_renderer.close();
+                    break;
+                case sf::Event::Resized:
+                    logger::debug("main loop window resized");
+                    logger::debug("main loop window size = x: " + std::to_string(m_renderer.getWindow().getSize().x) + ", y: " + std::to_string(m_renderer.getWindow().getSize().y));
                     break;
             }
             m_sceneManager.getCurrentScene()->handleUIEvent(m_event, m_renderer.getWindow());

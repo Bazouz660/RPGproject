@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:40
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-10 00:29:52
+ * @ Modified time: 2023-07-23 17:38:40
  * @ Description:
  */
 
@@ -16,8 +16,6 @@ namespace bya::ui {
         public:
             PushNotification() = default;
 
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
-            virtual void update(float dt) override;
             virtual void setPosition(const sf::Vector2f &pos) override;
             virtual void render(sf::RenderTarget &target) override;
 
@@ -36,6 +34,9 @@ namespace bya::ui {
             virtual unsigned int getMaxMessages() const { return m_maxMessages; }
             virtual sf::Color getColor() const { return m_color; }
             virtual sf::FloatRect getBounds() const override { return sf::FloatRect(); }
+
+        protected:
+            virtual void updateHandler(float dt) override;
 
         protected:
             std::vector<std::shared_ptr<sf::Text>> m_messages;

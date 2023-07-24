@@ -14,24 +14,28 @@ namespace bya {
         #define PI 3.14159265358979323
         #define RD 0.01745329251994329
 
-        float dist(sf::Vector2f p1, sf::Vector2f p2);
-        float distSquared(sf::Vector2f p1, sf::Vector2f p2);
-        sf::FloatRect multRect(sf::FloatRect rect, sf::Vector2f n);
-        sf::Vector2f normalize(sf::Vector2f v);
-        float dot(sf::Vector2f v1, sf::Vector2f v2);
-        float cross(sf::Vector2f v1, sf::Vector2f v2);
-        float angle(sf::Vector2f v1, sf::Vector2f v2);
-        float length(sf::Vector2f v);
-        sf::Vector2f unit(sf::Vector2f v);
-        sf::Vector2f lerp(sf::Vector2f v1, sf::Vector2f v2, float t);
-        float lerp(float v1, float v2, float t);
-        float toDeg(float rad);
-        float toRad(float deg);
-        float invertAngle(float deg);
+        static const sf::FloatRect NULL_RECT = sf::FloatRect(std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity(), 0, 0);
 
-        float flip(float x);
-        float dumbPow(float x, uint32_t p);
-        float smoothStop(float t, uint32_t power);
+        extern float dist(sf::Vector2f p1, sf::Vector2f p2);
+        extern float distSquared(sf::Vector2f p1, sf::Vector2f p2);
+        extern sf::FloatRect multRect(sf::FloatRect rect, sf::Vector2f n);
+        extern sf::Vector2f normalize(sf::Vector2f v);
+        extern float dot(sf::Vector2f v1, sf::Vector2f v2);
+        extern float cross(sf::Vector2f v1, sf::Vector2f v2);
+        extern float angle(sf::Vector2f v1, sf::Vector2f v2);
+        extern float length(sf::Vector2f v);
+        extern sf::Vector2f unit(sf::Vector2f v);
+        extern sf::Vector2f lerp(sf::Vector2f v1, sf::Vector2f v2, float t);
+        extern float lerp(float v1, float v2, float t);
+        extern float toDeg(float rad);
+        extern float toRad(float deg);
+        extern float invertAngle(float deg);
+
+        extern float flip(float x);
+        extern float dumbPow(float x, uint32_t p);
+        extern float smoothStop(float t, uint32_t power);
+
+        extern sf::FloatRect combineRects(const sf::FloatRect& r1, const sf::FloatRect& r2);
 
         template <typename T>
         sf::Vector2<T> rotate(sf::Vector2<T> v, float angle)

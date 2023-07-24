@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 22:30:54
+ * @ Modified time: 2023-07-24 20:33:28
  * @ Description:
  */
 
@@ -22,23 +22,18 @@ namespace bya::ui {
     {
         m_keyframeMarkers.push_back(keyframeMarker);
         m_animation.addKeyframe(keyframeMarker->getKeyframe());
+        addChild(keyframeMarker);
     }
 
     void KeyframeHolder::removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker)
     {
         m_keyframeMarkers.erase(std::remove(m_keyframeMarkers.begin(), m_keyframeMarkers.end(), keyframeMarker), m_keyframeMarkers.end());
         m_animation.removeKeyframe(keyframeMarker->getKeyframe());
+        removeChild(keyframeMarker);
     }
 
-    void KeyframeHolder::update(float dt)
+    void KeyframeHolder::anyEventHandler(sf::Event& event)
     {
-    }
-
-    void KeyframeHolder::handleEvent(sf::Event event, const sf::RenderWindow &window)
-    {
-        for (auto& keyframeMarker : m_keyframeMarkers)
-            keyframeMarker->handleEvent(event, window);
-
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Delete) {
                 for (auto& keyframeMarker : m_keyframeMarkers) {

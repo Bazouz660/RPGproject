@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 22:01:35
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-14 01:52:01
+ * @ Modified time: 2023-07-23 17:39:22
  * @ Description:
  */
 
@@ -21,9 +21,6 @@ namespace bya::ui
             virtual ~EditableText() = default;
 
             void setString(const std::string& string);
-
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
-            virtual void update(float dt) override;
 
             virtual sf::FloatRect getBounds() const override;
 
@@ -52,6 +49,9 @@ namespace bya::ui
 
         protected:
             void validateInput();
+            virtual void hoverEventHandler(sf::Event& event) override;
+            virtual void anyEventHandler(sf::Event& event) override;
+            virtual void updateHandler(float dt) override;
 
         protected:
             bool m_isActive = false;

@@ -21,9 +21,6 @@ namespace bya::ui {
             void setLabel(const std::string& label);
             void reset();
 
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
-            virtual void update(float dt) override;
-
             virtual void setPosition(const sf::Vector2f& pos) override;
             virtual sf::FloatRect getBounds() const override;
             virtual std::string getInput() const { return m_input; }
@@ -38,6 +35,11 @@ namespace bya::ui {
 
         private:
             bool isInputContained() const;
+
+        protected:
+            virtual void anyEventHandler(sf::Event& event) override;
+            virtual void hoverEventHandler(sf::Event& event) override;
+            virtual void updateHandler(float dt) override;
 
         protected:
             std::shared_ptr<Button> m_applyButton;

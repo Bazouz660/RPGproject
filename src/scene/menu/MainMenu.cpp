@@ -25,7 +25,6 @@ namespace bya
     {
         MusicManager::getInstance().switchTrack("main_theme", 1.f, true, false);
 
-        m_background.setFillColor(sf::Color(15, 15, 15, 255));
         m_gameLogo.setTexture(RESOURCE().getTexture("main_menu", "logo"));
         m_gameLogo.setPosition(
                 (context::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
@@ -38,31 +37,31 @@ namespace bya
         m_UIelements.add("Quit", std::make_shared<ui::MenuButton>());
 
         auto continueButton = m_UIelements.get<ui::MenuButton>("Continue");
-        continueButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.7));
+        continueButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.6));
         continueButton->setLabel("Continue");
         continueButton->setDisabled();
 
         auto newGameButton = m_UIelements.get<ui::MenuButton>("NewGame");
-        newGameButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.74));
+        newGameButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.64));
         newGameButton->setLabel("New Game");
 
         auto extraButton = m_UIelements.get<ui::MenuButton>("Extra");
-        extraButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.78));
+        extraButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.68));
         extraButton->setLabel("Extra");
         extraButton->setCallback([](){
             SceneManager::getInstance().setCurrentScene("AnimationEditor");
         });
 
         auto settingsButton = m_UIelements.get<ui::MenuButton>("Settings");
-        settingsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.82));
+        settingsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.72));
         settingsButton->setLabel("Settings");
 
         auto creditsButton = m_UIelements.get<ui::MenuButton>("Credits");
-        creditsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.86));
+        creditsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.76));
         creditsButton->setLabel("Credits");
 
         auto quitButton = m_UIelements.get<ui::MenuButton>("Quit");
-        quitButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.9));
+        quitButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8));
         quitButton->setLabel("Quit");
         quitButton->setCallback([](){
             context::closeWindow();

@@ -28,27 +28,33 @@ namespace bya::ui {
         m_background.setOutlineColor(sf::Color(30, 30, 30, 255));
         m_background.setOutlineThickness(5);
 
-        m_inputBox = std::make_shared<Button>();
-        m_inputBox->getLabel().setCharacterSize(20);
-        m_inputBox->setSize(sf::Vector2f(300, 50));
-        m_inputBox->setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 100));
-        m_inputBox->setCallback([this]() {
-            if (m_inputBox->getLabel().getString() == "Enter text here...")
-                m_inputBox->setLabel("");
+        auto inputBoxButton = std::make_shared<Button>();
+        inputBoxButton->getLabel().setCharacterSize(20);
+        inputBoxButton->setSize(sf::Vector2f(300, 50));
+        inputBoxButton->setPosition(getPosition() + sf::Vector2f(0, -m_background.getGlobalBounds().height / 2 + 100));
+        inputBoxButton->setCallback([this, inputBoxButton]() {
+            if (inputBoxButton->getLabel().getString() == "Enter text here...")
+                inputBoxButton->setLabel("");
             this->setActive(true);
         });
+        addChild(inputBoxButton);
+        m_inputBox = inputBoxButton;
 
-        m_applyButton = std::make_shared<Button>();
-        m_applyButton->getLabel().setCharacterSize(20);
-        m_applyButton->setLabel("Apply");
-        m_applyButton->setSize(sf::Vector2f(100, 75));
-        m_applyButton->setPosition(getPosition() + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
+        auto applyButton = std::make_shared<Button>();
+        applyButton->getLabel().setCharacterSize(20);
+        applyButton->setLabel("Apply");
+        applyButton->setSize(sf::Vector2f(100, 75));
+        applyButton->setPosition(getPosition() + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
+        addChild(applyButton);
+        m_applyButton = applyButton;
 
-        m_cancelButton = std::make_shared<Button>();
-        m_cancelButton->getLabel().setCharacterSize(20);
-        m_cancelButton->setLabel("Cancel");
-        m_cancelButton->setSize(sf::Vector2f(100, 75));
-        m_cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
+        auto cancelButton = std::make_shared<Button>();
+        cancelButton->getLabel().setCharacterSize(20);
+        cancelButton->setLabel("Cancel");
+        cancelButton->setSize(sf::Vector2f(100, 75));
+        cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
+        addChild(cancelButton);
+        m_cancelButton = cancelButton;
     }
 
     void InputBox::setActive(bool active)
@@ -84,18 +90,8 @@ namespace bya::ui {
             || textBounds.left + textBounds.width + charSize > inputBounds.left + inputBounds.width);
     }
 
-    void InputBox::handleEvent(sf::Event event, const sf::RenderWindow& window)
+    void InputBox::anyEventHandler(sf::Event& event)
     {
-        m_inputBox->handleEvent(event, window);
-        m_applyButton->handleEvent(event, window);
-        m_cancelButton->handleEvent(event, window);
-
-        if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
-            && !m_inputBox->getBounds().contains(context::getMousePosition()))
-            || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
-            setActive(false);
-        }
-
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
             m_applyButton->activate();
         }
@@ -109,9 +105,15 @@ namespace bya::ui {
             }
             m_inputBox->setLabel(m_input);
         }
+    }
 
-        if (isActive()) {
-            m_inputBox->setHovered();
+    void InputBox::hoverEventHandler(sf::Event& event)
+    {
+
+        if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
+            && !m_inputBox->getBounds().contains(context::getMousePosition()))
+            || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
+            setActive(false);
         }
     }
 
@@ -129,7 +131,7 @@ namespace bya::ui {
         return m_background.getGlobalBounds();
     }
 
-    void InputBox::update(float dt)
+    void InputBox::updateHandler(float dt)
     {
         if (getTime().asSeconds() > m_cursorBlinkTimer + 0.75 && isActive()) {
             m_cursorBlinkTimer = getTime().asSeconds();
@@ -140,6 +142,10 @@ namespace bya::ui {
                 m_inputBox->setLabel("Enter text here...");
             else
                 m_inputBox->setLabel(m_input);
+        }
+
+        if (isActive()) {
+            m_inputBox->setHovered();
         }
     }
 

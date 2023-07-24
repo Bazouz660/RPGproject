@@ -2,12 +2,13 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 21:02:57
+ * @ Modified time: 2023-07-24 19:37:23
  * @ Description:
  */
 
 #include "ScrollBox.hpp"
 #include "context.hpp"
+#include "math.hpp"
 
 #ifndef SCROLLBOX_CPP
     #define SCROLLBOX_CPP
@@ -34,6 +35,8 @@ namespace bya::ui {
 
         m_indexText.setString("0/0");
         m_indexText.setCharacterSize(20);
+
+        addChild(m_selectedElement);
     }
 
     template<typename T>
@@ -45,6 +48,7 @@ namespace bya::ui {
             throw std::runtime_error("ScrollBox::setSelectedElement: element not found");
         }
         m_selectedElement = element;
+        m_children[0].handle = m_selectedElement;
     }
 
     template<typename T>
@@ -72,36 +76,26 @@ namespace bya::ui {
 
         if (m_selectedElement == nullptr) {
             m_selectedElement = element;
-        }
-    }
-
-
-    template<typename T>
-    void ScrollBox<T>::update(float dt)
-    {
-        if (m_selectedElement != nullptr) {
-            m_selectedElement->update(dt);
+            m_children[0].handle = m_selectedElement;
         }
     }
 
     template<typename T>
-    void ScrollBox<T>::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void ScrollBox<T>::hoverEventHandler(sf::Event& event)
     {
-        if (m_selectedElement != nullptr) {
-            m_selectedElement->handleEvent(event, window);
-        }
-
         if (m_background.getGlobalBounds().contains(context::getMousePosition())) {
             if (event.type == sf::Event::MouseWheelScrolled) {
                 int index = getSelectedIndex();
                 if (event.mouseWheelScroll.delta > 0) {
                     if (index > 0) {
                         m_selectedElement = m_elements[index - 1];
+                        m_children[0].handle = m_selectedElement;
                     }
                 }
                 else {
                     if (index < m_elements.size() - 1) {
                         m_selectedElement = m_elements[index + 1];
+                        m_children[0].handle = m_selectedElement;
                     }
                 }
             }
@@ -139,6 +133,18 @@ namespace bya::ui {
             target.draw(m_indexText);
 
             m_selectedElement->render(target);
+        }
+    }
+
+    template<typename T>
+    sf::FloatRect ScrollBox<T>::getBounds() const
+    {
+        if (m_selectedElement != nullptr) {
+            sf::FloatRect bounds = m_selectedElement->getBounds();
+            bounds.width += m_arrowDown.getGlobalBounds().width * 2 + m_indexText.getBounds().width;
+            return bounds;
+        } else {
+            return math::NULL_RECT;
         }
     }
 }

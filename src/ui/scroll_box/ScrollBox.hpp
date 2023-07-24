@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:43:40
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 18:53:16
+ * @ Modified time: 2023-07-24 18:52:09
  * @ Description:
  */
 
@@ -22,8 +22,6 @@ namespace bya::ui {
             ScrollBox();
             virtual ~ScrollBox() = default;
 
-            virtual void update(float dt) override;
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
             virtual void render(sf::RenderTarget &target) override;
             virtual void setPosition(const sf::Vector2f &pos) override;
 
@@ -37,12 +35,15 @@ namespace bya::ui {
 
             std::vector<std::shared_ptr<T>>& getElements() { return m_elements; }
 
-            sf::FloatRect getBounds() const { return m_background.getGlobalBounds(); }
+            sf::FloatRect getBounds() const;
 
         private:
             int getSelectedIndex() const;
             bool isFirstElementSelected() const { return m_selectedElement == m_elements.front(); }
             bool isLastElementSelected() const { return m_selectedElement == m_elements.back(); }
+
+        protected:
+            virtual void hoverEventHandler(sf::Event &event) override;
 
         private:
             sf::Vector2f m_position = {0.f, 0.f};

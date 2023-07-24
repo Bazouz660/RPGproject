@@ -17,7 +17,6 @@ namespace bya::ui {
             GrabBoxOrbital() = default;
             ~GrabBoxOrbital() = default;
 
-            void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
             virtual void setPosition(const sf::Vector2f &pos) override { OrientedBoundingBox::setPosition(pos); }
             virtual sf::FloatRect getBounds() const override { return OrientedBoundingBox::getBounds(); }
 
@@ -34,6 +33,10 @@ namespace bya::ui {
             virtual float getAngle() const { return m_angle; }
 
             virtual void applyTransform(float angle);
+
+        protected:
+            virtual void anyEventHandler(sf::Event &event) override;
+            virtual void hoverEventHandler(sf::Event &event) override;
 
         private:
             sf::Vector2f m_center = {0, 0};

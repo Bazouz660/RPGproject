@@ -11,7 +11,13 @@
 
 namespace bya::ui {
 
-    void GrabBox::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void GrabBox::anyEventHandler(sf::Event& event)
+    {
+        if (event.type == sf::Event::MouseMoved && m_grabbed)
+            setPosition(context::getMousePosition() + m_diffToOrigin);
+    }
+
+    void GrabBox::hoverEventHandler(sf::Event& event)
     {
         sf::Vector2f mousePos = context::getMousePosition();
 
@@ -22,9 +28,7 @@ namespace bya::ui {
             }
         } else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && m_grabbed) {
                 m_grabbed = false;
-        } else if (event.type == sf::Event::MouseMoved)
-            if (m_grabbed)
-                setPosition(mousePos + m_diffToOrigin);
+        }
     }
 
     void GrabBox::render(sf::RenderTarget &target)

@@ -53,18 +53,14 @@ namespace bya::ui
         return std::round(m_progress * 100) / 100;
     }
 
-    void Slider::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void Slider::anyEventHandler(sf::Event& event)
     {
         sf::Vector2f mousePos = context::getMousePosition();
 
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-            if (m_wagon.contains(mousePos)) {
-                m_diffToOrigin =  m_wagon.getPosition() - mousePos;
-                m_state = GRABBED;
-            }
-        } else if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
+        if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left) {
             m_state = IDLE;
         }
+
         if (event.type == sf::Event::MouseMoved && m_state == GRABBED) {
             m_wagon.setPosition(mousePos + m_diffToOrigin);
             lockWagonPositon();
@@ -72,6 +68,18 @@ namespace bya::ui
                 m_progress = (m_wagon.getPosition().x - m_internRail.getGlobalBounds().left) / m_internRail.getSize().x;
             } else if (m_orientation == VERTICAL) {
                 m_progress = (m_wagon.getPosition().y - m_internRail.getGlobalBounds().top) / m_internRail.getSize().y;
+            }
+        }
+    }
+
+    void Slider::hoverEventHandler(sf::Event& event)
+    {
+        sf::Vector2f mousePos = context::getMousePosition();
+
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+            if (m_wagon.contains(mousePos)) {
+                m_diffToOrigin =  m_wagon.getPosition() - mousePos;
+                m_state = GRABBED;
             }
         }
     }
@@ -130,7 +138,7 @@ namespace bya::ui
 
     sf::FloatRect Slider::getBounds() const
     {
-        return m_outerRail.getGlobalBounds();
+        return math::combineRects(m_outerRail.getGlobalBounds(), m_internRail.getGlobalBounds());
     }
 
     void Slider::render(sf::RenderTarget &target)

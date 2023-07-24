@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:46
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-14 01:51:20
+ * @ Modified time: 2023-07-23 17:38:47
  * @ Description:
  */
 
@@ -11,11 +11,7 @@
 
 namespace bya::ui {
 
-    void PushNotification::handleEvent(sf::Event event, const sf::RenderWindow &window)
-    {
-    }
-
-    void PushNotification::update(float dt)
+    void PushNotification::updateHandler(float dt)
     {
         m_messageTimer += dt;
         if (m_messageTimer >= m_messageDuration) {

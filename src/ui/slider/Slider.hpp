@@ -23,7 +23,6 @@
 
                 Slider(sf::Vector2f railSize = {300.f, 20.f}, sf::Vector2f wagonSize = {20.f, 20.f}, Orientation orientation = HORIZONTAL);
 
-                virtual void handleEvent(sf::Event event, const sf::RenderWindow& window) override;
                 virtual void setPosition(const sf::Vector2f& pos) override;
                 virtual sf::FloatRect getBounds() const override;
                 virtual void render(sf::RenderTarget& target) override;
@@ -45,6 +44,8 @@
 
             protected:
                 void lockWagonPositon();
+                virtual void hoverEventHandler(sf::Event& event) override;
+                virtual void anyEventHandler(sf::Event& event) override;
 
             protected:
                 float m_progress = 0.5f;

@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 22:30:24
+ * @ Modified time: 2023-07-24 19:06:19
  *  Description:
  */
 
@@ -10,6 +10,7 @@
 
 #include "logger.hpp"
 #include "parsing.hpp"
+#include "math.hpp"
 
 #include "KeyframeHolder.hpp"
 
@@ -17,26 +18,34 @@ namespace bya::ui {
 
     Timeline::Timeline()
     {
-        m_slider.setProgress(0);
-        m_slider.getWagon().setSize({10, 20});
-        m_slider.getWagon().setOrigin({5, 10});
-        auto& box = m_slider.getOuterRail();
+        m_slider = std::make_shared<Slider>();
+        m_slider->setProgress(0);
+        m_slider->getWagon().setSize({10, 20});
+        m_slider->getWagon().setOrigin({5, 10});
+        addChild(m_slider);
+
+        auto& box = m_slider->getOuterRail();
         box.setFillColor(sf::Color(52, 155, 235, 255));
         box.setOutlineColor(sf::Color::White);
         box.setOutlineThickness(2);
 
-        m_currentTimeText.setString(formatTime(m_currentTime));
-        m_currentTimeText.setOrigin(m_currentTimeText.getGlobalBounds().width / 2, m_currentTimeText.getGlobalBounds().height / 2);
-        m_currentTimeText.setCharacterSize(20);
-        m_currentTimeText.setOutlineColor(sf::Color::Black);
-        m_currentTimeText.setOutlineThickness(1);
+        m_keyframeHolders = std::make_shared<ScrollBox<KeyframeHolder>>();
+        addChild(m_keyframeHolders);
+
+        m_currentTimeText = std::make_shared<Text>();
+        m_currentTimeText->setString(formatTime(m_currentTime));
+        m_currentTimeText->setOrigin(m_currentTimeText->getGlobalBounds().width / 2, m_currentTimeText->getGlobalBounds().height / 2);
+        m_currentTimeText->setCharacterSize(20);
+        m_currentTimeText->setOutlineColor(sf::Color::Black);
+        m_currentTimeText->setOutlineThickness(1);
+        addChild(m_currentTimeText);
 
         addMarkers();
     }
 
     void Timeline::updateMarkersPos()
     {
-        sf::FloatRect bounds = m_slider.getBounds();
+        sf::FloatRect bounds = m_slider->getBounds();
 
         // distribute markers evenly
         float markerSpacing = bounds.width / m_markerCount;
@@ -49,7 +58,7 @@ namespace bya::ui {
     void Timeline::setMaxTime(float time)
     {
         m_maxTime = time;
-        m_slider.setProgress(0);
+        m_slider->setProgress(0);
 
         // update markers
         addMarkers();
@@ -74,16 +83,19 @@ namespace bya::ui {
 
     void Timeline::addMarkers()
     {
+        // remove old markers
+        for (auto& marker : m_markers)
+            removeChild(marker);
         m_markers.clear();
         for (int i = 0; i <= m_markerCount; i++)
             addMarker(i);
         updateMarkersPos();
         for (auto& marker : m_markers) {
             marker->setCallback([this, &marker]() {
-                sf::FloatRect bounds = m_slider.getBounds();
+                sf::FloatRect bounds = m_slider->getBounds();
                 float progress = (marker->getPosition().x - bounds.left) / bounds.width;
                 m_timer = progress * m_maxTime;
-                m_slider.setProgress(progress);
+                m_slider->setProgress(progress);
             });
         }
     }
@@ -97,6 +109,7 @@ namespace bya::ui {
         marker->setSize({label.getGlobalBounds().width, label.getGlobalBounds().height + 10});
         marker->drawBox(false);
         m_markers.push_back(marker);
+        addChild(marker);
     }
 
     void Timeline::setMarkerZoom(float zoom)
@@ -135,33 +148,27 @@ namespace bya::ui {
             return;
 
         bool found = false;
-        for (auto& keyframeHolder : m_keyframeHolders.getElements()) {
+        for (auto& keyframeHolder : m_keyframeHolders->getElements()) {
             if (keyframeHolder->getPart() == part) {
                 found = true;
-                m_keyframeHolders.setSelectedElement(keyframeHolder);
+                m_keyframeHolders->setSelectedElement(keyframeHolder);
                 break;
             }
         }
         if (!found) {
-            auto holder = std::make_shared<KeyframeHolder>(part, m_timer, m_maxTime, m_slider, m_animation);
-            m_keyframeHolders.addElement(holder);
-            m_keyframeHolders.setSelectedElement(holder);
+            auto holder = std::make_shared<KeyframeHolder>(part, m_timer, m_maxTime, *m_slider, m_animation);
+            m_keyframeHolders->addElement(holder);
+            m_keyframeHolders->setSelectedElement(holder);
         }
     }
 
-    void Timeline::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void Timeline::anyEventHandler(sf::Event& event)
     {
         if (m_entity == nullptr)
             return;
 
-        for (auto& marker : m_markers)
-            marker->handleEvent(event, window);
-        m_slider.handleEvent(event, window);
-
-        m_keyframeHolders.handleEvent(event, window);
-
-        if (m_slider.getState() == Slider::State::GRABBED && !m_playing)
-            m_timer = m_slider.getProgress() * m_maxTime;
+        if (m_slider->getState() == Slider::State::GRABBED && !m_playing)
+            m_timer = m_slider->getProgress() * m_maxTime;
 
         if (event.type == sf::Event::MouseWheelScrolled && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
             float zoom = event.mouseWheelScroll.delta * 0.1f;
@@ -176,29 +183,29 @@ namespace bya::ui {
                     play();
                     if (m_timer >= m_maxTime) {
                         m_timer = 0;
-                        m_slider.setProgress(0);
+                        m_slider->setProgress(0);
                     }
                 }
             }
         }
     }
 
-    void Timeline::update(float dt)
+    void Timeline::updateHandler(float dt)
     {
-        m_currentTime = m_slider.getProgress() * m_maxTime;
-        m_currentTimeText.setString(formatTime(m_currentTime));
-        m_currentTimeText.setOrigin(m_currentTimeText.getGlobalBounds().width / 2, m_currentTimeText.getGlobalBounds().height / 2);
+        m_currentTime = m_slider->getProgress() * m_maxTime;
+        m_currentTimeText->setString(formatTime(m_currentTime));
+        m_currentTimeText->setOrigin(m_currentTimeText->getGlobalBounds().width / 2, m_currentTimeText->getGlobalBounds().height / 2);
         // display time above slider wagon
-        sf::FloatRect wagonBounds = m_slider.getWagon().getBounds();
+        sf::FloatRect wagonBounds = m_slider->getWagon().getBounds();
         sf::Vector2f wagonPos = {wagonBounds.left + (wagonBounds.width / 2), wagonBounds.top + (wagonBounds.height / 2)};
-        m_currentTimeText.setPosition({wagonPos.x, wagonPos.y - wagonBounds.height - m_currentTimeText.getGlobalBounds().height});
+        m_currentTimeText->setPosition({wagonPos.x, wagonPos.y - wagonBounds.height - m_currentTimeText->getGlobalBounds().height});
 
         if (m_playing) {
             if (m_timer >= m_maxTime) {
                 m_playing = false;
             }
             m_timer += dt;
-            m_slider.setProgress(m_timer / m_maxTime);
+            m_slider->setProgress(m_timer / m_maxTime);
             m_animation.setTimer(m_timer);
             m_animation.update();
         }
@@ -206,23 +213,23 @@ namespace bya::ui {
 
     void Timeline::render(sf::RenderTarget &target)
     {
-        m_slider.render(target);
-        m_keyframeHolders.setPosition({m_slider.getBounds().left, m_slider.getBounds().top + m_slider.getBounds().height + 10});
-        m_keyframeHolders.render(target);
+        m_slider->render(target);
+        m_keyframeHolders->setPosition({m_slider->getBounds().left, m_slider->getBounds().top + m_slider->getBounds().height + 10});
+        m_keyframeHolders->render(target);
         for (auto& marker : m_markers)
             marker->render(target);
-        target.draw(m_currentTimeText);
+        m_currentTimeText->render(target);
     }
 
     void Timeline::setSize(const sf::Vector2f &size)
     {
-        m_slider.setSize({size.x, size.y});
+        m_slider->setSize({size.x, size.y});
         updateMarkersPos();
     }
 
     void Timeline::setPosition(const sf::Vector2f &pos)
     {
-        m_slider.setPosition(pos);
+        m_slider->setPosition(pos);
         updateMarkersPos();
     }
 
@@ -240,6 +247,22 @@ namespace bya::ui {
     {
         m_playing = false;
         m_animation.pause();
+    }
+
+    sf::FloatRect Timeline::getBounds() const
+    {
+        std::unique_ptr<sf::FloatRect> resBounds = nullptr;
+
+        for (auto &child : m_children)
+        {
+            auto bounds = child.handle->getBounds();
+            if (resBounds == nullptr)
+                resBounds = std::make_unique<sf::FloatRect>(bounds);
+            else
+                *resBounds = math::combineRects(*resBounds, bounds);
+        }
+
+        return *resBounds;
     }
 
 }

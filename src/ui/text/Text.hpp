@@ -20,8 +20,6 @@ namespace bya::ui
 
             virtual ~Text() = default;
 
-            virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
-
             virtual void setPosition(const sf::Vector2f &pos) override;
             virtual sf::FloatRect getBounds() const override;
 

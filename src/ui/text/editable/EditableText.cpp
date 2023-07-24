@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 22:02:43
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-09 01:58:36
+ * @ Modified time: 2023-07-23 17:42:25
  * @ Description:
  */
 
@@ -39,7 +39,7 @@ namespace bya::ui
         m_cursorPosition = m_input.size();
     }
 
-    void EditableText::update(float dt)
+    void EditableText::updateHandler(float dt)
     {
         if (!isActive())
             return;
@@ -73,15 +73,20 @@ namespace bya::ui
         return getGlobalBounds();
     }
 
-    void EditableText::handleEvent(sf::Event event, const sf::RenderWindow &window)
+    void EditableText::hoverEventHandler(sf::Event& event)
+    {
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
+            && getBounds().contains(context::getMousePosition()) && !isActive()) {
+            setActive(true);
+        }
+    }
+
+    void EditableText::anyEventHandler(sf::Event& event)
     {
         if ((event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
             && !getBounds().contains(context::getMousePosition()) && isActive())
             || event.type == sf::Event::TextEntered && event.text.unicode == 27) {
             setActive(false);
-        } else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left
-            && getBounds().contains(context::getMousePosition()) && !isActive()) {
-            setActive(true);
         }
 
         if (event.type == sf::Event::KeyPressed && isActive()) {

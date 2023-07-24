@@ -141,5 +141,15 @@ namespace bya {
         {
             return flip(dumbPow(flip(t), power));
         }
+
+        sf::FloatRect combineRects(const sf::FloatRect& r1, const sf::FloatRect& r2)
+        {
+            sf::FloatRect res;
+            res.left = std::min(r1.left, r2.left);
+            res.top = std::min(r1.top, r2.top);
+            res.width = std::max(r1.left + r1.width, r2.left + r2.width) - res.left;
+            res.height = std::max(r1.top + r1.height, r2.top + r2.height) - res.top;
+            return res;
+        }
     }
 }

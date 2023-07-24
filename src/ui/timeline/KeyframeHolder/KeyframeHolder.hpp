@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 20:41:54
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 21:58:52
+ * @ Modified time: 2023-07-24 18:57:36
  * @ Description:
  */
 
@@ -22,8 +22,6 @@ namespace bya::ui {
                 void addKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
                 void removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
 
-                virtual void update(float dt) override;
-                virtual void handleEvent(sf::Event event, const sf::RenderWindow &window) override;
                 virtual void render(sf::RenderTarget &target) override;
 
                 virtual void setPosition(const sf::Vector2f &pos) override;
@@ -33,6 +31,9 @@ namespace bya::ui {
                 std::shared_ptr<gameObj::IMultPartEntity> getPart() const { return m_part; }
 
                 sf::FloatRect getBounds() const { return m_background.getGlobalBounds(); }
+
+            protected:
+                virtual void anyEventHandler(sf::Event& event) override;
 
             private:
                 sf::RectangleShape m_background;

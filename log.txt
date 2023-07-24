@@ -1,0 +1,1983 @@
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:71,
+                 from /usr/include/c++/13.1.1/string:51,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:18,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/IUIelement.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/UIelementContainer.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/AScene.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/menu/MainMenu.hpp:9,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/menu/MainMenu.cpp:9:
+/usr/include/c++/13.1.1/bits/predefined_ops.h: In instantiation of ‘constexpr bool __gnu_cxx::__ops::_Iter_equals_val<_Value>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >; _Value = const std::shared_ptr<bya::ui::IUIelement>]’:
+/usr/include/c++/13.1.1/bits/stl_algobase.h:2145:13:   required from ‘constexpr _ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Predicate = __gnu_cxx::__ops::_Iter_equals_val<const shared_ptr<bya::ui::IUIelement> >]’
+/usr/include/c++/13.1.1/bits/stl_algo.h:846:30:   required from ‘constexpr _FIter std::remove(_FIter, _FIter, const _Tp&) [with _FIter = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Tp = shared_ptr<bya::ui::IUIelement>]’
+/home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:65:41:   required from here
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: error: no match for ‘operator==’ (operand types are ‘bya::ui::AUIelement::Element’ and ‘const std::shared_ptr<bya::ui::IUIelement>’)
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:48:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_IteratorL, _Container>&, const __normal_iterator<_IteratorR, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1178 |     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:43:
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const allocator<_CharT>&, const allocator<_T2>&)’ (reversed)
+  237 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::allocator<_CharT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+  534 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1678 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/basic_string.h:47,
+                 from /usr/include/c++/13.1.1/string:54:
+/usr/include/c++/13.1.1/string_view:615:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, __type_identity_t<basic_string_view<_CharT, _Traits> >)’ (reversed)
+  615 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:71,
+                 from /usr/include/c++/13.1.1/string:51,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:18,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/IUIelement.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/UIelementContainer.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/AScene.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/cosmetics/SplashScreen.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/cosmetics/SplashScreen.cpp:9:
+/usr/include/c++/13.1.1/bits/predefined_ops.h: In instantiation of ‘constexpr bool __gnu_cxx::__ops::_Iter_equals_val<_Value>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >; _Value = const std::shared_ptr<bya::ui::IUIelement>]’:
+/usr/include/c++/13.1.1/bits/stl_algobase.h:2145:13:   required from ‘constexpr _ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Predicate = __gnu_cxx::__ops::_Iter_equals_val<const shared_ptr<bya::ui::IUIelement> >]’
+/usr/include/c++/13.1.1/bits/stl_algo.h:846:30:   required from ‘constexpr _FIter std::remove(_FIter, _FIter, const _Tp&) [with _FIter = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Tp = shared_ptr<bya::ui::IUIelement>]’
+/home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:65:41:   required from here
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: error: no match for ‘operator==’ (operand types are ‘bya::ui::AUIelement::Element’ and ‘const std::shared_ptr<bya::ui::IUIelement>’)
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:48:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_IteratorL, _Container>&, const __normal_iterator<_IteratorR, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1178 |     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 3728 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:43:
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const allocator<_CharT>&, const allocator<_T2>&)’ (reversed)
+  237 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::allocator<_CharT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+  534 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/uses_allocator_args.h:38,
+                 from /usr/include/c++/13.1.1/bits/memory_resource.h:41,
+                 from /usr/include/c++/13.1.1/string:58:
+/usr/include/c++/13.1.1/tuple:1905:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const tuple<_UTypes ...>&, const tuple<_UTypes ...>&)’ (reversed)
+ 1905 |     operator==(const tuple<_TElements...>& __t,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::tuple<_UTypes ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1678 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/memory:78,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:20:
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note: candidate: ‘template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const unique_ptr<_Tp, _Dp>&, const unique_ptr<_Up, _Ep>&)’ (reversed)
+  829 |     operator==(const unique_ptr<_Tp, _Dp>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note: candidate: ‘template<class _Tp, class _Dp> bool std::operator==(const unique_ptr<_Tp, _Dp>&, nullptr_t)’ (reversed)
+  837 |     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/basic_string.h:47,
+                 from /usr/include/c++/13.1.1/string:54:
+/usr/include/c++/13.1.1/string_view:615:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, __type_identity_t<basic_string_view<_CharT, _Traits> >)’ (reversed)
+  615 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/shared_ptr.h:53,
+                 from /usr/include/c++/13.1.1/memory:80:
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note: candidate: ‘template<class _Tp1, class _Tp2, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp1, _Lp>&, const __shared_ptr<_Tp2, _Lp>&)’ (reversed)
+ 1793 |     operator==(const __shared_ptr<_Tp1, _Lp>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__shared_ptr<_Tp2, _Lp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note: candidate: ‘template<class _Tp, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp, _Lp>&, nullptr_t)’ (reversed)
+ 1799 |     operator==(const __shared_ptr<_Tp, _Lp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note: candidate: ‘template<class _Tp, class _Up> bool std::operator==(const shared_ptr<_Tp>&, const shared_ptr<_Tp>&)’ (reversed)
+  555 |     operator==(const shared_ptr<_Tp>& __a, const shared_ptr<_Up>& __b) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::shared_ptr<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 3728 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note: candidate: ‘template<class _Tp> bool std::operator==(const shared_ptr<_Tp>&, nullptr_t)’ (reversed)
+  561 |     operator==(const shared_ptr<_Tp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:43,
+                 from /usr/include/c++/13.1.1/bits/chrono_io.h:39,
+                 from /usr/include/c++/13.1.1/chrono:3330,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:23:
+/usr/include/c++/13.1.1/optional:1282:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator==(const optional<_Tp>&, nullopt_t)’ (reversed)
+ 1282 |     operator==(const optional<_Tp>& __lhs, nullopt_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/uses_allocator_args.h:38,
+                 from /usr/include/c++/13.1.1/bits/memory_resource.h:41,
+                 from /usr/include/c++/13.1.1/string:58:
+/usr/include/c++/13.1.1/tuple:1905:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const tuple<_UTypes ...>&, const tuple<_UTypes ...>&)’ (reversed)
+ 1905 |     operator==(const tuple<_TElements...>& __t,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/13.1.1/functional:59,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:12:
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note: candidate: ‘template<class _Res, class ... _Args> bool std::operator==(const function<_Res(_ArgTypes ...)>&, nullptr_t)’ (reversed)
+  737 |     operator==(const function<_Res(_Args...)>& __f, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::tuple<_UTypes ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::function<_Res(_ArgTypes ...)>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/ios_base.h:46,
+                 from /usr/include/c++/13.1.1/ios:44,
+                 from /usr/include/c++/13.1.1/ostream:40,
+                 from /usr/include/c++/13.1.1/iostream:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:19:
+/usr/include/c++/13.1.1/system_error:465:3: note: candidate: ‘bool std::operator==(const error_code&, const error_condition&)’ (reversed)
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:32: note:   no known conversion for argument 1 from ‘const std::shared_ptr<bya::ui::IUIelement>’ to ‘const std::error_code&’
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+In file included from /usr/include/c++/13.1.1/memory:78,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:20:
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note: candidate: ‘template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const unique_ptr<_Tp, _Dp>&, const unique_ptr<_Up, _Ep>&)’ (reversed)
+  829 |     operator==(const unique_ptr<_Tp, _Dp>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note: candidate: ‘template<class _Iterator, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_Iterator, _Container>&, const __normal_iterator<_Iterator, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1197 |     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note: candidate: ‘template<class _Tp, class _Dp> bool std::operator==(const unique_ptr<_Tp, _Dp>&, nullptr_t)’ (reversed)
+  837 |     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/char_traits.h:42,
+                 from /usr/include/c++/13.1.1/string:42:
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note: candidate: ‘template<class _StateT> bool std::operator==(const fpos<_StateT>&, const fpos<_StateT>&)’
+  192 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::fpos<_StateT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorL>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  593 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorL>&)’
+ 1748 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/shared_ptr.h:53,
+                 from /usr/include/c++/13.1.1/memory:80:
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note: candidate: ‘template<class _Tp1, class _Tp2, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp1, _Lp>&, const __shared_ptr<_Tp2, _Lp>&)’ (reversed)
+ 1793 |     operator==(const __shared_ptr<_Tp1, _Lp>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__shared_ptr<_Tp2, _Lp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:64:
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const pair<_T1, _T2>&, const pair<_T1, _T2>&)’
+  812 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note: candidate: ‘template<class _Tp, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp, _Lp>&, nullptr_t)’ (reversed)
+ 1799 |     operator==(const __shared_ptr<_Tp, _Lp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::pair<_T1, _T2>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, basic_string_view<_CharT, _Traits>)’
+  608 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const __cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 3711 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note: candidate: ‘template<class _Tp, class _Up> bool std::operator==(const shared_ptr<_Tp>&, const shared_ptr<_Tp>&)’ (reversed)
+  555 |     operator==(const shared_ptr<_Tp>& __a, const shared_ptr<_Up>& __b) noexcept
+      |     ^~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/locale_facets.h:48,
+                 from /usr/include/c++/13.1.1/bits/basic_ios.h:37,
+                 from /usr/include/c++/13.1.1/ios:46:
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const istreambuf_iterator<_CharT, _Traits>&, const istreambuf_iterator<_CharT, _Traits>&)’
+  234 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::shared_ptr<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note: candidate: ‘template<class _Tp> bool std::operator==(const shared_ptr<_Tp>&, nullptr_t)’ (reversed)
+  561 |     operator==(const shared_ptr<_Tp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/unordered_map:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:22:
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2143 |     operator==(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:43,
+                 from /usr/include/c++/13.1.1/bits/chrono_io.h:39,
+                 from /usr/include/c++/13.1.1/chrono:3330,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:23:
+/usr/include/c++/13.1.1/optional:1282:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator==(const optional<_Tp>&, nullopt_t)’ (reversed)
+ 1282 |     operator==(const optional<_Tp>& __lhs, nullopt_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2157 |     operator==(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/functional:59,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:12:
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note: candidate: ‘template<class _Res, class ... _Args> bool std::operator==(const function<_Res(_ArgTypes ...)>&, nullptr_t)’ (reversed)
+  737 |     operator==(const function<_Res(_Args...)>& __f, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::function<_Res(_ArgTypes ...)>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/vector:66,
+                 from /usr/include/c++/13.1.1/chrono:47:
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note: candidate: ‘template<class _Tp, class _Alloc> constexpr bool std::operator==(const vector<_Tp, _Alloc>&, const vector<_Tp, _Alloc>&)’
+ 2037 |     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/13.1.1/bits/ios_base.h:46,
+                 from /usr/include/c++/13.1.1/ios:44,
+                 from /usr/include/c++/13.1.1/ostream:40,
+                 from /usr/include/c++/13.1.1/iostream:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:19:
+/usr/include/c++/13.1.1/system_error:465:3: note: candidate: ‘bool std::operator==(const error_code&, const error_condition&)’ (reversed)
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:32: note:   no known conversion for argument 1 from ‘const std::shared_ptr<bya::ui::IUIelement>’ to ‘const std::error_code&’
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+In file included from /usr/include/c++/13.1.1/format:38:
+/usr/include/c++/13.1.1/array:297:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr bool std::operator==(const array<_Tp, _Nm>&, const array<_Tp, _Nm>&)’
+  297 |     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note: candidate: ‘template<class _Iterator, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_Iterator, _Container>&, const __normal_iterator<_Iterator, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1197 |     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::array<_Tp, _Nm>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const optional<_Up>&)’
+ 1222 |     operator==(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const _Up&)’
+ 1350 |     operator==(const optional<_Tp>& __lhs, const _Up& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/char_traits.h:42,
+                 from /usr/include/c++/13.1.1/string:42:
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note: candidate: ‘template<class _StateT> bool std::operator==(const fpos<_StateT>&, const fpos<_StateT>&)’
+  192 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Up, _Tp> std::operator==(const _Up&, const optional<_Tp>&)’
+ 1356 |     operator==(const _Up& __lhs, const optional<_Tp>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/optional:1356:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::fpos<_StateT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorL>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  593 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:47:
+/usr/include/c++/13.1.1/variant:1242:3: note: candidate: ‘template<class ... _Types> constexpr bool std::operator==(const variant<_Types ...>&, const variant<_Types ...>&)’
+ 1242 |   _VARIANT_RELATION_FUNCTION_TEMPLATE(==, equal)
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::variant<_Types ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorL>&)’
+ 1748 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:63,
+                 from /usr/include/SFML/Graphics/Font.hpp:35,
+                 from /usr/include/SFML/Graphics.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:27:
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const map<_Key, _Tp, _Compare, _Allocator>&, const map<_Key, _Tp, _Compare, _Allocator>&)’
+ 1513 |     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:64:
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const pair<_T1, _T2>&, const pair<_T1, _T2>&)’
+  812 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::pair<_T1, _T2>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, basic_string_view<_CharT, _Traits>)’
+  608 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note:   template argument deduction/substitution failed:
+In file included from /usr/include/c++/13.1.1/map:64:
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const multimap<_Key, _Tp, _Compare, _Allocator>&, const multimap<_Key, _Tp, _Compare, _Allocator>&)’
+ 1134 |     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const __cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 3711 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:63,
+                 from /usr/include/SFML/Audio/SoundBuffer.hpp:36,
+                 from /usr/include/SFML/Audio.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:30:
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const set<_Key, _Compare, _Allocator>&, const set<_Key, _Compare, _Allocator>&)’
+  987 |     operator==(const set<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/locale_facets.h:48,
+                 from /usr/include/c++/13.1.1/bits/basic_ios.h:37,
+                 from /usr/include/c++/13.1.1/ios:46:
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const istreambuf_iterator<_CharT, _Traits>&, const istreambuf_iterator<_CharT, _Traits>&)’
+  234 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:64:
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const multiset<_Key, _Compare, _Allocator>&, const multiset<_Key, _Compare, _Allocator>&)’
+  973 |     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:3: note: candidate: ‘bool std::operator==(const error_code&, const error_code&)’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:32: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_code&’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/system_error:480:3: note: candidate: ‘bool std::operator==(const error_condition&, const error_condition&)’
+  480 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:480:37: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_condition&’
+  480 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/variant:1249:18: note: candidate: ‘constexpr bool std::operator==(monostate, monostate)’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                  ^~~~~~~~
+/usr/include/c++/13.1.1/variant:1249:29: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::monostate’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                             ^~~~~~~~~
+In file included from /usr/include/c++/13.1.1/stop_token:37,
+                 from /usr/include/c++/13.1.1/thread:42,
+                 from /home/basile/Projects/Perso/RPGproject/src/resource_manager/ResourceManager.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/button/Button.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/button/MenuButton.hpp:9,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/menu/MainMenu.hpp:10:
+/usr/include/c++/13.1.1/bits/std_thread.h:324:3: note: candidate: ‘bool std::operator==(thread::id, thread::id)’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:25: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::thread::id’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |              ~~~~~~~~~~~^~~
+In file included from /usr/include/c++/13.1.1/unordered_map:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:22:
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2143 |     operator==(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2157 |     operator==(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/vector:66,
+                 from /usr/include/c++/13.1.1/chrono:47:
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note: candidate: ‘template<class _Tp, class _Alloc> constexpr bool std::operator==(const vector<_Tp, _Alloc>&, const vector<_Tp, _Alloc>&)’
+ 2037 |     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:38:
+/usr/include/c++/13.1.1/array:297:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr bool std::operator==(const array<_Tp, _Nm>&, const array<_Tp, _Nm>&)’
+  297 |     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::array<_Tp, _Nm>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const optional<_Up>&)’
+ 1222 |     operator==(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const _Up&)’
+ 1350 |     operator==(const optional<_Tp>& __lhs, const _Up& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Up, _Tp> std::operator==(const _Up&, const optional<_Tp>&)’
+ 1356 |     operator==(const _Up& __lhs, const optional<_Tp>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:47:
+/usr/include/c++/13.1.1/variant:1242:3: note: candidate: ‘template<class ... _Types> constexpr bool std::operator==(const variant<_Types ...>&, const variant<_Types ...>&)’
+ 1242 |   _VARIANT_RELATION_FUNCTION_TEMPLATE(==, equal)
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::variant<_Types ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:63,
+                 from /usr/include/SFML/Graphics/Font.hpp:35,
+                 from /usr/include/SFML/Graphics.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:27:
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const map<_Key, _Tp, _Compare, _Allocator>&, const map<_Key, _Tp, _Compare, _Allocator>&)’
+ 1513 |     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:64:
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const multimap<_Key, _Tp, _Compare, _Allocator>&, const multimap<_Key, _Tp, _Compare, _Allocator>&)’
+ 1134 |     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:63,
+                 from /usr/include/SFML/Audio/SoundBuffer.hpp:36,
+                 from /usr/include/SFML/Audio.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:30:
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const set<_Key, _Compare, _Allocator>&, const set<_Key, _Compare, _Allocator>&)’
+  987 |     operator==(const set<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:64:
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const multiset<_Key, _Compare, _Allocator>&, const multiset<_Key, _Compare, _Allocator>&)’
+  973 |     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:3: note: candidate: ‘bool std::operator==(const error_code&, const error_code&)’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:32: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_code&’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/system_error:480:3: note: candidate: ‘bool std::operator==(const error_condition&, const error_condition&)’
+  480 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:480:37: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_condition&’
+  480 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/variant:1249:18: note: candidate: ‘constexpr bool std::operator==(monostate, monostate)’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                  ^~~~~~~~
+/usr/include/c++/13.1.1/variant:1249:29: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::monostate’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                             ^~~~~~~~~
+In file included from /usr/include/c++/13.1.1/stop_token:37,
+                 from /usr/include/c++/13.1.1/thread:42,
+                 from /home/basile/Projects/Perso/RPGproject/src/resource_manager/ResourceManager.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/cosmetics/SplashScreen.cpp:11:
+/usr/include/c++/13.1.1/bits/std_thread.h:324:3: note: candidate: ‘bool std::operator==(thread::id, thread::id)’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:25: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::thread::id’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |              ~~~~~~~~~~~^~~
+In file included from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.cpp:15:
+/home/basile/Projects/Perso/RPGproject/src/ui/text/editable/EditableTextList.hpp: In member function ‘void bya::ui::EditableTextList::addText(std::shared_ptr<bya::ui::EditableText>)’:
+/home/basile/Projects/Perso/RPGproject/src/ui/text/editable/EditableTextList.hpp:29:84: error: no matching function for call to ‘std::vector<bya::ui::AUIelement::Element>::push_back(std::shared_ptr<bya::ui::EditableText>&)’
+   29 |             void addText(std::shared_ptr<EditableText> text) { m_children.push_back(text); }
+      |                                                                ~~~~~~~~~~~~~~~~~~~~^~~~~~
+In file included from /usr/include/c++/13.1.1/vector:66,
+                 from /usr/include/c++/13.1.1/chrono:47,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:23,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/IUIelement.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/UIelementContainer.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/AScene.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.cpp:8:
+/usr/include/c++/13.1.1/bits/stl_vector.h:1278:7: note: candidate: ‘constexpr void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = bya::ui::AUIelement::Element; _Alloc = std::allocator<bya::ui::AUIelement::Element>; value_type = bya::ui::AUIelement::Element]’
+ 1278 |       push_back(const value_type& __x)
+      |       ^~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1278:35: note:   no known conversion for argument 1 from ‘std::shared_ptr<bya::ui::EditableText>’ to ‘const std::vector<bya::ui::AUIelement::Element>::value_type&’ {aka ‘const bya::ui::AUIelement::Element&’}
+ 1278 |       push_back(const value_type& __x)
+      |                 ~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1295:7: note: candidate: ‘constexpr void std::vector<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = bya::ui::AUIelement::Element; _Alloc = std::allocator<bya::ui::AUIelement::Element>; value_type = bya::ui::AUIelement::Element]’
+ 1295 |       push_back(value_type&& __x)
+      |       ^~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1295:30: note:   no known conversion for argument 1 from ‘std::shared_ptr<bya::ui::EditableText>’ to ‘std::vector<bya::ui::AUIelement::Element>::value_type&&’ {aka ‘bya::ui::AUIelement::Element&&’}
+ 1295 |       push_back(value_type&& __x)
+      |                 ~~~~~~~~~~~~~^~~
+/home/basile/Projects/Perso/RPGproject/src/ui/text/editable/EditableTextList.hpp: In member function ‘bya::ui::EditableText* bya::ui::EditableTextList::getText(unsigned int)’:
+/home/basile/Projects/Perso/RPGproject/src/ui/text/editable/EditableTextList.hpp:32:141: error: ‘__gnu_cxx::__alloc_traits<std::allocator<bya::ui::AUIelement::Element>, bya::ui::AUIelement::Element>::value_type’ {aka ‘struct bya::ui::AUIelement::Element’} has no member named ‘get’
+   32 |             EditableText* getText(unsigned int index) { if (index < m_children.size()) return dynamic_cast<EditableText*>(m_children[index].get()); return nullptr; }
+      |                                                                                                                                             ^~~
+make[2]: *** [CMakeFiles/RPG.dir/build.make:496: CMakeFiles/RPG.dir/src/scene/menu/MainMenu.cpp.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[2]: *** [CMakeFiles/RPG.dir/build.make:454: CMakeFiles/RPG.dir/src/scene/cosmetics/SplashScreen.cpp.o] Error 1
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:71,
+                 from /usr/include/c++/13.1.1/string:51,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:18,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/IUIelement.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/UIelementContainer.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/AScene.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/cosmetics/SplashScreen.hpp:11,
+                 from /home/basile/Projects/Perso/RPGproject/src/engine/Engine.cpp:9:
+/usr/include/c++/13.1.1/bits/predefined_ops.h: In instantiation of ‘constexpr bool __gnu_cxx::__ops::_Iter_equals_val<_Value>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >; _Value = const std::shared_ptr<bya::ui::IUIelement>]’:
+/usr/include/c++/13.1.1/bits/stl_algobase.h:2145:13:   required from ‘constexpr _ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Predicate = __gnu_cxx::__ops::_Iter_equals_val<const shared_ptr<bya::ui::IUIelement> >]’
+/usr/include/c++/13.1.1/bits/stl_algo.h:846:30:   required from ‘constexpr _FIter std::remove(_FIter, _FIter, const _Tp&) [with _FIter = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Tp = shared_ptr<bya::ui::IUIelement>]’
+/home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:65:41:   required from here
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: error: no match for ‘operator==’ (operand types are ‘bya::ui::AUIelement::Element’ and ‘const std::shared_ptr<bya::ui::IUIelement>’)
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:48:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_IteratorL, _Container>&, const __normal_iterator<_IteratorR, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1178 |     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:43:
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const allocator<_CharT>&, const allocator<_T2>&)’ (reversed)
+  237 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::allocator<_CharT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+  534 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1678 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/basic_string.h:47,
+                 from /usr/include/c++/13.1.1/string:54:
+/usr/include/c++/13.1.1/string_view:615:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, __type_identity_t<basic_string_view<_CharT, _Traits> >)’ (reversed)
+  615 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 3728 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/uses_allocator_args.h:38,
+                 from /usr/include/c++/13.1.1/bits/memory_resource.h:41,
+                 from /usr/include/c++/13.1.1/string:58:
+/usr/include/c++/13.1.1/tuple:1905:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const tuple<_UTypes ...>&, const tuple<_UTypes ...>&)’ (reversed)
+ 1905 |     operator==(const tuple<_TElements...>& __t,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::tuple<_UTypes ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/memory:78,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:20:
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note: candidate: ‘template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const unique_ptr<_Tp, _Dp>&, const unique_ptr<_Up, _Ep>&)’ (reversed)
+  829 |     operator==(const unique_ptr<_Tp, _Dp>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note: candidate: ‘template<class _Tp, class _Dp> bool std::operator==(const unique_ptr<_Tp, _Dp>&, nullptr_t)’ (reversed)
+  837 |     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/shared_ptr.h:53,
+                 from /usr/include/c++/13.1.1/memory:80:
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note: candidate: ‘template<class _Tp1, class _Tp2, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp1, _Lp>&, const __shared_ptr<_Tp2, _Lp>&)’ (reversed)
+ 1793 |     operator==(const __shared_ptr<_Tp1, _Lp>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__shared_ptr<_Tp2, _Lp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note: candidate: ‘template<class _Tp, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp, _Lp>&, nullptr_t)’ (reversed)
+ 1799 |     operator==(const __shared_ptr<_Tp, _Lp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note: candidate: ‘template<class _Tp, class _Up> bool std::operator==(const shared_ptr<_Tp>&, const shared_ptr<_Tp>&)’ (reversed)
+  555 |     operator==(const shared_ptr<_Tp>& __a, const shared_ptr<_Up>& __b) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::shared_ptr<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note: candidate: ‘template<class _Tp> bool std::operator==(const shared_ptr<_Tp>&, nullptr_t)’ (reversed)
+  561 |     operator==(const shared_ptr<_Tp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:43,
+                 from /usr/include/c++/13.1.1/bits/chrono_io.h:39,
+                 from /usr/include/c++/13.1.1/chrono:3330,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:23:
+/usr/include/c++/13.1.1/optional:1282:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator==(const optional<_Tp>&, nullopt_t)’ (reversed)
+ 1282 |     operator==(const optional<_Tp>& __lhs, nullopt_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/functional:59,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:12:
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note: candidate: ‘template<class _Res, class ... _Args> bool std::operator==(const function<_Res(_ArgTypes ...)>&, nullptr_t)’ (reversed)
+  737 |     operator==(const function<_Res(_Args...)>& __f, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::function<_Res(_ArgTypes ...)>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/ios_base.h:46,
+                 from /usr/include/c++/13.1.1/ios:44,
+                 from /usr/include/c++/13.1.1/ostream:40,
+                 from /usr/include/c++/13.1.1/iostream:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:19:
+/usr/include/c++/13.1.1/system_error:465:3: note: candidate: ‘bool std::operator==(const error_code&, const error_condition&)’ (reversed)
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:32: note:   no known conversion for argument 1 from ‘const std::shared_ptr<bya::ui::IUIelement>’ to ‘const std::error_code&’
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note: candidate: ‘template<class _Iterator, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_Iterator, _Container>&, const __normal_iterator<_Iterator, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1197 |     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/char_traits.h:42,
+                 from /usr/include/c++/13.1.1/string:42:
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note: candidate: ‘template<class _StateT> bool std::operator==(const fpos<_StateT>&, const fpos<_StateT>&)’
+  192 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::fpos<_StateT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorL>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  593 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorL>&)’
+ 1748 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:64:
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const pair<_T1, _T2>&, const pair<_T1, _T2>&)’
+  812 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::pair<_T1, _T2>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, basic_string_view<_CharT, _Traits>)’
+  608 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const __cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 3711 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/locale_facets.h:48,
+                 from /usr/include/c++/13.1.1/bits/basic_ios.h:37,
+                 from /usr/include/c++/13.1.1/ios:46:
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const istreambuf_iterator<_CharT, _Traits>&, const istreambuf_iterator<_CharT, _Traits>&)’
+  234 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/unordered_map:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:22:
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2143 |     operator==(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2157 |     operator==(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/vector:66,
+                 from /usr/include/c++/13.1.1/chrono:47:
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note: candidate: ‘template<class _Tp, class _Alloc> constexpr bool std::operator==(const vector<_Tp, _Alloc>&, const vector<_Tp, _Alloc>&)’
+ 2037 |     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:38:
+/usr/include/c++/13.1.1/array:297:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr bool std::operator==(const array<_Tp, _Nm>&, const array<_Tp, _Nm>&)’
+  297 |     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::array<_Tp, _Nm>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const optional<_Up>&)’
+ 1222 |     operator==(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const _Up&)’
+ 1350 |     operator==(const optional<_Tp>& __lhs, const _Up& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Up, _Tp> std::operator==(const _Up&, const optional<_Tp>&)’
+ 1356 |     operator==(const _Up& __lhs, const optional<_Tp>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:47:
+/usr/include/c++/13.1.1/variant:1242:3: note: candidate: ‘template<class ... _Types> constexpr bool std::operator==(const variant<_Types ...>&, const variant<_Types ...>&)’
+ 1242 |   _VARIANT_RELATION_FUNCTION_TEMPLATE(==, equal)
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::variant<_Types ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:63,
+                 from /usr/include/SFML/Graphics/Font.hpp:35,
+                 from /usr/include/SFML/Graphics.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:27:
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const map<_Key, _Tp, _Compare, _Allocator>&, const map<_Key, _Tp, _Compare, _Allocator>&)’
+ 1513 |     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:64:
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const multimap<_Key, _Tp, _Compare, _Allocator>&, const multimap<_Key, _Tp, _Compare, _Allocator>&)’
+ 1134 |     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:63,
+                 from /usr/include/SFML/Audio/SoundBuffer.hpp:36,
+                 from /usr/include/SFML/Audio.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:30:
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const set<_Key, _Compare, _Allocator>&, const set<_Key, _Compare, _Allocator>&)’
+  987 |     operator==(const set<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:64:
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const multiset<_Key, _Compare, _Allocator>&, const multiset<_Key, _Compare, _Allocator>&)’
+  973 |     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/forward_list:42,
+                 from /home/basile/Projects/Perso/RPGproject/include/json.hpp:163,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/AMultPartEntity.hpp:15,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/part/PartEntity.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/humanoid/HumanoidEntity.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.hpp:14,
+                 from /home/basile/Projects/Perso/RPGproject/src/engine/Engine.cpp:11:
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note: candidate: ‘template<class _Tp, class _Alloc> bool std::operator==(const forward_list<_Tp, _Alloc>&, const forward_list<_Tp, _Alloc>&)’
+  393 |     operator==(const forward_list<_Tp, _Alloc>& __lx,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::forward_list<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/valarray:605,
+                 from /home/basile/Projects/Perso/RPGproject/include/json.hpp:171:
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom1, class _Dom2> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Expr, _Dom1, _Dom2>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const _Expr<_Dom2, typename _Dom2::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Constant, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const typename _Dom::value_type&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const typename _Dom::value_type&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_ValArray, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const valarray<typename _Dom::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const valarray<typename _Dom::value_type>&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Constant, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const typename valarray<_Tp>::value_type&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const typename valarray<_Tp>::value_type&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:3: note: candidate: ‘bool std::operator==(const error_code&, const error_code&)’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:32: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_code&’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/system_error:480:3: note: candidate: ‘bool std::operator==(const error_condition&, const error_condition&)’
+  480 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:480:37: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_condition&’
+  480 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/variant:1249:18: note: candidate: ‘constexpr bool std::operator==(monostate, monostate)’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                  ^~~~~~~~
+/usr/include/c++/13.1.1/variant:1249:29: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::monostate’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                             ^~~~~~~~~
+In file included from /usr/include/c++/13.1.1/stop_token:37,
+                 from /usr/include/c++/13.1.1/thread:42,
+                 from /home/basile/Projects/Perso/RPGproject/src/resource_manager/ResourceManager.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/button/Button.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/button/MenuButton.hpp:9,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/menu/MainMenu.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/engine/Engine.cpp:10:
+/usr/include/c++/13.1.1/bits/std_thread.h:324:3: note: candidate: ‘bool std::operator==(thread::id, thread::id)’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:25: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::thread::id’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |              ~~~~~~~~~~~^~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:71,
+                 from /usr/include/c++/13.1.1/string:51,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:18:
+/usr/include/c++/13.1.1/bits/predefined_ops.h: In instantiation of ‘constexpr bool __gnu_cxx::__ops::_Iter_equals_val<_Value>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >; _Value = const std::shared_ptr<bya::ui::IUIelement>]’:
+/usr/include/c++/13.1.1/bits/stl_algobase.h:2145:13:   required from ‘constexpr _ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Predicate = __gnu_cxx::__ops::_Iter_equals_val<const shared_ptr<bya::ui::IUIelement> >]’
+/usr/include/c++/13.1.1/bits/stl_algo.h:846:30:   required from ‘constexpr _FIter std::remove(_FIter, _FIter, const _Tp&) [with _FIter = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Tp = shared_ptr<bya::ui::IUIelement>]’
+/home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:65:41:   required from here
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: error: no match for ‘operator==’ (operand types are ‘bya::ui::AUIelement::Element’ and ‘const std::shared_ptr<bya::ui::IUIelement>’)
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:48:
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_IteratorL, _Container>&, const __normal_iterator<_IteratorR, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1178 |     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/string:43:
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const allocator<_CharT>&, const allocator<_T2>&)’ (reversed)
+  237 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::allocator<_CharT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+  534 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1678 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/basic_string.h:47,
+                 from /usr/include/c++/13.1.1/string:54:
+/usr/include/c++/13.1.1/string_view:615:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, __type_identity_t<basic_string_view<_CharT, _Traits> >)’ (reversed)
+  615 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 3728 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/uses_allocator_args.h:38,
+                 from /usr/include/c++/13.1.1/bits/memory_resource.h:41,
+                 from /usr/include/c++/13.1.1/string:58:
+/usr/include/c++/13.1.1/tuple:1905:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const tuple<_UTypes ...>&, const tuple<_UTypes ...>&)’ (reversed)
+ 1905 |     operator==(const tuple<_TElements...>& __t,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::tuple<_UTypes ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/memory:78,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:20:
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note: candidate: ‘template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const unique_ptr<_Tp, _Dp>&, const unique_ptr<_Up, _Ep>&)’ (reversed)
+  829 |     operator==(const unique_ptr<_Tp, _Dp>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note: candidate: ‘template<class _Tp, class _Dp> bool std::operator==(const unique_ptr<_Tp, _Dp>&, nullptr_t)’ (reversed)
+  837 |     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/shared_ptr.h:53,
+                 from /usr/include/c++/13.1.1/memory:80:
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note: candidate: ‘template<class _Tp1, class _Tp2, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp1, _Lp>&, const __shared_ptr<_Tp2, _Lp>&)’ (reversed)
+ 1793 |     operator==(const __shared_ptr<_Tp1, _Lp>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__shared_ptr<_Tp2, _Lp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note: candidate: ‘template<class _Tp, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp, _Lp>&, nullptr_t)’ (reversed)
+ 1799 |     operator==(const __shared_ptr<_Tp, _Lp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note: candidate: ‘template<class _Tp, class _Up> bool std::operator==(const shared_ptr<_Tp>&, const shared_ptr<_Tp>&)’ (reversed)
+  555 |     operator==(const shared_ptr<_Tp>& __a, const shared_ptr<_Up>& __b) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::shared_ptr<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note: candidate: ‘template<class _Tp> bool std::operator==(const shared_ptr<_Tp>&, nullptr_t)’ (reversed)
+  561 |     operator==(const shared_ptr<_Tp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:43,
+                 from /usr/include/c++/13.1.1/bits/chrono_io.h:39,
+                 from /usr/include/c++/13.1.1/chrono:3330:
+/usr/include/c++/13.1.1/optional:1282:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator==(const optional<_Tp>&, nullopt_t)’ (reversed)
+ 1282 |     operator==(const optional<_Tp>& __lhs, nullopt_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/functional:59,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/AUIelement.hpp:12:
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note: candidate: ‘template<class _Res, class ... _Args> bool std::operator==(const function<_Res(_ArgTypes ...)>&, nullptr_t)’ (reversed)
+  737 |     operator==(const function<_Res(_Args...)>& __f, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::function<_Res(_ArgTypes ...)>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/ios_base.h:46,
+                 from /usr/include/c++/13.1.1/ios:44,
+                 from /usr/include/c++/13.1.1/ostream:40,
+                 from /usr/include/c++/13.1.1/iostream:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:19:
+/usr/include/c++/13.1.1/system_error:465:3: note: candidate: ‘bool std::operator==(const error_code&, const error_condition&)’ (reversed)
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:32: note:   no known conversion for argument 1 from ‘const std::shared_ptr<bya::ui::IUIelement>’ to ‘const std::error_code&’
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note: candidate: ‘template<class _Iterator, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_Iterator, _Container>&, const __normal_iterator<_Iterator, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1197 |     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/char_traits.h:42,
+                 from /usr/include/c++/13.1.1/string:42:
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note: candidate: ‘template<class _StateT> bool std::operator==(const fpos<_StateT>&, const fpos<_StateT>&)’
+  192 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::fpos<_StateT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorL>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  593 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorL>&)’
+ 1748 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/stl_algobase.h:64:
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const pair<_T1, _T2>&, const pair<_T1, _T2>&)’
+  812 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::pair<_T1, _T2>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, basic_string_view<_CharT, _Traits>)’
+  608 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const __cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 3711 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/bits/locale_facets.h:48,
+                 from /usr/include/c++/13.1.1/bits/basic_ios.h:37,
+                 from /usr/include/c++/13.1.1/ios:46:
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const istreambuf_iterator<_CharT, _Traits>&, const istreambuf_iterator<_CharT, _Traits>&)’
+  234 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/unordered_map:41,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:22:
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2143 |     operator==(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2157 |     operator==(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note: candidate: ‘template<class _Tp, class _Alloc> constexpr bool std::operator==(const vector<_Tp, _Alloc>&, const vector<_Tp, _Alloc>&)’
+ 2037 |     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:38:
+/usr/include/c++/13.1.1/array:297:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr bool std::operator==(const array<_Tp, _Nm>&, const array<_Tp, _Nm>&)’
+  297 |     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::array<_Tp, _Nm>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const optional<_Up>&)’
+ 1222 |     operator==(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const _Up&)’
+ 1350 |     operator==(const optional<_Tp>& __lhs, const _Up& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Up, _Tp> std::operator==(const _Up&, const optional<_Tp>&)’
+ 1356 |     operator==(const _Up& __lhs, const optional<_Tp>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/format:47:
+/usr/include/c++/13.1.1/variant:1242:3: note: candidate: ‘template<class ... _Types> constexpr bool std::operator==(const variant<_Types ...>&, const variant<_Types ...>&)’
+ 1242 |   _VARIANT_RELATION_FUNCTION_TEMPLATE(==, equal)
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::variant<_Types ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:63,
+                 from /usr/include/SFML/Graphics/Font.hpp:35,
+                 from /usr/include/SFML/Graphics.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:27:
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const map<_Key, _Tp, _Compare, _Allocator>&, const map<_Key, _Tp, _Compare, _Allocator>&)’
+ 1513 |     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/map:64:
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const multimap<_Key, _Tp, _Compare, _Allocator>&, const multimap<_Key, _Tp, _Compare, _Allocator>&)’
+ 1134 |     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:63,
+                 from /usr/include/SFML/Audio/SoundBuffer.hpp:36,
+                 from /usr/include/SFML/Audio.hpp:38,
+                 from /home/basile/Projects/Perso/RPGproject/include/common.hpp:30:
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const set<_Key, _Compare, _Allocator>&, const set<_Key, _Compare, _Allocator>&)’
+  987 |     operator==(const set<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/set:64:
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const multiset<_Key, _Compare, _Allocator>&, const multiset<_Key, _Compare, _Allocator>&)’
+  973 |     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/forward_list:42,
+                 from /home/basile/Projects/Perso/RPGproject/include/json.hpp:163,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/AMultPartEntity.hpp:15,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/part/PartEntity.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/game_objects/mult_part_entity/humanoid/HumanoidEntity.hpp:10,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.hpp:14:
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note: candidate: ‘template<class _Tp, class _Alloc> bool std::operator==(const forward_list<_Tp, _Alloc>&, const forward_list<_Tp, _Alloc>&)’
+  393 |     operator==(const forward_list<_Tp, _Alloc>& __lx,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::forward_list<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/c++/13.1.1/valarray:605,
+                 from /home/basile/Projects/Perso/RPGproject/include/json.hpp:171:
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom1, class _Dom2> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Expr, _Dom1, _Dom2>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const _Expr<_Dom2, typename _Dom2::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Constant, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const typename _Dom::value_type&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const typename _Dom::value_type&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_ValArray, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const valarray<typename _Dom::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const valarray<typename _Dom::value_type>&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Constant, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const typename valarray<_Tp>::value_type&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const typename valarray<_Tp>::value_type&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::IUIelement>’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:3: note: candidate: ‘bool std::operator==(const error_code&, const error_code&)’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:32: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_code&’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/system_error:480:3: note: candidate: ‘bool std::operator==(const error_condition&, const error_condition&)’
+  480 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:480:37: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_condition&’
+  480 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/variant:1249:18: note: candidate: ‘constexpr bool std::operator==(monostate, monostate)’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                  ^~~~~~~~
+/usr/include/c++/13.1.1/variant:1249:29: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::monostate’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                             ^~~~~~~~~
+In file included from /usr/include/c++/13.1.1/stop_token:37,
+                 from /usr/include/c++/13.1.1/thread:42,
+                 from /home/basile/Projects/Perso/RPGproject/src/resource_manager/ResourceManager.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/button/Button.hpp:13,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.cpp:10:
+/usr/include/c++/13.1.1/bits/std_thread.h:324:3: note: candidate: ‘bool std::operator==(thread::id, thread::id)’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:25: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::thread::id’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |              ~~~~~~~~~~~^~~
+/usr/include/c++/13.1.1/bits/predefined_ops.h: In instantiation of ‘constexpr bool __gnu_cxx::__ops::_Iter_equals_val<_Value>::operator()(_Iterator) [with _Iterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >; _Value = const std::shared_ptr<bya::ui::EditableText>]’:
+/usr/include/c++/13.1.1/bits/stl_algobase.h:2145:13:   required from ‘constexpr _ForwardIterator std::__remove_if(_ForwardIterator, _ForwardIterator, _Predicate) [with _ForwardIterator = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Predicate = __gnu_cxx::__ops::_Iter_equals_val<const shared_ptr<bya::ui::EditableText> >]’
+/usr/include/c++/13.1.1/bits/stl_algo.h:846:30:   required from ‘constexpr _FIter std::remove(_FIter, _FIter, const _Tp&) [with _FIter = __gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, vector<bya::ui::AUIelement::Element> >; _Tp = shared_ptr<bya::ui::EditableText>]’
+/home/basile/Projects/Perso/RPGproject/src/ui/text/editable/EditableTextList.hpp:30:95:   required from here
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: error: no match for ‘operator==’ (operand types are ‘bya::ui::AUIelement::Element’ and ‘const std::shared_ptr<bya::ui::EditableText>’)
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note: candidate: ‘template<class _IteratorL, class _IteratorR, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_IteratorL, _Container>&, const __normal_iterator<_IteratorR, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1178 |     operator==(const __normal_iterator<_IteratorL, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1178:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const __gnu_cxx::__normal_iterator<_IteratorL, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const allocator<_CharT>&, const allocator<_T2>&)’ (reversed)
+  237 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/allocator.h:237:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::allocator<_CharT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+  534 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:534:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note: candidate: ‘template<class _IteratorL, class _IteratorR> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorR>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’ (reversed)
+ 1678 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1678:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, __type_identity_t<basic_string_view<_CharT, _Traits> >)’ (reversed)
+  615 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:615:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const _CharT*)’ (reversed)
+ 3728 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3728:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note: candidate: ‘template<class ... _TElements, class ... _UElements> constexpr bool std::operator==(const tuple<_UTypes ...>&, const tuple<_UTypes ...>&)’ (reversed)
+ 1905 |     operator==(const tuple<_TElements...>& __t,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/tuple:1905:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::tuple<_UTypes ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note: candidate: ‘template<class _Tp, class _Dp, class _Up, class _Ep> bool std::operator==(const unique_ptr<_Tp, _Dp>&, const unique_ptr<_Up, _Ep>&)’ (reversed)
+  829 |     operator==(const unique_ptr<_Tp, _Dp>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:829:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note: candidate: ‘template<class _Tp, class _Dp> bool std::operator==(const unique_ptr<_Tp, _Dp>&, nullptr_t)’ (reversed)
+  837 |     operator==(const unique_ptr<_Tp, _Dp>& __x, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unique_ptr.h:837:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::unique_ptr<_Tp, _Dp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note: candidate: ‘template<class _Tp1, class _Tp2, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp1, _Lp>&, const __shared_ptr<_Tp2, _Lp>&)’ (reversed)
+ 1793 |     operator==(const __shared_ptr<_Tp1, _Lp>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1793:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__shared_ptr<_Tp2, _Lp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note: candidate: ‘template<class _Tp, __gnu_cxx::_Lock_policy _Lp> bool std::operator==(const __shared_ptr<_Tp, _Lp>&, nullptr_t)’ (reversed)
+ 1799 |     operator==(const __shared_ptr<_Tp, _Lp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1799:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note: candidate: ‘template<class _Tp, class _Up> bool std::operator==(const shared_ptr<_Tp>&, const shared_ptr<_Tp>&)’ (reversed)
+  555 |     operator==(const shared_ptr<_Tp>& __a, const shared_ptr<_Up>& __b) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:555:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::shared_ptr<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note: candidate: ‘template<class _Tp> bool std::operator==(const shared_ptr<_Tp>&, nullptr_t)’ (reversed)
+  561 |     operator==(const shared_ptr<_Tp>& __a, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/shared_ptr.h:561:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   cannot convert ‘__it.__gnu_cxx::__normal_iterator<bya::ui::AUIelement::Element*, std::vector<bya::ui::AUIelement::Element> >::operator*()’ (type ‘bya::ui::AUIelement::Element’) to type ‘std::nullptr_t’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note: candidate: ‘template<class _Tp> constexpr bool std::operator==(const optional<_Tp>&, nullopt_t)’ (reversed)
+ 1282 |     operator==(const optional<_Tp>& __lhs, nullopt_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1282:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note: candidate: ‘template<class _Res, class ... _Args> bool std::operator==(const function<_Res(_ArgTypes ...)>&, nullptr_t)’ (reversed)
+  737 |     operator==(const function<_Res(_Args...)>& __f, nullptr_t) noexcept
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_function.h:737:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::function<_Res(_ArgTypes ...)>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:3: note: candidate: ‘bool std::operator==(const error_code&, const error_condition&)’ (reversed)
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:465:32: note:   no known conversion for argument 1 from ‘const std::shared_ptr<bya::ui::EditableText>’ to ‘const std::error_code&’
+  465 |   operator==(const error_code& __lhs, const error_condition& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note: candidate: ‘template<class _Iterator, class _Container> constexpr bool __gnu_cxx::operator==(const __normal_iterator<_Iterator, _Container>&, const __normal_iterator<_Iterator, _Container>&) requires requires{{__gnu_cxx::operator==::__lhs->base() == __gnu_cxx::operator==::__rhs->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+ 1197 |     operator==(const __normal_iterator<_Iterator, _Container>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1197:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const __gnu_cxx::__normal_iterator<_Iterator, _Container>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/SFML/System/Vector2.hpp:250,
+                 from /usr/include/SFML/System.hpp:48,
+                 from /usr/include/SFML/Window.hpp:32,
+                 from /usr/include/SFML/Graphics.hpp:32:
+/usr/include/SFML/System/Vector2.inl:150:13: note: candidate: ‘template<class T> bool sf::operator==(const Vector2<T>&, const Vector2<T>&)’
+  150 | inline bool operator ==(const Vector2<T>& left, const Vector2<T>& right)
+      |             ^~~~~~~~
+/usr/include/SFML/System/Vector2.inl:150:13: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const sf::Vector2<T>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/SFML/System/Vector3.hpp:252,
+                 from /usr/include/SFML/System.hpp:49:
+/usr/include/SFML/System/Vector3.inl:157:13: note: candidate: ‘template<class T> bool sf::operator==(const Vector3<T>&, const Vector3<T>&)’
+  157 | inline bool operator ==(const Vector3<T>& left, const Vector3<T>& right)
+      |             ^~~~~~~~
+/usr/include/SFML/System/Vector3.inl:157:13: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const sf::Vector3<T>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/SFML/Graphics/Rect.hpp:213,
+                 from /usr/include/SFML/Graphics/Transform.hpp:32,
+                 from /usr/include/SFML/Graphics/RenderStates.hpp:33,
+                 from /usr/include/SFML/Graphics/Drawable.hpp:32,
+                 from /usr/include/SFML/Graphics/Shape.hpp:32,
+                 from /usr/include/SFML/Graphics/CircleShape.hpp:32,
+                 from /usr/include/SFML/Graphics.hpp:34:
+/usr/include/SFML/Graphics/Rect.inl:159:13: note: candidate: ‘template<class T> bool sf::operator==(const Rect<T>&, const Rect<T>&)’
+  159 | inline bool operator ==(const Rect<T>& left, const Rect<T>& right)
+      |             ^~~~~~~~
+/usr/include/SFML/Graphics/Rect.inl:159:13: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const sf::Rect<T>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note: candidate: ‘template<class _StateT> bool std::operator==(const fpos<_StateT>&, const fpos<_StateT>&)’
+  192 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/postypes.h:192:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::fpos<_StateT>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const reverse_iterator<_IteratorL>&, const reverse_iterator<_IteratorL>&) requires requires{{std::operator==::__x->base() == std::operator==::__y->base()} -> decltype(auto) [requires std::convertible_to<<placeholder>, bool>];}’
+  593 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:593:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::reverse_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note: candidate: ‘template<class _Iterator> constexpr bool std::operator==(const move_iterator<_IteratorL>&, const move_iterator<_IteratorL>&)’
+ 1748 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_iterator.h:1748:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::move_iterator<_IteratorL>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note: candidate: ‘template<class _T1, class _T2> constexpr bool std::operator==(const pair<_T1, _T2>&, const pair<_T1, _T2>&)’
+  812 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_pair.h:812:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::pair<_T1, _T2>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note: candidate: ‘template<class _CharT, class _Traits> constexpr bool std::operator==(basic_string_view<_CharT, _Traits>, basic_string_view<_CharT, _Traits>)’
+  608 |     operator==(basic_string_view<_CharT, _Traits> __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/string_view:608:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘std::basic_string_view<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note: candidate: ‘template<class _CharT, class _Traits, class _Alloc> constexpr bool std::operator==(const __cxx11::basic_string<_CharT, _Traits, _Allocator>&, const __cxx11::basic_string<_CharT, _Traits, _Allocator>&)’
+ 3711 |     operator==(const basic_string<_CharT, _Traits, _Alloc>& __lhs,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/basic_string.h:3711:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::__cxx11::basic_string<_CharT, _Traits, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note: candidate: ‘template<class _CharT, class _Traits> bool std::operator==(const istreambuf_iterator<_CharT, _Traits>&, const istreambuf_iterator<_CharT, _Traits>&)’
+  234 |     operator==(const istreambuf_iterator<_CharT, _Traits>& __a,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/streambuf_iterator.h:234:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::istreambuf_iterator<_CharT, _Traits>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2143 |     operator==(const unordered_map<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2143:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_map<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note: candidate: ‘template<class _Key1, class _Tp1, class _Hash1, class _Pred1, class _Alloc1> bool std::operator==(const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&, const unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>&)’
+ 2157 |     operator==(const unordered_multimap<_Key, _Tp, _Hash, _Pred, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/unordered_map.h:2157:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::unordered_multimap<_Key1, _Tp1, _Hash1, _Pred1, _Alloc1>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note: candidate: ‘template<class _Tp, class _Alloc> constexpr bool std::operator==(const vector<_Tp, _Alloc>&, const vector<_Tp, _Alloc>&)’
+ 2037 |     operator==(const vector<_Tp, _Alloc>& __x, const vector<_Tp, _Alloc>& __y)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:2037:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::vector<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note: candidate: ‘template<class _Tp, long unsigned int _Nm> constexpr bool std::operator==(const array<_Tp, _Nm>&, const array<_Tp, _Nm>&)’
+  297 |     operator==(const array<_Tp, _Nm>& __one, const array<_Tp, _Nm>& __two)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/array:297:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::array<_Tp, _Nm>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const optional<_Up>&)’
+ 1222 |     operator==(const optional<_Tp>& __lhs, const optional<_Up>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1222:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Tp, _Up> std::operator==(const optional<_Tp>&, const _Up&)’
+ 1350 |     operator==(const optional<_Tp>& __lhs, const _Up& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1350:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note: candidate: ‘template<class _Tp, class _Up> constexpr std::__optional_eq_t<_Up, _Tp> std::operator==(const _Up&, const optional<_Tp>&)’
+ 1356 |     operator==(const _Up& __lhs, const optional<_Tp>& __rhs)
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/optional:1356:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::optional<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note: candidate: ‘template<class ... _Types> constexpr bool std::operator==(const variant<_Types ...>&, const variant<_Types ...>&)’
+ 1242 |   _VARIANT_RELATION_FUNCTION_TEMPLATE(==, equal)
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/variant:1242:3: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::variant<_Types ...>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const map<_Key, _Tp, _Compare, _Allocator>&, const map<_Key, _Tp, _Compare, _Allocator>&)’
+ 1513 |     operator==(const map<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_map.h:1513:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::map<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note: candidate: ‘template<class _Key, class _Tp, class _Compare, class _Alloc> bool std::operator==(const multimap<_Key, _Tp, _Compare, _Allocator>&, const multimap<_Key, _Tp, _Compare, _Allocator>&)’
+ 1134 |     operator==(const multimap<_Key, _Tp, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multimap.h:1134:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multimap<_Key, _Tp, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const set<_Key, _Compare, _Allocator>&, const set<_Key, _Compare, _Allocator>&)’
+  987 |     operator==(const set<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_set.h:987:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::set<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note: candidate: ‘template<class _Key, class _Compare, class _Alloc> bool std::operator==(const multiset<_Key, _Compare, _Allocator>&, const multiset<_Key, _Compare, _Allocator>&)’
+  973 |     operator==(const multiset<_Key, _Compare, _Alloc>& __x,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_multiset.h:973:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::multiset<_Key, _Compare, _Allocator>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note: candidate: ‘template<class _Tp, class _Alloc> bool std::operator==(const forward_list<_Tp, _Alloc>&, const forward_list<_Tp, _Alloc>&)’
+  393 |     operator==(const forward_list<_Tp, _Alloc>& __lx,
+      |     ^~~~~~~~
+/usr/include/c++/13.1.1/bits/forward_list.tcc:393:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::forward_list<_Tp, _Alloc>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom1, class _Dom2> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Expr, _Dom1, _Dom2>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const _Expr<_Dom2, typename _Dom2::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_Constant, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const typename _Dom::value_type&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const typename _Dom::value_type&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Expr, std::_ValArray, _Dom, typename _Dom::value_type>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const _Expr<_Dom1, typename _Dom1::value_type>&, const valarray<typename _Dom::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note: candidate: ‘template<class _Dom> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Expr, typename _Dom::value_type, _Dom>, typename std::__fun<std::__equal_to, typename _Dom1::value_type>::result_type> std::operator==(const valarray<typename _Dom::value_type>&, const _Expr<_Dom1, typename _Dom1::value_type>&)’
+  417 |     _DEFINE_EXPR_BINARY_OPERATOR(==, struct std::__equal_to)
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/valarray_after.h:417:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::_Expr<_Dom1, typename _Dom1::value_type>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_ValArray, std::_Constant, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const valarray<_Tp>&, const typename valarray<_Tp>::value_type&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘bya::ui::AUIelement::Element’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note: candidate: ‘template<class _Tp> std::_Expr<std::__detail::_BinClos<std::__equal_to, std::_Constant, std::_ValArray, _Tp, _Tp>, typename std::__fun<std::__equal_to, _Tp>::result_type> std::operator==(const typename valarray<_Tp>::value_type&, const valarray<_Tp>&)’
+ 1202 | _DEFINE_BINARY_OPERATOR(==, __equal_to)
+      | ^~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/valarray:1202:1: note:   template argument deduction/substitution failed:
+/usr/include/c++/13.1.1/bits/predefined_ops.h:270:24: note:   ‘const std::shared_ptr<bya::ui::EditableText>’ is not derived from ‘const std::valarray<_Tp>’
+  270 |         { return *__it == _M_value; }
+      |                  ~~~~~~^~~~~~~~~~~
+In file included from /usr/include/SFML/System/Clock.hpp:32,
+                 from /usr/include/SFML/System.hpp:33:
+/usr/include/SFML/System/Time.hpp:161:22: note: candidate: ‘bool sf::operator==(Time, Time)’
+  161 | SFML_SYSTEM_API bool operator ==(Time left, Time right);
+      |                      ^~~~~~~~
+/usr/include/SFML/System/Time.hpp:161:39: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘sf::Time’
+  161 | SFML_SYSTEM_API bool operator ==(Time left, Time right);
+      |                                  ~~~~~^~~~
+In file included from /usr/include/SFML/System.hpp:42:
+/usr/include/SFML/System/String.hpp:540:22: note: candidate: ‘bool sf::operator==(const String&, const String&)’
+  540 | SFML_SYSTEM_API bool operator ==(const String& left, const String& right);
+      |                      ^~~~~~~~
+/usr/include/SFML/System/String.hpp:521:59: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const sf::String&’
+  521 |     friend SFML_SYSTEM_API bool operator ==(const String& left, const String& right);
+      |                                             ~~~~~~~~~~~~~~^~~~
+In file included from /usr/include/SFML/Window.hpp:43:
+/usr/include/SFML/Window/VideoMode.hpp:117:22: note: candidate: ‘bool sf::operator==(const VideoMode&, const VideoMode&)’
+  117 | SFML_WINDOW_API bool operator ==(const VideoMode& left, const VideoMode& right);
+      |                      ^~~~~~~~
+/usr/include/SFML/Window/VideoMode.hpp:117:51: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const sf::VideoMode&’
+  117 | SFML_WINDOW_API bool operator ==(const VideoMode& left, const VideoMode& right);
+      |                                  ~~~~~~~~~~~~~~~~~^~~~
+In file included from /usr/include/SFML/Graphics.hpp:33:
+/usr/include/SFML/Graphics/BlendMode.hpp:135:24: note: candidate: ‘bool sf::operator==(const BlendMode&, const BlendMode&)’
+  135 | SFML_GRAPHICS_API bool operator ==(const BlendMode& left, const BlendMode& right);
+      |                        ^~~~~~~~
+/usr/include/SFML/Graphics/BlendMode.hpp:135:53: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const sf::BlendMode&’
+  135 | SFML_GRAPHICS_API bool operator ==(const BlendMode& left, const BlendMode& right);
+      |                                    ~~~~~~~~~~~~~~~~~^~~~
+/usr/include/SFML/Graphics/Transform.hpp:437:24: note: candidate: ‘bool sf::operator==(const Transform&, const Transform&)’
+  437 | SFML_GRAPHICS_API bool operator ==(const Transform& left, const Transform& right);
+      |                        ^~~~~~~~
+/usr/include/SFML/Graphics/Transform.hpp:437:53: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const sf::Transform&’
+  437 | SFML_GRAPHICS_API bool operator ==(const Transform& left, const Transform& right);
+      |                                    ~~~~~~~~~~~~~~~~~^~~~
+In file included from /usr/include/SFML/Graphics/Vertex.hpp:32,
+                 from /usr/include/SFML/Graphics/VertexArray.hpp:32,
+                 from /usr/include/SFML/Graphics/Shape.hpp:34:
+/usr/include/SFML/Graphics/Color.hpp:114:24: note: candidate: ‘bool sf::operator==(const Color&, const Color&)’
+  114 | SFML_GRAPHICS_API bool operator ==(const Color& left, const Color& right);
+      |                        ^~~~~~~~
+/usr/include/SFML/Graphics/Color.hpp:114:49: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const sf::Color&’
+  114 | SFML_GRAPHICS_API bool operator ==(const Color& left, const Color& right);
+      |                                    ~~~~~~~~~~~~~^~~~
+/usr/include/c++/13.1.1/system_error:449:3: note: candidate: ‘bool std::operator==(const error_code&, const error_code&)’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:449:32: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_code&’
+  449 |   operator==(const error_code& __lhs, const error_code& __rhs) noexcept
+      |              ~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/system_error:480:3: note: candidate: ‘bool std::operator==(const error_condition&, const error_condition&)’
+  480 |   operator==(const error_condition& __lhs,
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/system_error:480:37: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘const std::error_condition&’
+  480 |   operator==(const error_condition& __lhs,
+      |              ~~~~~~~~~~~~~~~~~~~~~~~^~~~~
+/usr/include/c++/13.1.1/variant:1249:18: note: candidate: ‘constexpr bool std::operator==(monostate, monostate)’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                  ^~~~~~~~
+/usr/include/c++/13.1.1/variant:1249:29: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::monostate’
+ 1249 |   constexpr bool operator==(monostate, monostate) noexcept { return true; }
+      |                             ^~~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:3: note: candidate: ‘bool std::operator==(thread::id, thread::id)’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |   ^~~~~~~~
+/usr/include/c++/13.1.1/bits/std_thread.h:324:25: note:   no known conversion for argument 1 from ‘bya::ui::AUIelement::Element’ to ‘std::thread::id’
+  324 |   operator==(thread::id __x, thread::id __y) noexcept
+      |              ~~~~~~~~~~~^~~
+In file included from /home/basile/Projects/Perso/RPGproject/src/ui/scroll_box/ScrollBox.hpp:59,
+                 from /home/basile/Projects/Perso/RPGproject/src/ui/timeline/Timeline.hpp:16,
+                 from /home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.cpp:16:
+/home/basile/Projects/Perso/RPGproject/src/ui/scroll_box/ScrollBox.cpp: In instantiation of ‘bya::ui::ScrollBox<T>::ScrollBox() [with T = bya::ui::Text]’:
+/usr/include/c++/13.1.1/bits/stl_construct.h:119:7:   required from ‘constexpr void std::_Construct(_Tp*, _Args&& ...) [with _Tp = bya::ui::ScrollBox<bya::ui::Text>; _Args = {}]’
+/usr/include/c++/13.1.1/bits/alloc_traits.h:660:19:   required from ‘static constexpr void std::allocator_traits<std::allocator<void> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = bya::ui::ScrollBox<bya::ui::Text>; _Args = {}; allocator_type = std::allocator<void>]’
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:604:39:   required from ‘std::_Sp_counted_ptr_inplace<_Tp, _Alloc, _Lp>::_Sp_counted_ptr_inplace(_Alloc, _Args&& ...) [with _Args = {}; _Tp = bya::ui::ScrollBox<bya::ui::Text>; _Alloc = std::allocator<void>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:971:16:   required from ‘std::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = bya::ui::ScrollBox<bya::ui::Text>; _Alloc = std::allocator<void>; _Args = {}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13.1.1/bits/shared_ptr_base.h:1712:14:   required from ‘std::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {}; _Tp = bya::ui::ScrollBox<bya::ui::Text>; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic]’
+/usr/include/c++/13.1.1/bits/shared_ptr.h:464:59:   required from ‘std::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<void>; _Args = {}; _Tp = bya::ui::ScrollBox<bya::ui::Text>]’
+/usr/include/c++/13.1.1/bits/shared_ptr.h:1009:14:   required from ‘std::shared_ptr<std::_NonArray<_Tp> > std::make_shared(_Args&& ...) [with _Tp = bya::ui::ScrollBox<bya::ui::Text>; _Args = {}; _NonArray<_Tp> = bya::ui::ScrollBox<bya::ui::Text>]’
+/home/basile/Projects/Perso/RPGproject/src/scene/editors/AnimationEditor.cpp:58:88:   required from here
+/home/basile/Projects/Perso/RPGproject/src/ui/scroll_box/ScrollBox.cpp:39:29: error: no matching function for call to ‘std::vector<bya::ui::AUIelement::Element>::push_back(std::shared_ptr<bya::ui::Text>&)’
+   39 |         m_children.push_back(m_selectedElement);
+      |         ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1278:7: note: candidate: ‘constexpr void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = bya::ui::AUIelement::Element; _Alloc = std::allocator<bya::ui::AUIelement::Element>; value_type = bya::ui::AUIelement::Element]’
+ 1278 |       push_back(const value_type& __x)
+      |       ^~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1278:35: note:   no known conversion for argument 1 from ‘std::shared_ptr<bya::ui::Text>’ to ‘const std::vector<bya::ui::AUIelement::Element>::value_type&’ {aka ‘const bya::ui::AUIelement::Element&’}
+ 1278 |       push_back(const value_type& __x)
+      |                 ~~~~~~~~~~~~~~~~~~^~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1295:7: note: candidate: ‘constexpr void std::vector<_Tp, _Alloc>::push_back(value_type&&) [with _Tp = bya::ui::AUIelement::Element; _Alloc = std::allocator<bya::ui::AUIelement::Element>; value_type = bya::ui::AUIelement::Element]’
+ 1295 |       push_back(value_type&& __x)
+      |       ^~~~~~~~~
+/usr/include/c++/13.1.1/bits/stl_vector.h:1295:30: note:   no known conversion for argument 1 from ‘std::shared_ptr<bya::ui::Text>’ to ‘std::vector<bya::ui::AUIelement::Element>::value_type&&’ {aka ‘bya::ui::AUIelement::Element&&’}
+ 1295 |       push_back(value_type&& __x)
+      |                 ~~~~~~~~~~~~~^~~
+make[2]: *** [CMakeFiles/RPG.dir/build.make:174: CMakeFiles/RPG.dir/src/engine/Engine.cpp.o] Error 1
+make[2]: *** [CMakeFiles/RPG.dir/build.make:468: CMakeFiles/RPG.dir/src/scene/editors/AnimationEditor.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/RPG.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
