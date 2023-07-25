@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 20:40:03
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 21:40:46
+ * @ Modified time: 2023-07-25 18:58:42
  * @ Description:
  */
 
@@ -16,9 +16,11 @@
 namespace bya::ui {
 
         // subclass of Timeline that represent a keyframe
+        class Timeline;
+
         class KeyframeMarker : public Button {
             public:
-                KeyframeMarker(float time, float& maxTime, const Slider& slider, std::shared_ptr<gameObj::IMultPartEntity> entity);
+                KeyframeMarker(Timeline& timeline, float time, float& maxTime, const Slider& slider, std::shared_ptr<gameObj::IMultPartEntity> entity);
                 virtual ~KeyframeMarker() override = default;
 
                 float getTime() const { return m_time; }
@@ -33,5 +35,6 @@ namespace bya::ui {
 
                 Animation::Keyframe m_keyframe;
                 std::shared_ptr<gameObj::IMultPartEntity> m_part;
+                Timeline& m_timeline;
         };
 }

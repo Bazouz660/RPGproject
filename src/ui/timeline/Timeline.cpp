@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 19:06:19
+ * @ Modified time: 2023-07-25 21:59:49
  *  Description:
  */
 
@@ -19,10 +19,11 @@ namespace bya::ui {
     Timeline::Timeline()
     {
         m_slider = std::make_shared<Slider>();
-        m_slider->setProgress(0);
         m_slider->getWagon().setSize({10, 20});
         m_slider->getWagon().setOrigin({5, 10});
         addChild(m_slider);
+
+        setTimer(0);
 
         auto& box = m_slider->getOuterRail();
         box.setFillColor(sf::Color(52, 155, 235, 255));
@@ -58,7 +59,7 @@ namespace bya::ui {
     void Timeline::setMaxTime(float time)
     {
         m_maxTime = time;
-        m_slider->setProgress(0);
+        setTimer(0);
 
         // update markers
         addMarkers();
@@ -94,8 +95,7 @@ namespace bya::ui {
             marker->setCallback([this, &marker]() {
                 sf::FloatRect bounds = m_slider->getBounds();
                 float progress = (marker->getPosition().x - bounds.left) / bounds.width;
-                m_timer = progress * m_maxTime;
-                m_slider->setProgress(progress);
+                setTimer(progress * m_maxTime);
             });
         }
     }
@@ -138,6 +138,7 @@ namespace bya::ui {
         if (m_selectedPart == nullptr) {
             setSelectedPart(m_entity);
         }
+        m_animation.setEntity(entity);
     }
 
     void Timeline::setSelectedPart(std::shared_ptr<gameObj::IMultPartEntity> part)
@@ -156,7 +157,7 @@ namespace bya::ui {
             }
         }
         if (!found) {
-            auto holder = std::make_shared<KeyframeHolder>(part, m_timer, m_maxTime, *m_slider, m_animation);
+            auto holder = std::make_shared<KeyframeHolder>(*this, part, m_timer, m_maxTime, *m_slider, m_animation);
             m_keyframeHolders->addElement(holder);
             m_keyframeHolders->setSelectedElement(holder);
         }
@@ -168,7 +169,7 @@ namespace bya::ui {
             return;
 
         if (m_slider->getState() == Slider::State::GRABBED && !m_playing)
-            m_timer = m_slider->getProgress() * m_maxTime;
+            setTimer(m_slider->getProgress() * m_maxTime);
 
         if (event.type == sf::Event::MouseWheelScrolled && sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
             float zoom = event.mouseWheelScroll.delta * 0.1f;
@@ -182,8 +183,7 @@ namespace bya::ui {
                 else {
                     play();
                     if (m_timer >= m_maxTime) {
-                        m_timer = 0;
-                        m_slider->setProgress(0);
+                        setTimer(0);
                     }
                 }
             }
@@ -204,17 +204,14 @@ namespace bya::ui {
             if (m_timer >= m_maxTime) {
                 m_playing = false;
             }
-            m_timer += dt;
-            m_slider->setProgress(m_timer / m_maxTime);
-            m_animation.setTimer(m_timer);
-            m_animation.update();
+            setTimer(m_timer + dt);
         }
     }
 
     void Timeline::render(sf::RenderTarget &target)
     {
         m_slider->render(target);
-        m_keyframeHolders->setPosition({m_slider->getBounds().left, m_slider->getBounds().top + m_slider->getBounds().height + 10});
+        m_keyframeHolders->setPosition({m_slider->getBounds().left - 10, m_slider->getBounds().top + m_slider->getBounds().height + 10});
         m_keyframeHolders->render(target);
         for (auto& marker : m_markers)
             marker->render(target);
@@ -263,6 +260,36 @@ namespace bya::ui {
         }
 
         return *resBounds;
+    }
+
+    void Timeline::loadAnimation(std::string path)
+    {
+        // clear current animation
+        m_animation = Animation::MultiPartAnimation(m_entity);
+        m_keyframeHolders->clear();
+
+        m_animation.loadFromJson(path);
+
+        // add keyframes to timeline
+        for (auto& [entity, keyframes] : m_animation.getKeyframesMap()) {
+            setSelectedPart(entity);
+            for (auto& keyframe : keyframes) {
+                m_keyframeHolders->getSelectedElement()->addKeyframeMarker(std::make_shared<KeyframeMarker>(*this, keyframe.getTime(), m_maxTime, *m_slider, entity));
+            }
+        }
+    }
+
+    void Timeline::saveAnimation(std::string path)
+    {
+        m_animation.saveToJson(path);
+    }
+
+    void Timeline::setTimer(float timer)
+    {
+        m_timer = timer;
+        m_slider->setProgress(m_timer / m_maxTime);
+        m_animation.setTimer(m_timer);
+        m_animation.update();
     }
 
 }

@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 16:36:17
+ * @ Modified time: 2023-07-25 19:06:40
  *  Description:
  */
 
@@ -43,8 +43,13 @@ namespace bya::ui {
             void setSelectedPart(std::shared_ptr<gameObj::IMultPartEntity> selectedPart);
             std::shared_ptr<gameObj::IMultPartEntity> getSelectedPart() const { return m_selectedPart; }
 
+            void loadAnimation(std::string path);
+            void saveAnimation(std::string path);
+
             virtual void setMarkerZoom(float zoom);
             virtual float getMarkerZoom() const { return m_markerZoom; }
+
+            void setTimer(float timer);
 
             virtual void setMaxTime(float time);
 

@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:18:46
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-23 17:38:47
+ * @ Modified time: 2023-07-25 21:51:03
  * @ Description:
  */
 
@@ -13,6 +13,10 @@ namespace bya::ui {
 
     void PushNotification::updateHandler(float dt)
     {
+        if (m_messages.size() == 0) {
+            m_messageTimer = 0;
+            return;
+        }
         m_messageTimer += dt;
         if (m_messageTimer >= m_messageDuration) {
             m_messageTimer = 0;

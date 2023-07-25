@@ -58,17 +58,15 @@ namespace bya {
         logger& operator=(const logger&) = delete; // Disable assignment operator
 
         void logImpl(const std::string& message) {
-            logCurrentDate();
             std::lock_guard<std::mutex> lock(pushMtx);
-            logQueue.push(message);
+            logQueue.push(logCurrentDate() + message);
         }
 
-        void logCurrentDate() {
+        std::string logCurrentDate() {
             time_t t = time(NULL);
             std::string now = asctime(localtime(&t));
             now[now.size() - 1] = '\0';
-            std::lock_guard<std::mutex> lock(dateMtx);
-            std::cout << "\033[90m" << now << " ";
+            return now;
         }
 
         void logMessages() {
@@ -77,9 +75,6 @@ namespace bya {
                 if (!logQueue.empty()) {
                     std::cout << logQueue.front() << std::endl;
                     logQueue.pop();
-                }
-                else {
-                    std::this_thread::sleep_for(std::chrono::milliseconds(100)); // Sleep to avoid busy waiting
                 }
             }
         }

@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 16:58:17
+ * @ Modified time: 2023-07-25 21:42:50
  * @ Description:
  */
 
@@ -10,7 +10,7 @@
 
 #include "common.hpp"
 #include "IMultPartEntity.hpp"
-#include <functional>
+#include "utils.hpp"
 
 namespace bya::Animation {
 
@@ -39,11 +39,40 @@ namespace bya::Animation {
             void apply() const;
 
             void setEasingFunction(std::function<float(float)> easingFunction) { m_easingFunction = easingFunction; }
+
+            void setEasingFunction(std::string easingFunction) {
+                if (easingFunctions.find(easingFunction) != easingFunctions.end())
+                    m_easingFunction = easingFunctions.at(easingFunction);
+                else
+                    m_easingFunction = linear;
+            }
+
             std::function<float(float)> getEasingFunction() const { return m_easingFunction; }
+
+            std::string getEasingFunctionName() const {
+                for (auto& [name, func] : easingFunctions) {
+                    // compare the target function to the current function
+                    if (utils::getAddress(func) == utils::getAddress(m_easingFunction))
+                        return name;
+                }
+                return "linear";
+            }
 
             Keyframe interpolate(const Keyframe& other, float time) const;
 
-            // easing functions
+            // map of easing functions to their names
+            static std::map<std::string, std::function<float(float)>> easingFunctions;
+
+        private:
+            std::shared_ptr<gameObj::IMultPartEntity> m_entity;
+            sf::Vector2f m_position;
+            sf::Vector2f m_size;
+            sf::Vector2f m_pivot;
+            float m_rotation;
+            int m_zIndex;
+
+            float m_time = 0;
+
             static float linear(float x) { return x; }
             static float easeInQuad(float x) { return x * x; }
             static float easeOutQuad(float x) { return x * (2 - x); }
@@ -58,17 +87,6 @@ namespace bya::Animation {
             static float easeOutQuint(float x) { return 1 - pow(1 - x, 5); }
             static float easeInOutQuint(float x) { return x < 0.5 ? 16 * x * x * x * x * x : 1 - pow(1 - x, 5); }
 
-        private:
-            std::shared_ptr<gameObj::IMultPartEntity> m_entity;
-            sf::Vector2f m_position;
-            sf::Vector2f m_size;
-            sf::Vector2f m_pivot;
-            float m_rotation;
-            int m_zIndex;
-
-            float m_time = 0;
-
             std::function<float(float)> m_easingFunction = easeInOutQuad;
     };
-
 }

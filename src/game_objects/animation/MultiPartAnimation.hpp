@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 16:20:02
+ * @ Modified time: 2023-07-25 17:31:21
  * @ Description:
  */
 
@@ -26,6 +26,7 @@ namespace bya::Animation {
             void removeKeyframe(Keyframe keyframe);
 
             void setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity) { m_entity = entity; }
+            const std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<Keyframe>>& getKeyframesMap() const { return m_keyframesMap; }
 
             void sortKeyframes();
 
@@ -44,6 +45,9 @@ namespace bya::Animation {
             State getState() const { return m_state; }
 
             MultiPartAnimation blend(MultiPartAnimation& other, float blendFactor);
+
+            void saveToJson(std::string path);
+            void loadFromJson(std::string path);
 
         private:
             std::shared_ptr<gameObj::IMultPartEntity> m_entity;

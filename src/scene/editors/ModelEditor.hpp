@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
 ** File description:
-** AnimationEditor
+** ModelEditor
 */
 
 #pragma once
@@ -16,20 +16,19 @@
 namespace bya
 {
 
-    class AnimationEditor : public AScene
+    class ModelEditor : public AScene
     {
     public:
-        AnimationEditor() = default;
-        virtual ~AnimationEditor() override = default;
+        ModelEditor() = default;
+        virtual ~ModelEditor() override = default;
         virtual void init() override;
         virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override;
         virtual void update(float dt) override;
         virtual void render(sf::RenderTarget &target) override;
 
     private:
-        void configureLoadModelButton();
-        void configureSaveAnimationButton();
-        void configureLoadAnimationButton();
+        void configureLoadButton();
+        void configureSaveButton();
         void setPartInfo();
         void resetPartInfo();
 

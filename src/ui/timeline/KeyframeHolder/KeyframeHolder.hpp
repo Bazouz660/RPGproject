@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 20:41:54
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 18:57:36
+ * @ Modified time: 2023-07-25 19:02:01
  * @ Description:
  */
 
@@ -13,10 +13,12 @@
 
 namespace bya::ui {
 
+        class Timeline;
+
         // class that hold the keyframes of a part
         class KeyframeHolder : public AUIelement {
             public:
-                KeyframeHolder(std::shared_ptr<gameObj::IMultPartEntity> part, float& time, float& maxTime, const Slider& slider, Animation::MultiPartAnimation& m_animation);
+                KeyframeHolder(Timeline& timeline, std::shared_ptr<gameObj::IMultPartEntity> part, float& time, float& maxTime, const Slider& slider, Animation::MultiPartAnimation& m_animation);
                 virtual ~KeyframeHolder() = default;
 
                 void addKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
@@ -43,6 +45,7 @@ namespace bya::ui {
                 float& m_maxTime;
                 float &m_timer;
                 const Slider& m_slider;
+                Timeline& m_timeline;
                 std::vector<std::shared_ptr<KeyframeMarker>> m_keyframeMarkers;
         };
 

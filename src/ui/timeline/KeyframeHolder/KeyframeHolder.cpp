@@ -2,16 +2,17 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 20:33:28
+ * @ Modified time: 2023-07-25 19:25:02
  * @ Description:
  */
 
 #include "KeyframeHolder.hpp"
+#include "Timeline.hpp"
 
 namespace bya::ui {
 
-    KeyframeHolder::KeyframeHolder(std::shared_ptr<gameObj::IMultPartEntity> part, float& timer, float& maxTime, const Slider& slider, Animation::MultiPartAnimation& m_animation)
-        : m_part(part), m_timer(timer), m_maxTime(maxTime), m_slider(slider), m_animation(m_animation)
+    KeyframeHolder::KeyframeHolder(Timeline& timeline, std::shared_ptr<gameObj::IMultPartEntity> part, float& timer, float& maxTime, const Slider& slider, Animation::MultiPartAnimation& m_animation)
+        : m_timeline(timeline),  m_part(part), m_timer(timer), m_maxTime(maxTime), m_slider(slider), m_animation(m_animation)
     {
         m_background.setFillColor(sf::Color::Cyan);
         m_background.setOutlineColor(sf::Color::White);
@@ -44,15 +45,15 @@ namespace bya::ui {
                 }
             }
             if (event.key.code == sf::Keyboard::Add) {
-                addKeyframeMarker(std::make_shared<KeyframeMarker>(m_timer, m_maxTime, m_slider, m_part));
+                addKeyframeMarker(std::make_shared<KeyframeMarker>(m_timeline, m_timer, m_maxTime, m_slider, m_part));
             }
         }
     }
 
     void KeyframeHolder::render(sf::RenderTarget &target)
     {
-        m_background.setSize({m_slider.getSize().x, 20});
-        m_background.setPosition(m_slider.getBounds().left, m_slider.getBounds().top + m_slider.getBounds().height + 10);
+        m_background.setSize({m_slider.getSize().x + 20, 20});
+        m_background.setPosition(m_slider.getBounds().left - 10, m_slider.getBounds().top + m_slider.getBounds().height + 10);
         target.draw(m_background);
         for (auto& keyframeMarker : m_keyframeMarkers)
             keyframeMarker->render(target);
