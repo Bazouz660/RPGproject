@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         engine.preProcessor();
         engine.run();
     } catch (std::exception &e) {
-        logger::error(e.what());
+        bya::logger::error(e.what());
         return 84;
     }
     return 0;

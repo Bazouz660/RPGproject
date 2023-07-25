@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-17 00:46:49
+ * @ Modified time: 2023-07-25 02:59:12
  * @ Description:
  */
 
@@ -25,11 +25,13 @@ namespace bya::Animation {
     {}
 
     void Keyframe::apply() const {
+        logger::log("Applying keyframe to entity " + m_entity->getName());
         //m_entity->setPosition(m_position);
-        m_entity->setSize(m_size);
-        m_entity->setPivotPoint(m_pivot);
+        //m_entity->setSize(m_size);
+        //m_entity->setPivotPoint(m_pivot);
+        logger::log("Keyframe::apply() : rotation = " + std::to_string(m_rotation));
         m_entity->setRotation(m_rotation);
-        m_entity->setZIndex(m_zIndex);
+        //m_entity->setZIndex(m_zIndex);
     }
 
     Keyframe Keyframe::interpolate(const Keyframe& other, float time) const {
