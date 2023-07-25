@@ -99,38 +99,48 @@ namespace bya::gameObj
 
             virtual float getHeritedRotation() const override
             {
-                return m_rotation - m_ownRotation;
-            }
-
-            virtual void setRotation(float angle, bool changeOwn = true) override {
-                // I have no idea how this fucking works but it does, guess i'll leave that way
-                m_previousRotation = m_rotation;
-                if (changeOwn) {
-                    m_previousOwnRotation = m_ownRotation;
-                    m_ownRotation = angle;
-                    m_rotation = m_ownRotation;
-                } else {
-                    m_rotation = angle + m_ownRotation;
-                }
-                float offset = m_rotation - m_previousRotation;
-                m_collisionBox.setRotation(m_rotation * m_orientedBox.getScale().x);
-                m_orientedBox.setRotation(getGlobalRotation());
-                m_pivotPointIndicator.setPosition(m_position);
-
-                sf::Transform transform = sf::Transform::Identity;
-                transform.rotate(offset * m_orientedBox.getScale().x, m_position);
-
-                // move childs
-                for (auto &[partName, part] : m_parts) {
-                    sf::Vector2f pos = part->getPosition();
-                    pos = transform.transformPoint(pos);
-                    part->setPosition(pos);
-                }
+                if (m_parent)
+                    return m_parent->getGlobalRotation();
+                return 0;
             }
 
             virtual float getGlobalRotation() const override {
-                return m_rotation;
+                return m_ownRotation + getHeritedRotation();
             }
+
+            // Helper function to recursively apply rotation to all child entities
+            void applyRotationToChildren(IMultPartEntity& entity, float offsetRotation)
+            {
+                sf::Transform transform = sf::Transform::Identity;
+                transform.rotate(offsetRotation * m_orientedBox.getScale().x, entity.getPosition());
+
+                for (auto &part : entity.getChildren(false)) {
+                    sf::Vector2f pos = part->getPosition();
+                    pos = transform.transformPoint(pos);
+                    part->setPosition(pos);
+                    part->setRotation(part->getOwnRotation(), false);
+                    applyRotationToChildren(*part, offsetRotation);
+                }
+            }
+
+            virtual void setRotation(float angle, bool changeOwn = true) override
+            {
+                m_previousRotation = getGlobalRotation();
+
+                if (changeOwn) {
+                    m_ownRotation = angle;
+                }
+
+                m_collisionBox.setRotation(getGlobalRotation() * m_orientedBox.getScale().x);
+                m_orientedBox.setRotation(getGlobalRotation());
+                m_pivotPointIndicator.setPosition(m_position);
+
+                float offset = getGlobalRotation() - m_previousRotation;
+
+                // Apply rotation to the children recursively
+                applyRotationToChildren(*this, offset);
+            }
+
 
             virtual void setSize(sf::Vector2f size) override {
                 m_collisionBox.setSize(size);
@@ -274,10 +284,8 @@ namespace bya::gameObj
             sf::Vector2f m_pivotPoint = {0, 0};
             sf::Vector2f m_position = {0, 0};
             int m_zIndex = 0;
-            float m_rotation = 0;
             float m_ownRotation = 0;
             float m_previousRotation = 0;
-            float m_previousOwnRotation = 0;
             sf::Color m_tint = sf::Color::White;
             std::string m_name = "";
 
