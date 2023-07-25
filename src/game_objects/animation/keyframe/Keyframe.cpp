@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 21:48:57
+ * @ Modified time: 2023-07-26 00:01:29
  * @ Description:
  */
 
@@ -42,9 +42,9 @@ namespace bya::Animation {
 
     void Keyframe::apply() const {
         //logger::log("Applying keyframe to entity " + m_entity->getName());
-        m_entity->setPosition(m_position);
-        m_entity->setSize(m_size);
-        m_entity->setPivotPoint(m_pivot);
+        //m_entity->setPosition(m_position);
+        //m_entity->setSize(m_size);
+        //m_entity->setPivotPoint(m_pivot);
         //logger::log("Keyframe::apply() : rotation = " + std::to_string(m_rotation));
         m_entity->setRotation(m_rotation);
         m_entity->setZIndex(m_zIndex);

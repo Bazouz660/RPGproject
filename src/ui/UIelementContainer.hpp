@@ -20,46 +20,54 @@ namespace bya::ui {
             UIelementContainer() = default;
             ~UIelementContainer() = default;
 
+            struct Element {
+                std::shared_ptr<ui::IUIelement> handle;
+                bool enabled = true;
+            };
+
             template<typename T>
             std::shared_ptr<T> get(const std::string &id)
             {
                 exists(id);
-                return std::dynamic_pointer_cast<T>(m_elements.at(id).handle);
+                return std::dynamic_pointer_cast<T>(at(id).handle);
             }
 
             void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
             {
-                m_elements[id] = {element, true};
+                // if element already exists, replace it
+                if (find(id) != m_elements.end())
+                    m_elements.erase(find(id));
+                m_elements.emplace_back(id, Element{element, true});
             }
 
             void remove(const std::string &id)
             {
                 exists(id);
-                m_elements.erase(id);
+                m_elements.erase(find(id));
             }
 
             void disable(const std::string &id)
             {
                 exists(id);
-                m_elements[id].enabled = false;
+                at(id).enabled = false;
             }
 
             void enable(const std::string &id)
             {
                 exists(id);
-                m_elements[id].enabled = true;
+                at(id).enabled = true;
             }
 
             void toggle(const std::string &id)
             {
                 exists(id);
-                m_elements[id].enabled = !m_elements[id].enabled;
+                at(id).enabled = !at(id).enabled;
             }
 
             bool isEnabled(const std::string &id) const
             {
                 exists(id);
-                return m_elements.at(id).enabled;
+                return at(id).enabled;
             }
 
             void handleEvent(sf::Event event, const sf::RenderWindow &window)
@@ -81,6 +89,16 @@ namespace bya::ui {
                         continue;
                     elem.handle->handleInputAny(event, window);
                 }
+            }
+
+            void setOrder(const std::vector<std::string> &order)
+            {
+                std::vector<std::pair<std::string, Element>> newElements;
+                for (auto &id : order) {
+                    exists(id);
+                    newElements.emplace_back(id, m_elements.at(find(id) - m_elements.begin()).second);
+                }
+                m_elements = newElements;
             }
 
             void update(float dt)
@@ -112,20 +130,35 @@ namespace bya::ui {
                         elem.handle->render(target);
             }
 
-        protected:
+
+        private:
+            std::vector<std::pair<std::string, Element>>::const_iterator find(const std::string &id) const
+            {
+                return std::find_if(m_elements.begin(), m_elements.end(), [&id](auto &elem) {
+                    return elem.first == id;
+                });
+            }
+
             void exists(const std::string &id) const
             {
-                if (m_elements.find(id) == m_elements.end())
+                if (find(id) == m_elements.end())
                     throw std::runtime_error("Element with id " + id + " does not exist");
             }
 
-        protected:
-            struct Element {
-                std::shared_ptr<ui::IUIelement> handle;
-                bool enabled = true;
-            };
+            Element& at(const std::string &id)
+            {
+                exists(id);
+                return m_elements.at(find(id) - m_elements.begin()).second;
+            }
 
-            std::map<std::string, Element> m_elements;
+            const Element& at(const std::string &id) const
+            {
+                exists(id);
+                return m_elements.at(find(id) - m_elements.begin()).second;
+            }
+
+        protected:
+            std::vector<std::pair<std::string, Element>> m_elements;
 
     };
 

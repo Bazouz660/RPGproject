@@ -38,7 +38,6 @@ namespace bya {
         sf::ContextSettings settings;
         settings.antialiasingLevel = 8;
         m_renderer.init(WINDOW_SIZE, "BurunyaEngine", sf::Style::Default, settings);
-        //m_window->setVerticalSyncEnabled(true);
         ResourceManager::getInstance().init();
         m_sceneManager.addScene("IntroLogo", std::make_shared<SplashScreen>());
         setIcon("splash");

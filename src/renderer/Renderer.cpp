@@ -30,6 +30,8 @@ namespace bya
         m_window.create(sf::VideoMode(size.x, size.y), title, style, settings);
         m_window.setPosition(sf::Vector2i(0, 0));
 
+        m_window.setVerticalSyncEnabled(true);
+
         sf::Event event;
         while (m_window.pollEvent(event)) {
             if (event.type == sf::Event::Resized) {

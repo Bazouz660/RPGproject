@@ -29,6 +29,7 @@ namespace bya
         m_gameLogo.setPosition(
                 (context::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
                 (context::getWindowSize().y - m_gameLogo.getGlobalBounds().height) * 0.2f);
+
         m_UIelements.add("Continue", std::make_shared<ui::MenuButton>());
         m_UIelements.add("NewGame", std::make_shared<ui::MenuButton>());
         m_UIelements.add("Extra", std::make_shared<ui::MenuButton>());
@@ -74,7 +75,6 @@ namespace bya
 
     void MainMenu::update(float dt)
     {
-        AScene::updateUI(dt);
     }
 
     void MainMenu::render(sf::RenderTarget &target)

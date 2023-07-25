@@ -1,0 +1,40 @@
+{
+    "leftArm": [
+        {
+            "easingFunction": "easeInOutQuad",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                975.0,
+                493.5
+            ],
+            "rotation": 0.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutQuad",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                975.0,
+                493.5
+            ],
+            "rotation": -132.87307739257813,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": -2
+        }
+    ]
+}
