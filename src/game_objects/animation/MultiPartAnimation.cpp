@@ -201,4 +201,25 @@ namespace bya::Animation {
         }
     }
 
+    Keyframe& MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index)
+    {
+        if (index >= m_keyframesMap[entity].size()) {
+            logger::error("Keyframe index out of range");
+            throw std::runtime_error("Multi part animation: Keyframe index out of range");
+        }
+        return m_keyframesMap[entity][index];
+    }
+
+    Keyframe& MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time)
+    {
+        for (int i = 0; i < m_keyframesMap[entity].size(); i++) {
+            if (m_keyframesMap[entity][i].getTime() == time) {
+                return m_keyframesMap[entity][i];
+            }
+        }
+        logger::error("Keyframe not found");
+        throw std::runtime_error("Multi part animation: Keyframe not found");
+    }
+
+
 }

@@ -63,6 +63,12 @@ namespace bya {
             ss << std::fixed << std::setprecision(precision) << f;
             return ss.str();
         }
+
+        static bool isUnsignedInt(char c) { return c >= '0' && c <= '9'; }
+        static bool isInt(char c) { return isUnsignedInt(c) || c == '-'; }
+        static bool isFloat(char c) { return isInt(c) || c == '.'; }
+        static bool isAlpha(char c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
+        static bool isAlphaNum(char c) { return isAlpha(c) || isInt(c); }
     }
 }
 

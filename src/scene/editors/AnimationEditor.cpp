@@ -77,8 +77,8 @@ namespace bya {
                 posList->getText(0)->setSuffix("]");
                 posList->getText(1)->setPrefix(" y[");
                 posList->getText(1)->setSuffix("]");
-                posList->getText(0)->onlyNumbers(true);
-                posList->getText(1)->onlyNumbers(true);
+                posList->getText(0)->setType(ui::EditableText::Type::DECIMAL);
+                posList->getText(1)->setType(ui::EditableText::Type::DECIMAL);
                 posList->getText(0)->setMaxLength(4);
                 posList->getText(1)->setMaxLength(4);
 
@@ -89,8 +89,8 @@ namespace bya {
                 sizeList->getText(0)->setSuffix("]");
                 sizeList->getText(1)->setPrefix(" y[");
                 sizeList->getText(1)->setSuffix("]");
-                sizeList->getText(0)->onlyNumbers(true);
-                sizeList->getText(1)->onlyNumbers(true);
+                sizeList->getText(0)->setType(ui::EditableText::Type::DECIMAL);
+                sizeList->getText(1)->setType(ui::EditableText::Type::DECIMAL);
                 sizeList->getText(0)->setMaxLength(4);
                 sizeList->getText(1)->setMaxLength(4);
 
@@ -101,8 +101,8 @@ namespace bya {
                 pivotList->getText(0)->setSuffix("]");
                 pivotList->getText(1)->setPrefix(" y[");
                 pivotList->getText(1)->setSuffix("]");
-                pivotList->getText(0)->onlyNumbers(true);
-                pivotList->getText(1)->onlyNumbers(true);
+                pivotList->getText(0)->setType(ui::EditableText::Type::DECIMAL);
+                pivotList->getText(1)->setType(ui::EditableText::Type::DECIMAL);
                 pivotList->getText(0)->setMaxLength(4);
                 pivotList->getText(1)->setMaxLength(4);
 
@@ -127,8 +127,8 @@ namespace bya {
                 m_UIelements.get<ui::EditableText>("PartParent")->setSuffix("]");
                 m_UIelements.get<ui::EditableText>("PartZIndex")->setSuffix("]");
 
-                m_UIelements.get<ui::EditableText>("PartRotation")->onlyNumbers(true);
-                m_UIelements.get<ui::EditableText>("PartZIndex")->onlyNumbers(true);
+                m_UIelements.get<ui::EditableText>("PartRotation")->setType(ui::EditableText::Type::DECIMAL);
+                m_UIelements.get<ui::EditableText>("PartZIndex")->setType(ui::EditableText::Type::DECIMAL);
 
                 m_UIelements.get<ui::EditableText>("PartName")->setMaxLength(12);
                 m_UIelements.get<ui::EditableText>("PartRotation")->setMaxLength(4);
@@ -318,16 +318,16 @@ namespace bya {
 
         void AnimationEditor::resetPartInfo()
         {
-            m_UIelements.get<ui::EditableText>("PartName")->setString("No part selected");
-            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(0)->setString("0");
-            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->setString("0");
-            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(0)->setString("0");
-            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->setString("0");
-            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(0)->setString("0");
-            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->setString("0");
-            m_UIelements.get<ui::EditableText>("PartRotation")->setString("0");
-            m_UIelements.get<ui::EditableText>("PartParent")->setString("No parent");
-            m_UIelements.get<ui::EditableText>("PartZIndex")->setString("0");
+            m_UIelements.get<ui::EditableText>("PartName")->setPreInpSufx("No part selected");
+            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(0)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableTextList>("PartPosition")->getText(1)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(0)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableTextList>("PartSize")->getText(1)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(0)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableTextList>("PartPivot")->getText(1)->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableText>("PartRotation")->setPreInpSufx("0");
+            m_UIelements.get<ui::EditableText>("PartParent")->setPreInpSufx("No parent");
+            m_UIelements.get<ui::EditableText>("PartZIndex")->setPreInpSufx("0");
         }
 
         void AnimationEditor::setPartInfo()
@@ -337,32 +337,32 @@ namespace bya {
                 return;
             }
 
-            m_UIelements.get<ui::EditableText>("PartName")->setString(m_selectedPart->getName());
+            m_UIelements.get<ui::EditableText>("PartName")->setPreInpSufx(m_selectedPart->getName());
 
             float rotation = m_selectedPart->getOwnRotation();
-            m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(rotation));
+            m_UIelements.get<ui::EditableText>("PartRotation")->setPreInpSufx(parsing::floatToString(rotation));
 
             auto posList = m_UIelements.get<ui::EditableTextList>("PartPosition");
             sf::Vector2f position = m_selectedPart->getPosition();
-            posList->getText(0)->setString(parsing::floatToString(position.x - m_entity->getPosition().x));
-            posList->getText(1)->setString(parsing::floatToString(position.y - m_entity->getPosition().y));
+            posList->getText(0)->setPreInpSufx(parsing::floatToString(position.x - m_entity->getPosition().x));
+            posList->getText(1)->setPreInpSufx(parsing::floatToString(position.y - m_entity->getPosition().y));
 
             auto sizeList = m_UIelements.get<ui::EditableTextList>("PartSize");
-            sizeList->getText(0)->setString(parsing::floatToString(m_selectedPart->getSize().x));
-            sizeList->getText(1)->setString(parsing::floatToString(m_selectedPart->getSize().y));
+            sizeList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getSize().x));
+            sizeList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getSize().y));
 
             auto pivotList = m_UIelements.get<ui::EditableTextList>("PartPivot");
-            pivotList->getText(0)->setString(parsing::floatToString(m_selectedPart->getPivotPoint().x));
-            pivotList->getText(1)->setString(parsing::floatToString(m_selectedPart->getPivotPoint().y));
+            pivotList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().x));
+            pivotList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().y));
 
             auto partParent = m_UIelements.get<ui::EditableText>("PartParent");
             auto parent = m_selectedPart->getParent();
             if (parent)
-                partParent->setString(parent->getName());
+                partParent->setPreInpSufx(parent->getName());
             else
-                partParent->setString("None");
+                partParent->setPreInpSufx("None");
 
-            m_UIelements.get<ui::EditableText>("PartZIndex")->setString(std::to_string(m_selectedPart->getZIndex()));
+            m_UIelements.get<ui::EditableText>("PartZIndex")->setPreInpSufx(std::to_string(m_selectedPart->getZIndex()));
 
             m_UIelements.enable("RotationGrab");
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setCenter(position);
@@ -442,7 +442,7 @@ namespace bya {
             if (m_entity && rotationGrabBox->isGrabbed() && m_selectedPart) {
                 float angle = rotationGrabBox->getAngle();
                 m_selectedPart->setRotation(angle);
-                m_UIelements.get<ui::EditableText>("PartRotation")->setString(parsing::floatToString(angle));
+                m_UIelements.get<ui::EditableText>("PartRotation")->setPreInpSufx(parsing::floatToString(angle));
             }
 
             auto timeline = m_UIelements.get<ui::Timeline>("Timeline");

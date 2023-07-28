@@ -28,6 +28,9 @@ namespace bya::Animation {
             void setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity) { m_entity = entity; }
             const std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<Keyframe>>& getKeyframesMap() const { return m_keyframesMap; }
 
+            Keyframe& getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index);
+            Keyframe& getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time);
+
             void sortKeyframes();
 
             void play();

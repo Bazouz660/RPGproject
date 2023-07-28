@@ -6,7 +6,6 @@
  * @ Description:
  */
 
-#include "KeyframeHolder.hpp"
 #include "Timeline.hpp"
 
 namespace bya::ui {
@@ -19,10 +18,26 @@ namespace bya::ui {
         m_background.setOutlineThickness(1.f);
     }
 
-    void KeyframeHolder::addKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker)
+    void KeyframeHolder::addKeyframeMarker(float time)
     {
+        Animation::Keyframe keyframe(m_part);
+        keyframe.setTime(time)
+        .setPosition(m_part->getPosition())
+        .setRotation(m_part->getOwnRotation())
+        .setSize(m_part->getSize())
+        .setPivot(m_part->getPivotPoint())
+        .setZIndex(m_part->getZIndex())
+        .setEasingFunction(Animation::Keyframe::easingFunctions["linear"]);
+
+        m_animation.addKeyframe(keyframe);
+
+        auto keyframeMarker = std::make_shared<KeyframeMarker>(time, m_maxTime, m_slider, m_animation.getKeyframe(m_part, time));
+        keyframeMarker->setCallback([this, keyframeMarker]() {
+            m_timeline.setTimer(keyframeMarker->getTime());
+            this->setSelectedKeyframeMarker(keyframeMarker);
+            m_timeline.getKeyframeInfo()->setKeyframe(m_animation.getKeyframe(m_part, keyframeMarker->getTime()));
+        });
         m_keyframeMarkers.push_back(keyframeMarker);
-        m_animation.addKeyframe(keyframeMarker->getKeyframe());
         addChild(keyframeMarker);
     }
 
@@ -45,7 +60,7 @@ namespace bya::ui {
                 }
             }
             if (event.key.code == sf::Keyboard::Add) {
-                addKeyframeMarker(std::make_shared<KeyframeMarker>(m_timeline, m_timer, m_maxTime, m_slider, m_part));
+                addKeyframeMarker(m_timer);
             }
         }
     }

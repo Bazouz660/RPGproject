@@ -21,7 +21,7 @@ namespace bya::ui {
                 KeyframeHolder(Timeline& timeline, std::shared_ptr<gameObj::IMultPartEntity> part, float& time, float& maxTime, const Slider& slider, Animation::MultiPartAnimation& m_animation);
                 virtual ~KeyframeHolder() = default;
 
-                void addKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
+                void addKeyframeMarker(float time);
                 void removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
 
                 virtual void render(sf::RenderTarget &target) override;
@@ -31,6 +31,9 @@ namespace bya::ui {
                 std::vector<std::shared_ptr<KeyframeMarker>>& getKeyframeMarkers() { return m_keyframeMarkers; }
 
                 std::shared_ptr<gameObj::IMultPartEntity> getPart() const { return m_part; }
+
+                std::shared_ptr<KeyframeMarker> getSelectedKeyframeMarker() const { return m_selectedKeyframeMarker; }
+                void setSelectedKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker) { m_selectedKeyframeMarker = keyframeMarker; }
 
                 sf::FloatRect getBounds() const { return m_background.getGlobalBounds(); }
 
@@ -46,6 +49,7 @@ namespace bya::ui {
                 float &m_timer;
                 const Slider& m_slider;
                 Timeline& m_timeline;
+                std::shared_ptr<KeyframeMarker> m_selectedKeyframeMarker;
                 std::vector<std::shared_ptr<KeyframeMarker>> m_keyframeMarkers;
         };
 

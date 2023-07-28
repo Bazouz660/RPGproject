@@ -18,10 +18,15 @@ namespace bya::ui {
 
     Timeline::Timeline()
     {
+        sf::Vector2f wSize(context::getWindowSize());
         m_slider = std::make_shared<Slider>();
         m_slider->getWagon().setSize({10, 20});
         m_slider->getWagon().setOrigin({5, 10});
         addChild(m_slider);
+
+        m_keyframeInfo = std::make_shared<KeyframeInfo>();
+        m_keyframeInfo->setPosition({wSize.x * 0.f, wSize.y * 0.6f});
+        addChild(m_keyframeInfo);
 
         setTimer(0);
 
@@ -210,12 +215,9 @@ namespace bya::ui {
 
     void Timeline::render(sf::RenderTarget &target)
     {
-        m_slider->render(target);
         m_keyframeHolders->setPosition({m_slider->getBounds().left - 10, m_slider->getBounds().top + m_slider->getBounds().height + 10});
-        m_keyframeHolders->render(target);
-        for (auto& marker : m_markers)
-            marker->render(target);
-        m_currentTimeText->render(target);
+        for (auto& child : m_children)
+            child.handle->render(target);
     }
 
     void Timeline::setSize(const sf::Vector2f &size)
@@ -274,7 +276,7 @@ namespace bya::ui {
         for (auto& [entity, keyframes] : m_animation.getKeyframesMap()) {
             setSelectedPart(entity);
             for (auto& keyframe : keyframes) {
-                m_keyframeHolders->getSelectedElement()->addKeyframeMarker(std::make_shared<KeyframeMarker>(*this, keyframe.getTime(), m_maxTime, *m_slider, entity));
+                m_keyframeHolders->getSelectedElement()->addKeyframeMarker(keyframe.getTime());
             }
         }
     }
@@ -286,6 +288,8 @@ namespace bya::ui {
 
     void Timeline::setTimer(float timer)
     {
+        if (timer > m_maxTime)
+            timer = m_maxTime;
         m_timer = timer;
         m_slider->setProgress(m_timer / m_maxTime);
         m_animation.setTimer(m_timer);

@@ -15,6 +15,7 @@
 #include "Text.hpp"
 #include "ScrollBox.hpp"
 #include "Button.hpp"
+#include "KeyframeInfo.hpp"
 
 // MultPartAnimation includes
 #include "MultiPartAnimation.hpp"
@@ -45,6 +46,8 @@ namespace bya::ui {
 
             void loadAnimation(std::string path);
             void saveAnimation(std::string path);
+
+            std::shared_ptr<KeyframeInfo> getKeyframeInfo() { return m_keyframeInfo; }
 
             virtual void setMarkerZoom(float zoom);
             virtual float getMarkerZoom() const { return m_markerZoom; }
@@ -78,6 +81,7 @@ namespace bya::ui {
             Animation::MultiPartAnimation m_animation;
 
             std::shared_ptr<ScrollBox<KeyframeHolder>> m_keyframeHolders;
+            std::shared_ptr<KeyframeInfo> m_keyframeInfo;
 
             std::vector<std::shared_ptr<Button>> m_markers;
             unsigned int m_markerCount = 10;

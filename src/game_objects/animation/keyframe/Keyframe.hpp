@@ -11,6 +11,7 @@
 #include "common.hpp"
 #include "IMultPartEntity.hpp"
 #include "utils.hpp"
+#include "logger.hpp"
 
 namespace bya::Animation {
 
@@ -41,10 +42,12 @@ namespace bya::Animation {
             void setEasingFunction(std::function<float(float)> easingFunction) { m_easingFunction = easingFunction; }
 
             void setEasingFunction(std::string easingFunction) {
-                if (easingFunctions.find(easingFunction) != easingFunctions.end())
+                if (easingFunctions.find(easingFunction) != easingFunctions.end()) {
                     m_easingFunction = easingFunctions.at(easingFunction);
-                else
+                } else {
                     m_easingFunction = linear;
+                    logger::warn("Easing function [" + easingFunction + "] not found, using linear instead");
+                }
             }
 
             std::function<float(float)> getEasingFunction() const { return m_easingFunction; }

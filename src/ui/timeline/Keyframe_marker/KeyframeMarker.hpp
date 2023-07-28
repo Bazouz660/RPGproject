@@ -20,7 +20,7 @@ namespace bya::ui {
 
         class KeyframeMarker : public Button {
             public:
-                KeyframeMarker(Timeline& timeline, float time, float& maxTime, const Slider& slider, std::shared_ptr<gameObj::IMultPartEntity> entity);
+                KeyframeMarker(float time, float& maxTime, const Slider& slider, Animation::Keyframe& keyframe);
                 virtual ~KeyframeMarker() override = default;
 
                 float getTime() const { return m_time; }
@@ -33,8 +33,6 @@ namespace bya::ui {
                 float& m_maxTime;
                 const Slider& m_slider;
 
-                Animation::Keyframe m_keyframe;
-                std::shared_ptr<gameObj::IMultPartEntity> m_part;
-                Timeline& m_timeline;
+                Animation::Keyframe& m_keyframe;
         };
 }

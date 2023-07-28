@@ -17,17 +17,10 @@ namespace bya::ui {
         Button::setPosition({bounds.left + (bounds.width * (this->getTime() / m_maxTime)), bounds.top + bounds.height + 20});
     }
 
-    KeyframeMarker::KeyframeMarker(Timeline& timeline, float time, float& maxTime, const Slider& slider, std::shared_ptr<gameObj::IMultPartEntity> entity)
-        : m_timeline(timeline),  m_time(time), m_maxTime(maxTime), m_slider(slider), m_part(entity),
-        m_keyframe(entity, entity->getPosition(), entity->getSize(), entity->getPivotPoint(), entity->getOwnRotation(), entity->getZIndex())
+    KeyframeMarker::KeyframeMarker(float time, float& maxTime, const Slider& slider, Animation::Keyframe& keyframe)
+        : m_time(time), m_maxTime(maxTime), m_slider(slider), m_keyframe(keyframe)
     {
-        m_keyframe.setTime(time);
-
         setSize({10, 10});
-
-        setCallback([this]() {
-            m_timeline.setTimer(this->getTime());
-        });
     }
 
 }
