@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 17:31:21
+ * @ Modified time: 2023-07-30 03:41:31
  * @ Description:
  */
 
@@ -23,7 +23,7 @@ namespace bya::Animation {
             enum State { PLAYING, PAUSED };
 
             void addKeyframe(Keyframe keyframe);
-            void removeKeyframe(Keyframe keyframe);
+            void removeKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time);
 
             void setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity) { m_entity = entity; }
             const std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<Keyframe>>& getKeyframesMap() const { return m_keyframesMap; }

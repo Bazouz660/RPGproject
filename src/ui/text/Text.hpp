@@ -9,10 +9,11 @@
 
 #include "AUIelement.hpp"
 #include "ResourceManager.hpp"
+#include "Subject.hpp"
 
 namespace bya::ui
 {
-    class Text : public AUIelement, public sf::Text
+    class Text : public AUIelement, public sf::Text, public Subject
     {
         public:
             Text(const std::string& text = "", unsigned int size = 30,

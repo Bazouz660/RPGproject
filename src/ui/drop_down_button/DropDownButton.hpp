@@ -10,10 +10,11 @@
 
 #include "common.hpp"
 #include "Button.hpp"
+#include "Subject.hpp"
 
 namespace bya::ui {
 
-    class DropDownButton : public Button {
+    class DropDownButton : public Button, public Subject {
         public:
             DropDownButton();
             virtual ~DropDownButton() = default;

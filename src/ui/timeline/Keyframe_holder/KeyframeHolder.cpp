@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 19:25:02
+ * @ Modified time: 2023-07-30 03:43:46
  * @ Description:
  */
 
@@ -31,7 +31,7 @@ namespace bya::ui {
 
         m_animation.addKeyframe(keyframe);
 
-        auto keyframeMarker = std::make_shared<KeyframeMarker>(time, m_maxTime, m_slider, m_animation.getKeyframe(m_part, time));
+        auto keyframeMarker = std::make_shared<KeyframeMarker>(time, m_maxTime, m_slider);
         keyframeMarker->setCallback([this, keyframeMarker]() {
             m_timeline.setTimer(keyframeMarker->getTime());
             this->setSelectedKeyframeMarker(keyframeMarker);
@@ -43,8 +43,8 @@ namespace bya::ui {
 
     void KeyframeHolder::removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker)
     {
+        m_animation.removeKeyframe(m_part, keyframeMarker->getTime());
         m_keyframeMarkers.erase(std::remove(m_keyframeMarkers.begin(), m_keyframeMarkers.end(), keyframeMarker), m_keyframeMarkers.end());
-        m_animation.removeKeyframe(keyframeMarker->getKeyframe());
         removeChild(keyframeMarker);
     }
 

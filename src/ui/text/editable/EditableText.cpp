@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 22:02:43
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-23 17:42:25
+ * @ Modified time: 2023-07-30 03:29:10
  * @ Description:
  */
 
@@ -137,6 +137,7 @@ namespace bya::ui
     {
         m_validateInputMap[m_type]();
         m_oldInput = m_input;
+        notify();
     }
 
     sf::FloatRect EditableText::getBounds() const

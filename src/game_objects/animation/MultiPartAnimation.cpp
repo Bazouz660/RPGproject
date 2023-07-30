@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 21:42:01
+ * @ Modified time: 2023-07-30 03:41:49
  * @ Description:
  */
 
@@ -20,18 +20,18 @@ namespace bya::Animation {
         }
 
         m_keyframesMap[keyframe.getEntity()].push_back(keyframe);
+        sortKeyframes();
     }
 
-    void MultiPartAnimation::removeKeyframe(Keyframe keyframe)
+    void MultiPartAnimation::removeKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time)
     {
-        if (m_keyframesMap.find(keyframe.getEntity()) == m_keyframesMap.end()) {
+        if (m_keyframesMap.find(entity) == m_keyframesMap.end()) {
             return;
         }
 
-        std::vector<Keyframe>& keyframes = m_keyframesMap[keyframe.getEntity()];
-        for (int i = 0; i < keyframes.size(); i++) {
-            if (keyframes[i].getTime() == keyframe.getTime()) {
-                keyframes.erase(keyframes.begin() + i);
+        for (unsigned int i = 0; i < m_keyframesMap[entity].size(); i++) {
+            if (m_keyframesMap[entity][i].getTime() == time) {
+                m_keyframesMap[entity].erase(m_keyframesMap[entity].begin() + i);
                 return;
             }
         }

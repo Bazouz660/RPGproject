@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 20:40:03
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 18:58:42
+ * @ Modified time: 2023-07-30 03:40:51
  * @ Description:
  */
 
@@ -20,19 +20,15 @@ namespace bya::ui {
 
         class KeyframeMarker : public Button {
             public:
-                KeyframeMarker(float time, float& maxTime, const Slider& slider, Animation::Keyframe& keyframe);
+                KeyframeMarker(float time, float& maxTime, const Slider& slider);
                 virtual ~KeyframeMarker() override = default;
 
                 float getTime() const { return m_time; }
                 void setPosition();
 
-                Animation::Keyframe& getKeyframe() { return m_keyframe; }
-
             private:
                 float m_time;
                 float& m_maxTime;
                 const Slider& m_slider;
-
-                Animation::Keyframe& m_keyframe;
         };
 }

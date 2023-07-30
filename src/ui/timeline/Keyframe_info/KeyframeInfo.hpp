@@ -11,6 +11,8 @@
 #include "Keyframe.hpp"
 #include "DropDownButton.hpp"
 #include "EditableText.hpp"
+#include "KeyframeMarker.hpp"
+#include "Observer.hpp"
 
 namespace bya::ui {
 
@@ -24,20 +26,19 @@ namespace bya::ui {
             virtual void setPosition(const sf::Vector2f &pos) override;
 
             void setKeyframe(Animation::Keyframe& keyframe);
-            const Animation::Keyframe& getKeyframe() const { return *m_keyframe; }
 
             sf::FloatRect getBounds() const;
 
-        protected:
-            virtual void anyEventHandler(sf::Event& event) override;
-            virtual void updateHandler(float dt) override;
-
         private:
-            Animation::Keyframe* m_keyframe = nullptr;
             sf::RectangleShape m_background;
+
+            Animation::Keyframe* m_keyframe;
 
             std::shared_ptr<EditableText> m_rotationInput;
             std::shared_ptr<DropDownButton> m_easingDropDown;
+
+            Observer m_rotationObserver;
+            Observer m_easingObserver;
     };
 
 }

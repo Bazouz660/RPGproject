@@ -99,7 +99,7 @@ namespace bya::ui {
         if (event.type == sf::Event::TextEntered && isActive() && event.text.unicode != 13) {
             if (event.text.unicode == 8 && m_input.size() > 0)
                 m_input.pop_back();
-            else if (event.text.unicode < 128 && event.text.unicode != 8
+            else if (event.text.unicode < 128 && event.text.unicode != 8 && event.text.unicode != 27
                 && isInputContained()) {
                 m_input += static_cast<char>(event.text.unicode);
             }

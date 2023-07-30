@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 21:42:50
+ * @ Modified time: 2023-07-30 02:37:15
  * @ Description:
  */
 
@@ -12,6 +12,7 @@
 #include "IMultPartEntity.hpp"
 #include "utils.hpp"
 #include "logger.hpp"
+#include "Subject.hpp"
 
 namespace bya::Animation {
 

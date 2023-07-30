@@ -11,19 +11,20 @@
 namespace bya::ui {
 
     KeyframeInfo::KeyframeInfo()
+    : m_rotationInput(std::make_shared<EditableText>()), m_easingDropDown(std::make_shared<DropDownButton>())
+    , m_rotationObserver(*m_rotationInput), m_easingObserver(*m_easingDropDown)
     {
         m_background.setFillColor(sf::Color(50, 50, 50, 255));
         m_background.setSize(sf::Vector2f(300, 350));
 
-        m_rotationInput = std::make_shared<EditableText>();
         m_rotationInput->setPrefix("Rotation: [");
         m_rotationInput->setSuffix("]");
         m_rotationInput->setPreInpSufx("0");
         m_rotationInput->setCharacterSize(20);
+        m_rotationInput->setType(EditableText::Type::DECIMAL);
         m_rotationInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 80));
         addChild(m_rotationInput);
 
-        m_easingDropDown = std::make_shared<DropDownButton>();
         m_easingDropDown->setSize(sf::Vector2f(150, 25));
         m_easingDropDown->setCharacterSize(20);
         for (auto& easing : Animation::Keyframe::easingFunctions) {
@@ -31,6 +32,19 @@ namespace bya::ui {
         }
         m_easingDropDown->setPosition(m_background.getPosition() + sf::Vector2f(200, 30));
         addChild(m_easingDropDown);
+
+        m_easingObserver.setOnUpdate([this]() {
+            if (this->m_keyframe == nullptr)
+                return;
+            m_keyframe->setEasingFunction(this->m_easingDropDown->getLabel().getString());
+        });
+        m_rotationObserver.setOnUpdate([this]() {
+            if (this->m_keyframe == nullptr)
+                return;
+            float rotation = std::stof(this->m_rotationInput->getInput());
+            this->m_keyframe->setRotation(rotation);
+            logger::debug("rotation: " + std::to_string(rotation));
+        });
     }
 
     void KeyframeInfo::render(sf::RenderTarget &target)
@@ -56,24 +70,10 @@ namespace bya::ui {
         return bounds;
     }
 
-    void KeyframeInfo::anyEventHandler(sf::Event& event)
-    {
-        if (m_keyframe) {
-            if (!m_rotationInput->isActive())
-                m_keyframe->setRotation(std::stof(m_rotationInput->getInput()));
-            m_keyframe->setEasingFunction(m_easingDropDown->getLabel().getString());
-        }
-    }
-
-    void KeyframeInfo::updateHandler(float dt)
-    {
-    }
-
     void KeyframeInfo::setKeyframe(Animation::Keyframe& keyframe)
     {
         m_keyframe = &keyframe;
         m_rotationInput->setPreInpSufx(std::to_string(keyframe.getRotation()));
         m_easingDropDown->setLabel(keyframe.getEasingFunctionName());
     }
-
 }

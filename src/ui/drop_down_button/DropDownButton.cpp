@@ -75,6 +75,7 @@ namespace bya::ui {
         button->setCallback([this, button]() {
             setLabel(button->getLabel().getString());
             m_isOpen = false;
+            this->notify();
         });
         button->setPosition({getPosition().x, getPosition().y + (getSize().y * m_children.size())});
     }

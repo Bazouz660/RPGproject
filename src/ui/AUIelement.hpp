@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:23:16
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 19:20:43
+ * @ Modified time: 2023-07-30 03:55:33
  * @ Description:
  */
 
@@ -60,6 +60,25 @@ namespace bya::ui {
             m_children.erase(std::remove_if(m_children.begin(), m_children.end(), [child](const Element& element) {
                 return element.handle == child;
             }), m_children.end());
+        }
+
+        void toggleChild(std::shared_ptr<IUIelement> child, bool enabled)
+        {
+            for (auto& element : m_children) {
+                if (element.handle == child) {
+                    element.enabled = enabled;
+                    return;
+                }
+            }
+        }
+
+        bool isChildEnabled(std::shared_ptr<IUIelement> child)
+        {
+            for (auto& element : m_children) {
+                if (element.handle == child)
+                    return element.enabled;
+            }
+            return false;
         }
 
     protected:

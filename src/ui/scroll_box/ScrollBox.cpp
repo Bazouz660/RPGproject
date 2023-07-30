@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 19:37:23
+ * @ Modified time: 2023-07-30 03:56:21
  * @ Description:
  */
 
@@ -37,6 +37,7 @@ namespace bya::ui {
         m_indexText.setCharacterSize(20);
 
         addChild(m_selectedElement);
+        toggleChild(m_selectedElement, false);
     }
 
     template<typename T>
@@ -83,20 +84,18 @@ namespace bya::ui {
     template<typename T>
     void ScrollBox<T>::hoverEventHandler(sf::Event& event)
     {
-        if (m_background.getGlobalBounds().contains(context::getMousePosition())) {
-            if (event.type == sf::Event::MouseWheelScrolled) {
-                int index = getSelectedIndex();
-                if (event.mouseWheelScroll.delta > 0) {
-                    if (index > 0) {
-                        m_selectedElement = m_elements[index - 1];
-                        m_children[0].handle = m_selectedElement;
-                    }
+        if (event.type == sf::Event::MouseWheelScrolled) {
+            int index = getSelectedIndex();
+            if (event.mouseWheelScroll.delta > 0) {
+                if (index > 0) {
+                    m_selectedElement = m_elements[index - 1];
+                    m_children[0].handle = m_selectedElement;
                 }
-                else {
-                    if (index < m_elements.size() - 1) {
-                        m_selectedElement = m_elements[index + 1];
-                        m_children[0].handle = m_selectedElement;
-                    }
+            }
+            else {
+                if (index < m_elements.size() - 1) {
+                    m_selectedElement = m_elements[index + 1];
+                    m_children[0].handle = m_selectedElement;
                 }
             }
         }

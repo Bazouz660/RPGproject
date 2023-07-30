@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:08:20
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 19:07:54
+ * @ Modified time: 2023-07-30 03:40:46
  * @ Description:
  */
 
@@ -17,8 +17,8 @@ namespace bya::ui {
         Button::setPosition({bounds.left + (bounds.width * (this->getTime() / m_maxTime)), bounds.top + bounds.height + 20});
     }
 
-    KeyframeMarker::KeyframeMarker(float time, float& maxTime, const Slider& slider, Animation::Keyframe& keyframe)
-        : m_time(time), m_maxTime(maxTime), m_slider(slider), m_keyframe(keyframe)
+    KeyframeMarker::KeyframeMarker(float time, float& maxTime, const Slider& slider)
+        : m_time(time), m_maxTime(maxTime), m_slider(slider)
     {
         setSize({10, 10});
     }

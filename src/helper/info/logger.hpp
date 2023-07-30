@@ -11,10 +11,10 @@
 #include <iostream>
 #include <string>
 #include <ctime>
-#include <mutex>
 #include <queue>
 #include <thread>
 #include <atomic>
+#include <mutex>
 
 namespace bya {
 
@@ -42,8 +42,6 @@ namespace bya {
             return instance;
         }
 
-        std::mutex pushMtx;
-        std::mutex dateMtx;
         std::mutex logMtx;
         std::queue<std::string> logQueue;
         std::thread loggerThread;
@@ -51,14 +49,21 @@ namespace bya {
 
         logger() : stopFlag(false) {
             loggerThread = std::thread(&logger::logMessages, this);
-            loggerThread.detach();
+        }
+
+        ~logger() {
+            {
+                std::lock_guard<std::mutex> lock(logMtx);
+                stopFlag = true;
+            }
+            loggerThread.join(); // Wait for loggerThread to finish
         }
 
         logger(const logger&) = delete; // Disable copy constructor
         logger& operator=(const logger&) = delete; // Disable assignment operator
 
         void logImpl(const std::string& message) {
-            std::lock_guard<std::mutex> lock(pushMtx);
+            std::lock_guard<std::mutex> lock(logMtx);
             logQueue.push(logCurrentDate() + message);
         }
 
@@ -70,11 +75,20 @@ namespace bya {
         }
 
         void logMessages() {
-            while (!stopFlag) {
-                std::lock_guard<std::mutex> lock(logMtx);
-                if (!logQueue.empty()) {
-                    std::cout << logQueue.front() << std::endl;
-                    logQueue.pop();
+            while (true) {
+                std::string logEntry;
+                {
+                    std::lock_guard<std::mutex> lock(logMtx);
+                    if (!logQueue.empty()) {
+                        logEntry = logQueue.front();
+                        logQueue.pop();
+                    }
+                }
+                if (!logEntry.empty()) {
+                    std::cout << logEntry << std::endl;
+                }
+                if (stopFlag && logQueue.empty()) { // Break the loop if stopFlag is true and the logQueue is empty
+                    break;
                 }
             }
         }
