@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 21:59:49
+ * @ Modified time: 2023-07-30 23:19:23
  *  Description:
  */
 
@@ -16,17 +16,13 @@
 
 namespace bya::ui {
 
-    Timeline::Timeline()
+    Timeline::Timeline(KeyframeInfo &KeyframeInfo) : m_keyframeInfo(KeyframeInfo)
     {
         sf::Vector2f wSize(context::getWindowSize());
         m_slider = std::make_shared<Slider>();
         m_slider->getWagon().setSize({10, 20});
         m_slider->getWagon().setOrigin({5, 10});
         addChild(m_slider);
-
-        m_keyframeInfo = std::make_shared<KeyframeInfo>();
-        m_keyframeInfo->setPosition({wSize.x * 0.f, wSize.y * 0.6f});
-        addChild(m_keyframeInfo);
 
         setTimer(0);
 
@@ -36,6 +32,7 @@ namespace bya::ui {
         box.setOutlineThickness(2);
 
         m_keyframeHolders = std::make_shared<ScrollBox<KeyframeHolder>>();
+        m_keyframeHolders->toggleChild(m_keyframeHolders->getSelectedElement(), true);
         addChild(m_keyframeHolders);
 
         m_currentTimeText = std::make_shared<Text>();
@@ -293,7 +290,12 @@ namespace bya::ui {
         m_timer = timer;
         m_slider->setProgress(m_timer / m_maxTime);
         m_animation.setTimer(m_timer);
+        auto state = m_animation.getState();
+        if (state == Animation::MultiPartAnimation::State::PAUSED)
+            m_animation.play();
         m_animation.update();
+        if (state == Animation::MultiPartAnimation::State::PAUSED)
+            m_animation.pause();
     }
 
 }

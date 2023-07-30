@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 19:06:40
+ * @ Modified time: 2023-07-30 22:57:20
  *  Description:
  */
 
@@ -27,7 +27,7 @@ namespace bya::ui {
     class Timeline : public AUIelement {
         public:
 
-            Timeline();
+            Timeline(KeyframeInfo& keyframeInfo);
             virtual ~Timeline() override = default;
 
             virtual void render(sf::RenderTarget &target) override;
@@ -47,10 +47,10 @@ namespace bya::ui {
             void loadAnimation(std::string path);
             void saveAnimation(std::string path);
 
-            std::shared_ptr<KeyframeInfo> getKeyframeInfo() { return m_keyframeInfo; }
-
             virtual void setMarkerZoom(float zoom);
             virtual float getMarkerZoom() const { return m_markerZoom; }
+
+            KeyframeInfo& getKeyframeInfo() { return m_keyframeInfo; }
 
             void setTimer(float timer);
 
@@ -81,7 +81,8 @@ namespace bya::ui {
             Animation::MultiPartAnimation m_animation;
 
             std::shared_ptr<ScrollBox<KeyframeHolder>> m_keyframeHolders;
-            std::shared_ptr<KeyframeInfo> m_keyframeInfo;
+
+            KeyframeInfo& m_keyframeInfo;
 
             std::vector<std::shared_ptr<Button>> m_markers;
             unsigned int m_markerCount = 10;

@@ -11,7 +11,7 @@ namespace bya::gameObj
 {
     void PartEntity::update(float dt)
     {
-        for (auto &[partName, part] : m_parts)
+        for (auto &part : getDirectChildren())
             part->update(dt);
     }
 }

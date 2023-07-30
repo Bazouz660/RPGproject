@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 16:53:37
+ * @ Modified time: 2023-07-30 22:59:06
 */
 
 #include "ModelEditor.hpp"
@@ -266,8 +266,8 @@ namespace bya {
             sizeList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getSize().y));
 
             auto pivotList = m_UIelements.get<ui::EditableTextList>("PartPivot");
-            pivotList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().x));
-            pivotList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().y));
+            pivotList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getOrigin().x));
+            pivotList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getOrigin().y));
 
             auto partParent = m_UIelements.get<ui::EditableText>("PartParent");
             auto parent = m_selectedPart->getParent();
@@ -335,7 +335,7 @@ namespace bya {
 
                 m_selectedPart->setPosition(pos + m_entity->getPosition());
                 m_selectedPart->setSize(size);
-                m_selectedPart->setPivotPoint(pivot);
+                m_selectedPart->setOrigin(pivot);
                 m_selectedPart->setZIndex(zIndex);
                 m_entity->sortZIndex();
             }
@@ -351,6 +351,6 @@ namespace bya {
             target.draw(m_partInfoBackground);
 
             if (m_entity)
-                m_entity->render(target, true);
+                m_entity->render(target);
         }
 }

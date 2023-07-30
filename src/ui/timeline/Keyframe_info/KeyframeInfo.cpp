@@ -7,12 +7,13 @@
  */
 
 #include "KeyframeInfo.hpp"
+#include "parsing.hpp"
 
 namespace bya::ui {
 
     KeyframeInfo::KeyframeInfo()
-    : m_rotationInput(std::make_shared<EditableText>()), m_easingDropDown(std::make_shared<DropDownButton>())
-    , m_rotationObserver(*m_rotationInput), m_easingObserver(*m_easingDropDown)
+    : m_rotationInput(std::make_shared<EditableText>()), m_easingDropDown(std::make_shared<DropDownButton>()), m_timeInput(std::make_shared<EditableText>())
+    , m_rotationObserver(*m_rotationInput), m_easingObserver(*m_easingDropDown), m_timeObserver(*m_timeInput)
     {
         m_background.setFillColor(sf::Color(50, 50, 50, 255));
         m_background.setSize(sf::Vector2f(300, 350));
@@ -24,6 +25,14 @@ namespace bya::ui {
         m_rotationInput->setType(EditableText::Type::DECIMAL);
         m_rotationInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 80));
         addChild(m_rotationInput);
+
+        m_timeInput->setPrefix("Time: [");
+        m_timeInput->setSuffix("]");
+        m_timeInput->setPreInpSufx("0");
+        m_timeInput->setCharacterSize(20);
+        m_timeInput->setType(EditableText::Type::DECIMAL);
+        m_timeInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 30));
+        addChild(m_timeInput);
 
         m_easingDropDown->setSize(sf::Vector2f(150, 25));
         m_easingDropDown->setCharacterSize(20);
@@ -43,7 +52,11 @@ namespace bya::ui {
                 return;
             float rotation = std::stof(this->m_rotationInput->getInput());
             this->m_keyframe->setRotation(rotation);
-            logger::debug("rotation: " + std::to_string(rotation));
+        });
+        m_timeObserver.setOnUpdate([this]() {
+            if (this->m_keyframe == nullptr)
+                return;
+            float time = std::stof(this->m_timeInput->getInput());
         });
     }
 
@@ -60,6 +73,7 @@ namespace bya::ui {
     {
         m_background.setPosition(pos);
         m_rotationInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 80));
+        m_timeInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 30));
         m_easingDropDown->setPosition(m_background.getPosition() + sf::Vector2f(200, 30));
     }
 
@@ -73,7 +87,8 @@ namespace bya::ui {
     void KeyframeInfo::setKeyframe(Animation::Keyframe& keyframe)
     {
         m_keyframe = &keyframe;
-        m_rotationInput->setPreInpSufx(std::to_string(keyframe.getRotation()));
+        m_rotationInput->setPreInpSufx(parsing::floatToString(keyframe.getRotation()));
+        m_timeInput->setPreInpSufx(parsing::floatToString(keyframe.getTime()));
         m_easingDropDown->setLabel(keyframe.getEasingFunctionName());
     }
 }

@@ -20,8 +20,8 @@ namespace bya::gameObj {
                 m_collisionBox.setFillColor(sf::Color(255, 0, 0, 100));
                 m_collisionBox.setOutlineColor(sf::Color::Red);
                 m_collisionBox.setOutlineThickness(1);
-                m_pivotPointIndicator.setFillColor(sf::Color::White);
-                m_pivotPointIndicator.setRadius(2);
+                m_originIndicator.setFillColor(sf::Color::White);
+                m_originIndicator.setRadius(2);
             }
 
             EntityPartBuilder &setName(std::string name) {
@@ -29,13 +29,13 @@ namespace bya::gameObj {
                 return *this;
             }
 
-            EntityPartBuilder &setPivotPoint(sf::Vector2f pivotPoint) {
-                m_pivotPoint = pivotPoint;
+            EntityPartBuilder &setOrigin(sf::Vector2f pivotPoint) {
+                m_origin = pivotPoint;
                 return *this;
             }
 
-            EntityPartBuilder &setPivotPoint(float x, float y) {
-                setPivotPoint({x, y});
+            EntityPartBuilder &setOrigin(float x, float y) {
+                setOrigin({x, y});
                 return *this;
             }
 
@@ -82,7 +82,7 @@ namespace bya::gameObj {
             std::shared_ptr<IMultPartEntity> build() {
                 auto entity = std::make_shared<PartEntity>();
                 entity->setName(m_name);
-                entity->setPivotPoint(m_pivotPoint);
+                entity->setOrigin(m_origin);
                 entity->setPosition(m_position);
                 entity->setRotation(m_rotation);
                 entity->setZIndex(m_ZIndex);
@@ -94,7 +94,7 @@ namespace bya::gameObj {
             }
 
         private:
-            sf::Vector2f m_pivotPoint = {0, 0};
+            sf::Vector2f m_origin = {0, 0};
             sf::Vector2f m_position = {0, 0};
             sf::Color m_tint = sf::Color(255, 0, 0, 255);
             float m_rotation = 0;
@@ -103,7 +103,7 @@ namespace bya::gameObj {
             std::string m_name = "";
             IMultPartEntity *m_parent = nullptr;
             sf::RectangleShape m_collisionBox;
-            sf::CircleShape m_pivotPointIndicator;
+            sf::CircleShape m_originIndicator;
     };
 
 }

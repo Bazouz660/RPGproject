@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-29 19:22:48
+ * @ Modified time: 2023-07-30 22:58:42
 */
 
 #include "AnimationEditor.hpp"
@@ -36,7 +36,11 @@ namespace bya {
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setPosition(sf::Vector2f(wSize.x / 2, wSize.y / 2));
             m_UIelements.get<ui::GrabBoxOrbital>("RotationGrab")->setTexture(RESOURCE().getTexture("model_editor", "rotation_hint"));
 
-            m_UIelements.add("Timeline", std::make_shared<ui::Timeline>());
+            m_UIelements.add("KeyframeInfo", std::make_shared<ui::KeyframeInfo>());
+            auto keyframeInfo = m_UIelements.get<ui::KeyframeInfo>("KeyframeInfo");
+            keyframeInfo->setPosition({wSize.x * 0.f, wSize.y * 0.6f});
+
+            m_UIelements.add("Timeline", std::make_shared<ui::Timeline>(*keyframeInfo));
             m_UIelements.get<ui::Timeline>("Timeline")->setPosition(sf::Vector2f(wSize.x * 0.5, wSize.y * 0.85));
             m_UIelements.get<ui::Timeline>("Timeline")->setSize(sf::Vector2f(wSize.x * 0.4, 2));
             m_UIelements.get<ui::Timeline>("Timeline")->setMaxTime(2);
@@ -352,8 +356,8 @@ namespace bya {
             sizeList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getSize().y));
 
             auto pivotList = m_UIelements.get<ui::EditableTextList>("PartPivot");
-            pivotList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().x));
-            pivotList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getPivotPoint().y));
+            pivotList->getText(0)->setPreInpSufx(parsing::floatToString(m_selectedPart->getOrigin().x));
+            pivotList->getText(1)->setPreInpSufx(parsing::floatToString(m_selectedPart->getOrigin().y));
 
             auto partParent = m_UIelements.get<ui::EditableText>("PartParent");
             auto parent = m_selectedPart->getParent();
@@ -428,7 +432,7 @@ namespace bya {
 
                 m_selectedPart->setPosition(pos + m_entity->getPosition());
                 m_selectedPart->setSize(size);
-                m_selectedPart->setPivotPoint(pivot);
+                m_selectedPart->setOrigin(pivot);
                 m_selectedPart->setRotation(rotation);
                 m_selectedPart->setZIndex(zIndex);
                 m_entity->sortZIndex();
@@ -456,6 +460,6 @@ namespace bya {
             target.draw(m_partInfoBackground);
 
             if (m_entity)
-                m_entity->render(target, true);
+                m_entity->render(target);
         }
 }

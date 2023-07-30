@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 03:41:49
+ * @ Modified time: 2023-07-30 23:17:06
  * @ Description:
  */
 
@@ -78,6 +78,9 @@ namespace bya::Animation {
 
                 float blendFactor = (m_timer - a.getTime()) / (b.getTime() - a.getTime());
 
+                if (m_timer <= 0)
+                    blendFactor = 0;
+
                 Keyframe interpolated = a.interpolate(b, blendFactor);
                 interpolated.apply();
             }
@@ -87,7 +90,8 @@ namespace bya::Animation {
     void MultiPartAnimation::update(float dt)
     {
         m_timer += dt;
-        update();
+        if (dt > 0)
+            update();
         // get max keyframe time
         float maxTime = 0;
         for (auto& [entity, keyframes] : m_keyframesMap) {

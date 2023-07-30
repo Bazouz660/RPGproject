@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 03:43:46
+ * @ Modified time: 2023-07-30 22:56:49
  * @ Description:
  */
 
@@ -25,7 +25,7 @@ namespace bya::ui {
         .setPosition(m_part->getPosition())
         .setRotation(m_part->getOwnRotation())
         .setSize(m_part->getSize())
-        .setPivot(m_part->getPivotPoint())
+        .setPivot(m_part->getOrigin())
         .setZIndex(m_part->getZIndex())
         .setEasingFunction(Animation::Keyframe::easingFunctions["linear"]);
 
@@ -35,7 +35,7 @@ namespace bya::ui {
         keyframeMarker->setCallback([this, keyframeMarker]() {
             m_timeline.setTimer(keyframeMarker->getTime());
             this->setSelectedKeyframeMarker(keyframeMarker);
-            m_timeline.getKeyframeInfo()->setKeyframe(m_animation.getKeyframe(m_part, keyframeMarker->getTime()));
+            m_timeline.getKeyframeInfo().setKeyframe(m_animation.getKeyframe(m_part, keyframeMarker->getTime()));
         });
         m_keyframeMarkers.push_back(keyframeMarker);
         addChild(keyframeMarker);

@@ -19,6 +19,7 @@ namespace bya::ui {
 
             virtual void setPosition(const sf::Vector2f &pos) override { OrientedBoundingBox::setPosition(pos); }
             virtual sf::FloatRect getBounds() const override { return OrientedBoundingBox::getBounds(); }
+            virtual void render(sf::RenderTarget &target) override;
 
             virtual void setGrabbed(bool grabbed) { m_grabbed = grabbed; }
             virtual bool isGrabbed() const { return m_grabbed; }

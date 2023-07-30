@@ -18,6 +18,9 @@ namespace bya::ui {
         setPosition(m_center + sf::Vector2f(m_radius * std::cos(angle), m_radius * std::sin(angle)) + m_diffToOrigin);
         setRotation(math::toDeg(angle) + 90.f);
         m_angle = math::toDeg(angle);
+
+        setOutlineColor(sf::Color::Red);
+        showOutline(true);
     }
 
     void GrabBoxOrbital::anyEventHandler(sf::Event& event)
@@ -39,9 +42,15 @@ namespace bya::ui {
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
             if (contains(mousePos)) {
                 m_diffToOrigin =  getPosition() - mousePos;
-                m_grabbed = true;
+                if (m_grabbed == false)
+                    m_grabbed = true;
             }
         }
+    }
+
+    void GrabBoxOrbital::render(sf::RenderTarget& target)
+    {
+        GrabBox::render(target);
     }
 
 }

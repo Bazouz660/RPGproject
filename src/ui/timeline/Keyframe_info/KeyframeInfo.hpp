@@ -34,11 +34,13 @@ namespace bya::ui {
 
             Animation::Keyframe* m_keyframe;
 
+            std::shared_ptr<EditableText> m_timeInput;
             std::shared_ptr<EditableText> m_rotationInput;
             std::shared_ptr<DropDownButton> m_easingDropDown;
 
             Observer m_rotationObserver;
             Observer m_easingObserver;
+            Observer m_timeObserver;
     };
 
 }

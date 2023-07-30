@@ -22,7 +22,7 @@ namespace bya::gameObj
 
     void HumanoidEntity::update(float dt)
     {
-        for (auto &[partName, part] : m_parts)
+        for (auto &part : getDirectChildren())
             part->update(dt);
 
         PartEntity *head = dynamic_cast<PartEntity *>(getPart("head").get());

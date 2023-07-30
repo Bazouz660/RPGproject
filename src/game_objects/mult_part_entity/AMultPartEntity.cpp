@@ -29,9 +29,9 @@ namespace bya::gameObj
     {
         EntityPartBuilder builder;
 
-        parent->addPart(name, builder
+        parent->addPart(builder
             .setName(name)
-            .setPivotPoint(json["pivot"][0].get<float>(), json["pivot"][1].get<float>())
+            .setOrigin(json["pivot"][0].get<float>(), json["pivot"][1].get<float>())
             .setPosition(json["position"][0].get<float>(), json["position"][1].get<float>())
             .setSize(json["size"][0].get<float>(), json["size"][1].get<float>())
             .setTint(sf::Color(json["tint"][0].get<float>(), json["tint"][1].get<float>(),
@@ -61,7 +61,7 @@ namespace bya::gameObj
         auto& root = json.at("root");
         auto& parts = root.at("parts");
         m_name = root.at("name").get<std::string>();
-        setPivotPoint({root["pivot"][0].get<float>(), root["pivot"][1].get<float>()});
+        setOrigin({root["pivot"][0].get<float>(), root["pivot"][1].get<float>()});
         setPosition({root["position"][0].get<float>(), root["position"][1].get<float>()});
         setSize({root["size"][0].get<float>(), root["size"][1].get<float>()});
         setTint(sf::Color(root["tint"][0].get<float>(), root["tint"][1].get<float>(),
@@ -88,12 +88,12 @@ namespace bya::gameObj
 
         json[part->getName()]["position"] = {position.x, position.y};
         json[part->getName()]["size"] = {part->getSize().x, part->getSize().y};
-        json[part->getName()]["pivot"] = {part->getPivotPoint().x, part->getPivotPoint().y};
+        json[part->getName()]["pivot"] = {part->getOrigin().x, part->getOrigin().y};
         json[part->getName()]["tint"] = {part->getTint().r, part->getTint().g, part->getTint().b, part->getTint().a};
         json[part->getName()]["zIndex"] = part->getZIndex();
         json[part->getName()]["rotation"] = rotationMap[part->getName()];
 
-        for (auto& child : part->getChildren(false)) {
+        for (auto& child : part->getDirectChildren()) {
             savePartToJson(child.get(), json[part->getName()]["parts"], rotationMap);
         }
     }
@@ -106,17 +106,17 @@ namespace bya::gameObj
 
         std::map<std::string, float> rotationMap;
 
-        for (auto& part : getChildren())
+        for (auto& part : getRecursiveChildren())
             rotationMap[part->getName()] = part->getGlobalRotation();
 
         // set rotation to 0 to reset position
-        for (auto& part : getChildren())
+        for (auto& part : getRecursiveChildren())
             part->setRotation(0);
 
         sf::Vector2f position = getPosition() - getPosition();
         nlohmann::json json;
         json["root"]["name"] = m_name;
-        json["root"]["pivot"] = {m_pivotPoint.x, m_pivotPoint.y};
+        json["root"]["pivot"] = {getOrigin().x, getOrigin().y};
         json["root"]["position"] = {position.x, position.y};
         json["root"]["size"] = {getSize().x, getSize().y};
         json["root"]["tint"] = {m_tint.r, m_tint.g, m_tint.b, m_tint.a};
@@ -124,7 +124,7 @@ namespace bya::gameObj
         json["root"]["rotation"] = getGlobalRotation();
 
 
-        for (auto& part : getChildren(false)) {
+        for (auto& part : getDirectChildren()) {
             savePartToJson(part.get(), json["root"]["parts"], rotationMap);
         }
 

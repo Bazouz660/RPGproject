@@ -23,8 +23,26 @@ namespace bya::gameObj
             virtual ~AMultPartEntity() = default;
             virtual void update(float dt) override = 0;
 
-            virtual void addPart(std::string partName, std::shared_ptr<IMultPartEntity> part) override {
-                m_parts[partName] = part;
+            virtual void addPart(std::shared_ptr<IMultPartEntity> part) override {
+                m_parts[part->getName()] = part;
+
+                // get the local position of the part relative to the parent
+                sf::Vector2f localPos = part->getPosition() - getGlobalCenter();
+                part->setAttachPointOnParent(localPos);
+
+                m_directChildren.push_back(part);
+
+                sortZIndex();
+                if (m_parent)
+                    m_parent->sortZIndex();
+            }
+
+            virtual void setAttachPointOnParent(const sf::Vector2f& attachPoint) override {
+                m_attachPointOnParent = attachPoint;
+            }
+
+            virtual sf::Vector2f getAttachPointOnParent() const override {
+                return m_attachPointOnParent;
             }
 
             virtual void removePart(std::shared_ptr<IMultPartEntity> part, std::string name = "") override {
@@ -34,6 +52,8 @@ namespace bya::gameObj
                             m_parts.erase(partName);
                 else
                     m_parts.erase(name);
+
+                m_directChildren.erase(std::remove(m_directChildren.begin(), m_directChildren.end(), part), m_directChildren.end());
             }
 
             virtual std::shared_ptr<IMultPartEntity> getPart(std::string name) override {
@@ -48,49 +68,22 @@ namespace bya::gameObj
                 return m_parts[name];
             }
 
-            virtual void draw(sf::RenderTarget &target, bool drawDebug) override {
-                if (drawDebug)
-                    target.draw(m_collisionBox);
-                m_orientedBox.render(target);
-                target.draw(m_pivotPointIndicator);
-            }
-
-            virtual void render(sf::RenderTarget &target, bool drawDebug = false) override {
-                sortZIndex();
+            virtual void render(sf::RenderTarget &target) override {
                 for (auto &part : m_sortedZparts)
-                    part->draw(target, drawDebug);
+                    ((AMultPartEntity*)part.get())->draw(target, false);
             }
 
             virtual void setPosition(sf::Vector2f pos) override {
-                sf::Vector2f offset = pos - m_position;
-                m_position = pos;
-                m_collisionBox.setPosition(m_position);
-                m_pivotPointIndicator.setPosition(m_position);
-                m_orientedBox.setPosition(m_position);
-                for (auto &[partName, part] : m_parts)
-                    part->setPosition(part->getPosition() + offset);
+                sf::Vector2f offset = pos - getPosition();
+                OrientedBoundingBox::setPosition(pos);
+                m_pivotPointIndicator.setPosition(getPosition());
+
+                for (auto &child : getDirectChildren())
+                    child->setPosition(child->getPosition() + offset);
             }
 
             virtual void setPosition(float x, float y) override {
                 setPosition({x, y});
-            }
-
-            virtual sf::Vector2f getPosition() const override {
-                return m_position;
-            }
-
-            virtual void setPivotPoint(sf::Vector2f pivotPoint) override {
-                m_pivotPoint = pivotPoint;
-                m_collisionBox.setOrigin(pivotPoint);
-                m_orientedBox.setOrigin(pivotPoint);
-            }
-
-            virtual void setPivotPoint(float x, float y) override {
-                setPivotPoint({x, y});
-            }
-
-            virtual sf::Vector2f getPivotPoint() const override {
-                return m_pivotPoint;
             }
 
             virtual float getOwnRotation() const override {
@@ -108,51 +101,31 @@ namespace bya::gameObj
                 return m_ownRotation + getHeritedRotation();
             }
 
-            // Helper function to recursively apply rotation to all child entities
-            void applyRotationToChildren(IMultPartEntity& entity, float offsetRotation)
-            {
-                sf::Transform transform = sf::Transform::Identity;
-                transform.rotate(offsetRotation * m_orientedBox.getScale().x, entity.getPosition());
-
-                for (auto &part : entity.getChildren(false)) {
-                    sf::Vector2f pos = part->getPosition();
-                    pos = transform.transformPoint(pos);
-                    part->setPosition(pos);
-                    part->setRotation(part->getOwnRotation(), false);
-                    applyRotationToChildren(*part, offsetRotation);
-                }
-            }
-
             virtual void setRotation(float angle, bool changeOwn = true) override
             {
-                m_previousRotation = getGlobalRotation();
-
-                if (changeOwn) {
+                OrientedBoundingBox::setRotation(angle);
+                if (changeOwn)
                     m_ownRotation = angle;
+
+                if (m_parent)
+                    OrientedBoundingBox::setRotation(m_ownRotation + m_parent->getRotation());
+
+                // compute the new position of the childs using their attach point
+                for (auto &child : getDirectChildren()) {
+                    // transform the attach point to the part global space
+                    sf::Vector2f attachPoint = child->getAttachPointOnParent();
+                    sf::Vector2f newPos = transformPoint(attachPoint + getLocalCenter());
+                    child->setPosition(newPos);
                 }
 
-                m_collisionBox.setRotation(getGlobalRotation() * m_orientedBox.getScale().x);
-                m_orientedBox.setRotation(getGlobalRotation());
-                m_pivotPointIndicator.setPosition(m_position);
-
-                float offset = getGlobalRotation() - m_previousRotation;
-
-                // Apply rotation to the children recursively
-                applyRotationToChildren(*this, offset);
-            }
-
-
-            virtual void setSize(sf::Vector2f size) override {
-                m_collisionBox.setSize(size);
-                m_orientedBox.setSize(size);
-            }
-
-            virtual void setSize(float x, float y) override {
-                setSize({x, y});
+                for (auto &child : getDirectChildren())
+                    child->setRotation(child->getRotation(), false);
             }
 
             virtual void setZIndex(int zIndex) override {
                 m_zIndex = zIndex;
+                if (m_parent)
+                    m_parent->sortZIndex();
             }
 
             virtual int getZIndex() const override {
@@ -163,7 +136,7 @@ namespace bya::gameObj
             {
                 m_sortedZparts.clear();
                 m_sortedZparts.push_back(shared_from_this());
-                for (auto &part : getChildren()) {
+                for (auto &part : getRecursiveChildren()) {
                     m_sortedZparts.push_back(part);
                 }
                 std::sort(m_sortedZparts.begin(), m_sortedZparts.end(), [](std::shared_ptr<IMultPartEntity> a, std::shared_ptr<IMultPartEntity> b) {
@@ -178,8 +151,7 @@ namespace bya::gameObj
 
             virtual void setTint(sf::Color tint) override {
                 m_tint = tint;
-                m_collisionBox.setFillColor(tint);
-                m_orientedBox.setColor(tint);
+                setColor(m_tint);
             }
 
             virtual sf::Color getTint() const override {
@@ -200,25 +172,18 @@ namespace bya::gameObj
                 return m_parent->getRoot();
             }
 
-            virtual sf::Vector2f getSize() const override {
-                return m_collisionBox.getSize();
-            }
-
             virtual bool isHovered() const override {
-                return m_orientedBox.contains(context::getMousePosition());
+                return contains(context::getMousePosition());
             }
 
             virtual void flipX() override {
-                m_collisionBox.setScale({m_collisionBox.getScale().x * -1, m_collisionBox.getScale().y});
-                m_collisionBox.setRotation(m_collisionBox.getRotation() * -1);
-                m_orientedBox.setScale({m_orientedBox.getScale().x * -1, m_orientedBox.getScale().y});
+                setScale({getScale().x * -1, getScale().y});
                 if (m_parent) {
                     IMultPartEntity* root = getRoot();
-                    sf::Vector2f posRelativeToRoot = root->getPosition() - m_orientedBox.getPosition();
+                    sf::Vector2f posRelativeToRoot = root->getPosition() - getPosition();
                     posRelativeToRoot.x *= -1;
-                    sf::Vector2f newPos(root->getPosition().x - posRelativeToRoot.x, m_orientedBox.getPosition().y);
-                    m_orientedBox.setPosition(newPos);
-                    m_position = newPos;
+                    sf::Vector2f newPos(root->getPosition().x - posRelativeToRoot.x, getPosition().y);
+                    setPosition(newPos);
                 }
                 m_pivotPointIndicator.setScale({m_pivotPointIndicator.getScale().x * -1, m_pivotPointIndicator.getScale().y});
 
@@ -239,28 +204,22 @@ namespace bya::gameObj
                 }
             }
 
-            std::vector<std::shared_ptr<IMultPartEntity>> getChildren(bool recursive = true) const {
+            std::vector<std::shared_ptr<IMultPartEntity>>& getDirectChildren() override {
+                return m_directChildren;
+            }
+
+            std::vector<std::shared_ptr<IMultPartEntity>> getRecursiveChildren() const override {
                 std::vector<std::shared_ptr<IMultPartEntity>> parts;
                 for (auto &[partName, part] : m_parts) {
                     parts.push_back(part);
-                    if (recursive) {
-                        std::vector<std::shared_ptr<IMultPartEntity>> childs = part->getChildren(recursive);
-                        parts.insert(parts.end(), childs.begin(), childs.end());
-                    }
+                    std::vector<std::shared_ptr<IMultPartEntity>> childs = part->getRecursiveChildren();
+                    parts.insert(parts.end(), childs.begin(), childs.end());
                 }
                 return parts;
             }
 
-            sf::Vector2f getScale() const override {
-                return m_orientedBox.getScale();
-            }
-
             virtual void setName(const std::string& name) override { m_name = name; }
             virtual std::string getName() const override { return m_name; }
-            virtual void setTexture(sf::Texture &texture) { m_orientedBox.setTexture(texture); }
-            virtual void setTextureRect(sf::IntRect rect) { m_orientedBox.setTextureRect(rect); }
-            virtual sf::IntRect getTextureRect() const { return m_orientedBox.getTextureRect(); }
-            virtual sf::Texture* getTexture() const { return m_orientedBox.getTexture(); }
 
             virtual void loadFromJson(std::string path) override;
             virtual void saveToJson(std::string path) override;
@@ -274,29 +233,33 @@ namespace bya::gameObj
             AMultPartEntity(IMultPartEntity* parent = nullptr)
             : m_parent(parent)
             {
+                showOutline(true);
+                setOutlineColor(sf::Color::Black);
                 m_pivotPointIndicator.setRadius(2);
                 sf::FloatRect bounds = m_pivotPointIndicator.getGlobalBounds();
                 m_pivotPointIndicator.setOrigin(bounds.width / 2, bounds.height / 2);
-                m_collisionBox.setFillColor(sf::Color(255, 255, 255, 100));
-                m_collisionBox.setOutlineColor(sf::Color::Black);
-                m_collisionBox.setOutlineThickness(1);
             }
-            sf::Vector2f m_pivotPoint = {0, 0};
-            sf::Vector2f m_position = {0, 0};
+
+            void draw(sf::RenderTarget &target, bool drawDebug) {
+                //if (drawDebug)
+                //    target.draw(m_collisionBox);
+                OrientedBoundingBox::render(target);
+                target.draw(m_pivotPointIndicator);
+            }
+
+        private:
+            std::string m_name = "";
             int m_zIndex = 0;
             float m_ownRotation = 0;
-            float m_previousRotation = 0;
+            sf::Vector2f m_attachPointOnParent = {0, 0};
             sf::Color m_tint = sf::Color::White;
-            std::string m_name = "";
-
-            sf::RectangleShape m_collisionBox;
-            OrientedBoundingBox m_orientedBox;
             sf::CircleShape m_pivotPointIndicator;
-
             IMultPartEntity* m_parent = nullptr;
             std::vector<std::shared_ptr<IMultPartEntity>> m_sortedZparts;
-            std::map<std::string, std::string> m_partMapping;
-            std::map<std::string, std::shared_ptr<IMultPartEntity>> m_parts;
+            std::unordered_map<std::string, std::string> m_partMapping;
+            std::unordered_map<std::string, std::shared_ptr<IMultPartEntity>> m_parts;
+
+            std::vector<std::shared_ptr<IMultPartEntity>> m_directChildren;
     };
 
 }

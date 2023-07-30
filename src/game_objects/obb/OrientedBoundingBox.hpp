@@ -12,51 +12,54 @@
 
 namespace bya::gameObj
 {
-    class OrientedBoundingBox
+    class OrientedBoundingBox : public sf::Transformable
     {
         public:
             OrientedBoundingBox();
-            OrientedBoundingBox(sf::Vector2f position, sf::Vector2f size, float rotation);
+            OrientedBoundingBox(const sf::Vector2f& position, const sf::Vector2f& size, float rotation);
             ~OrientedBoundingBox() = default;
 
-            bool intersects(OrientedBoundingBox &other) const;
-            bool intersects(sf::FloatRect &other) const;
+            bool intersects(const OrientedBoundingBox& other) const;
+            bool intersects(const sf::FloatRect& other) const;
             bool contains(const sf::Vector2f& point) const;
 
-            void setRotation(float rotation) { m_rotation = rotation; }
-            void setPosition(sf::Vector2f position) { m_position = position; }
-            void setSize(sf::Vector2f size);
-            void setOrigin(sf::Vector2f origin);
-            void setColor(sf::Color color) { m_color = color; }
-            void setScale(sf::Vector2f scale) { m_scale = scale; }
-            void setTexture(sf::Texture &texture);
-            void setTextureRect(sf::IntRect textureRect);
+            void setOutlineColor(const sf::Color& color) { m_outlineColor = color;}
+            void showOutline(bool show) { m_showOutline = show;}
 
-            sf::Vector2f getPosition() const { return m_position; }
-            sf::Vector2f getSize() const { return m_size; }
-            float getRotation() const { return m_rotation; }
-            sf::Vector2f getOrigin() const { return m_origin; }
-            sf::Color getColor() const { return m_color; }
-            sf::Vector2f getScale() const { return m_scale; }
-            std::array<sf::Vector2f, 4> getCorners() const;
-            sf::Vector2f getCenter() const;
-            sf::FloatRect getBounds() const;
+            void setSize(const sf::Vector2f& size);
+            void setColor(const sf::Color& color) { m_color = color; }
+
+            void setOrigin(const sf::Vector2f& pivotPoint);
+            void setScale(const sf::Vector2f& scale);
+            void setRotation(float rotation);
+            void setPosition(const sf::Vector2f& position);
+
+            void setTexture(sf::Texture &texture);
+            void setTextureRect(const sf::IntRect& textureRect);
             sf::Texture* getTexture() const { return m_texture; }
             sf::IntRect getTextureRect() const { return m_textureRect; }
 
-            void render(sf::RenderTarget &target);
+            sf::Vector2f getSize() const { return m_size; }
+            sf::Color getColor() const { return m_color; }
+            void updateTransform();
+            const std::array<sf::Vector2f, 4>& getGlobalCorners() const { return m_transformedCorners; }
+            const std::array<sf::Vector2f, 4>& getLocalCorners() const { return m_corners; }
+            sf::Vector2f transformPoint(const sf::Vector2f& point) const;
+
+            sf::Vector2f getGlobalCenter() const;
+            sf::Vector2f getLocalCenter() const;
+            virtual sf::FloatRect getBounds() const;
+
+            virtual void render(sf::RenderTarget &target);
 
         private:
             void updateTexCoords();
 
         private:
-            sf::Vector2f m_position = {0, 0};
             sf::Vector2f m_size = {0, 0};
-            sf::Vector2f m_origin = {0, 0};
-            sf::Vector2f m_scale = {1, 1};
             sf::Color m_color = sf::Color(255, 0, 0, 100);
-            float m_rotation = 0;
             std::array<sf::Vector2f, 4> m_corners = {};
+            std::array<sf::Vector2f, 4> m_transformedCorners = {};
             sf::Vertex m_vertices[5] = {};
             sf::VertexBuffer m_vertexBuffer;
             sf::CircleShape m_originShape;
@@ -64,5 +67,10 @@ namespace bya::gameObj
             sf::Texture *m_texture = nullptr;
             sf::IntRect m_textureRect = {0, 0, 0, 0};
             sf::RenderStates m_renderStates = sf::RenderStates::Default;
+
+            bool m_showOutline = false;
+            sf::Color m_outlineColor = sf::Color::Transparent;
+
+            bool m_needTransformUpdate = true;
     };
 }
