@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 03:40:22
+ * @ Modified time: 2023-07-31 16:39:45
  *  Description:
  */
 
@@ -291,7 +291,8 @@ namespace bya::ui {
         if (timer > m_maxTime)
             timer = m_maxTime;
         m_timer = timer;
-        m_slider->setProgress(m_timer / m_maxTime);
+        if (m_slider->getState() != Slider::State::GRABBED)
+            m_slider->setProgress(m_timer / m_maxTime);
         m_animation.setTimer(m_timer);
         auto state = m_animation.getState();
         if (state == Animation::MultiPartAnimation::State::PAUSED)
