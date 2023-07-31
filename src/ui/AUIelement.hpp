@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:23:16
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 19:17:07
+ * @ Modified time: 2023-07-31 22:07:42
  * @ Description:
  */
 
@@ -41,6 +41,14 @@ namespace bya::ui {
                     return std::dynamic_pointer_cast<T>(at(index).handle);
                 }
 
+                void set(const std::string &id, std::shared_ptr<ui::IUIelement> element)
+                {
+                    // if element already exists, replace it
+                    if (find(id) != m_elements.end())
+                        m_elements.erase(find(id));
+                    m_elements.emplace_back(id, Element{element, true});
+                }
+
                 std::size_t size() const { return m_elements.size(); }
 
                 bool empty() const { return m_elements.empty(); }
@@ -48,8 +56,10 @@ namespace bya::ui {
                 void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
                 {
                     // if element already exists, replace it
-                    if (find(id) != m_elements.end())
+                    if (find(id) != m_elements.end()) {
                         m_elements.erase(find(id));
+                        logger::warn("element with id {\"" + id + "\"} already exists, replacing");
+                    }
                     m_elements.emplace_back(id, Element{element, true});
                 }
 
@@ -105,8 +115,9 @@ namespace bya::ui {
                 void handleInputAny(sf::Event& event, const sf::RenderWindow& window)
                 {
                     for (const auto& [key, elem] : m_elements) {
-                        if (elem.handle && elem.enabled)
+                        if (elem.handle && elem.enabled) {
                             elem.handle->handleInputAny(event, window);
+                        }
                     }
                 }
 

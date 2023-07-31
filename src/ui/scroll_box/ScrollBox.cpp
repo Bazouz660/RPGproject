@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 18:55:32
+ * @ Modified time: 2023-07-31 22:06:28
  * @ Description:
  */
 
@@ -49,7 +49,7 @@ namespace bya::ui {
             THROW("ScrollBox::setSelectedElement: element not found");
         }
         m_selectedElement = element;
-        m_children.get<IUIelement>(0) = m_selectedElement;
+        m_children.set("selected_element", m_selectedElement);
     }
 
     template<typename T>
@@ -77,7 +77,7 @@ namespace bya::ui {
 
         if (m_selectedElement == nullptr) {
             m_selectedElement = element;
-            m_children.get<IUIelement>(0) = m_selectedElement;
+            m_children.set("selected_element", m_selectedElement);
         }
     }
 
@@ -89,13 +89,13 @@ namespace bya::ui {
             if (event.mouseWheelScroll.delta > 0) {
                 if (index > 0) {
                     m_selectedElement = m_elements[index - 1];
-                    m_children.get<IUIelement>(0) = m_selectedElement;
+                    m_children.set("selected_element", m_selectedElement);
                 }
             }
             else {
                 if (index < m_elements.size() - 1) {
                     m_selectedElement = m_elements[index + 1];
-                    m_children.get<IUIelement>(0) = m_selectedElement;
+                    m_children.set("selected_element", m_selectedElement);
                 }
             }
         }

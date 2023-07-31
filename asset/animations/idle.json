@@ -1,0 +1,300 @@
+{
+    "head": [
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                19.0,
+                47.5
+            ],
+            "position": [
+                962.0,
+                473.5
+            ],
+            "rotation": -1.301952600479126,
+            "size": [
+                42.75,
+                47.5
+            ],
+            "time": 0.0,
+            "zIndex": 1
+        },
+        {
+            "easingFunction": "linear",
+            "pivot": [
+                19.0,
+                47.5
+            ],
+            "position": [
+                962.0,
+                473.5
+            ],
+            "rotation": 2.910505771636963,
+            "size": [
+                42.75,
+                47.5
+            ],
+            "time": 1.0,
+            "zIndex": 1
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                19.0,
+                47.5
+            ],
+            "position": [
+                962.0,
+                473.5
+            ],
+            "rotation": -1.301952600479126,
+            "size": [
+                42.75,
+                47.5
+            ],
+            "time": 2.0,
+            "zIndex": 1
+        }
+    ],
+    "leftArm": [
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                975.0,
+                493.5
+            ],
+            "rotation": -10.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                975.0,
+                493.5
+            ],
+            "rotation": -5.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                975.0,
+                493.5
+            ],
+            "rotation": -10.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": -2
+        }
+    ],
+    "leftForearm": [
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                985.6062622070313,
+                532.0682373046875
+            ],
+            "rotation": -12.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                981.9000244140625,
+                532.9000244140625
+            ],
+            "rotation": -15.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                972.596923828125,
+                533.427734375
+            ],
+            "rotation": -7.198014736175537,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": -2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                981.9459228515625,
+                532.892333984375
+            ],
+            "rotation": -12.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": -2
+        }
+    ],
+    "rightArm": [
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                945.0,
+                493.5
+            ],
+            "rotation": 10.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": 2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                945.0,
+                493.5
+            ],
+            "rotation": -0.666200578212738,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": 2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                10.0
+            ],
+            "position": [
+                945.0,
+                493.5
+            ],
+            "rotation": 10.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": 2
+        }
+    ],
+    "rightForearm": [
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                933.9846801757813,
+                531.953369140625
+            ],
+            "rotation": -15.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": 2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                945.465087890625,
+                533.497314453125
+            ],
+            "rotation": -15.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": 2
+        },
+        {
+            "easingFunction": "easeInOutCubic",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                933.9846801757813,
+                531.953369140625
+            ],
+            "rotation": -15.0,
+            "size": [
+                20.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": 2
+        }
+    ]
+}
