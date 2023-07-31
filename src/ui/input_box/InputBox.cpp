@@ -37,7 +37,7 @@ namespace bya::ui {
                 inputBoxButton->setLabel("");
             this->setActive(true);
         });
-        addChild(inputBoxButton);
+        m_children.add("inputBoxButton", inputBoxButton);
         m_inputBox = inputBoxButton;
 
         auto applyButton = std::make_shared<Button>();
@@ -45,7 +45,7 @@ namespace bya::ui {
         applyButton->setLabel("Apply");
         applyButton->setSize(sf::Vector2f(100, 75));
         applyButton->setPosition(getPosition() + sf::Vector2f(m_background.getGlobalBounds().width / 2 - 100, m_background.getGlobalBounds().height / 2 - 100));
-        addChild(applyButton);
+        m_children.add("applyButton", applyButton);
         m_applyButton = applyButton;
 
         auto cancelButton = std::make_shared<Button>();
@@ -53,7 +53,7 @@ namespace bya::ui {
         cancelButton->setLabel("Cancel");
         cancelButton->setSize(sf::Vector2f(100, 75));
         cancelButton->setPosition(getPosition() + sf::Vector2f(-m_background.getGlobalBounds().width / 2 + 100, m_background.getGlobalBounds().height / 2 - 100));
-        addChild(cancelButton);
+        m_children.add("cancelButton", cancelButton);
         m_cancelButton = cancelButton;
     }
 

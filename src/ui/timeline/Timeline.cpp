@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 16:39:45
+ * @ Modified time: 2023-07-31 19:00:15
  *  Description:
  */
 
@@ -22,7 +22,7 @@ namespace bya::ui {
         m_slider = std::make_shared<Slider>();
         m_slider->getWagon().setSize({10, 20});
         m_slider->getWagon().setOrigin({5, 10});
-        addChild(m_slider);
+        m_children.add("slider", m_slider);
 
         setTimer(0);
 
@@ -32,8 +32,7 @@ namespace bya::ui {
         box.setOutlineThickness(2);
 
         m_keyframeHolders = std::make_shared<ScrollBox<KeyframeHolder>>();
-        m_keyframeHolders->toggleChild(m_keyframeHolders->getSelectedElement(), true);
-        addChild(m_keyframeHolders);
+        m_children.add("keyframeHolders", m_keyframeHolders);
 
         m_currentTimeText = std::make_shared<Text>();
         m_currentTimeText->setString(formatTime(m_currentTime));
@@ -41,7 +40,7 @@ namespace bya::ui {
         m_currentTimeText->setCharacterSize(20);
         m_currentTimeText->setOutlineColor(sf::Color::Black);
         m_currentTimeText->setOutlineThickness(1);
-        addChild(m_currentTimeText);
+        m_children.add("currentTimeText", m_currentTimeText);
 
         addMarkers();
     }
@@ -88,7 +87,7 @@ namespace bya::ui {
     {
         // remove old markers
         for (auto& marker : m_markers)
-            removeChild(marker);
+            m_children.remove(marker);
         m_markers.clear();
         for (int i = 0; i <= m_markerCount; i++)
             addMarker(i);
@@ -111,7 +110,7 @@ namespace bya::ui {
         marker->setSize({label.getGlobalBounds().width, label.getGlobalBounds().height + 10});
         marker->drawBox(false);
         m_markers.push_back(marker);
-        addChild(marker);
+        m_children.add("marker" + std::to_string(i), marker);
     }
 
     void Timeline::setMarkerZoom(float zoom)
@@ -213,7 +212,7 @@ namespace bya::ui {
     void Timeline::render(sf::RenderTarget &target)
     {
         m_keyframeHolders->setPosition({m_slider->getBounds().left - 10, m_slider->getBounds().top + m_slider->getBounds().height + 10});
-        for (auto& child : m_children)
+        for (auto& [key, child] : m_children)
             child.handle->render(target);
     }
 
@@ -249,7 +248,7 @@ namespace bya::ui {
     {
         std::unique_ptr<sf::FloatRect> resBounds = nullptr;
 
-        for (auto &child : m_children)
+        for (auto &[key, child] : m_children)
         {
             auto bounds = child.handle->getBounds();
             if (resBounds == nullptr)

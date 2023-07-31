@@ -32,4 +32,6 @@
     #include <SFML/Audio.hpp>
     #include <SFML/Config.hpp>
 
+    #include "Exception.hpp"
+
 #endif /* !COMMON_HPP_ */

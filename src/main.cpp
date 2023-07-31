@@ -15,8 +15,8 @@ int main(int argc, char **argv)
     try {
         engine.preProcessor();
         engine.run();
-    } catch (std::exception &e) {
-        bya::logger::error(e.what());
+    } catch (bya::Exception &e) {
+        bya::logger::error(e.what() + std::string(" at ") + e.where());
         return 84;
     }
     return 0;

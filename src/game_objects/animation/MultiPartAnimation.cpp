@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 03:27:47
+ * @ Modified time: 2023-07-31 19:13:07
  * @ Description:
  */
 
@@ -184,14 +184,14 @@ namespace bya::Animation {
 
         if (m_entity == nullptr) {
             logger::error("Could not load animation " + path + " : no entity set");
-            throw std::runtime_error("Multi part animation: Could not load animation " + path + " : no entity set");
+            THROW("Multi part animation: Could not load animation " + path + " : no entity set");
         }
 
         for (auto& [entityName, keyframesJson] : json.items()) {
             std::shared_ptr<gameObj::IMultPartEntity> entity = m_entity->getPart(entityName);
             if (entity == nullptr) {
                 logger::log("Entity " + entityName + " not found in animation " + path);
-                throw std::runtime_error("Multi part animation: Entity " + entityName + " not found in animation " + path);
+                THROW("Multi part animation: Entity " + entityName + " not found in animation " + path);
             }
             for (auto& keyframeJson : keyframesJson) {
                 Keyframe keyframe(entity);
@@ -205,7 +205,7 @@ namespace bya::Animation {
                     keyframe.setEasingFunction(keyframeJson["easingFunction"]);
                 } catch (std::exception& e) {
                     logger::error("Could not load easing function for keyframe in animation " + path + " : " + e.what());
-                    throw std::runtime_error("Multi part animation: Could not load easing function for keyframe in animation " + path + " : " + e.what());
+                    THROW("Multi part animation: Could not load easing function for keyframe in animation " + path + " : " + e.what());
                 }
                 addKeyframe(std::make_shared<Keyframe>(keyframe));
             }
@@ -216,7 +216,7 @@ namespace bya::Animation {
     {
         if (index >= m_keyframesMap[entity].size()) {
             logger::error("Keyframe index out of range");
-            throw std::runtime_error("Multi part animation: Keyframe index out of range");
+            THROW("Multi part animation: Keyframe index out of range");
         }
         return m_keyframesMap[entity][index];
     }
@@ -229,7 +229,7 @@ namespace bya::Animation {
             }
         }
         logger::error("Keyframe not found");
-        throw std::runtime_error("Multi part animation: Keyframe not found");
+        THROW("Multi part animation: Keyframe not found");
     }
 
     void MultiPartAnimation::clear()

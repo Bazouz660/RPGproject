@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPG3
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 16:20:49
+ * @ Modified time: 2023-07-31 18:23:35
 */
 
 #pragma once
@@ -30,10 +30,6 @@ namespace bya::ui {
 
         // Render the element to the target
         virtual void render(sf::RenderTarget& target) = 0;
-
-        // Add  children references
-        virtual void addChild(std::shared_ptr<IUIelement> child) = 0;
-        virtual void removeChild(std::shared_ptr<IUIelement> child) = 0;
     };
 
 }

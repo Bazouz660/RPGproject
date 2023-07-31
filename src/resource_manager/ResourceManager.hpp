@@ -76,7 +76,7 @@ namespace bya {
                 } else
                     status = resource->loadFromFile(filePath);
                 if (status == -1)
-                    throw std::runtime_error("Failed to load resource: " + filePath);
+                    THROW("Failed to load resource: " + filePath);
 
                 if (map.find(directoryName) == map.end())
                     map[directoryName] = std::make_shared<ResourceMap<T>>();
@@ -120,7 +120,7 @@ namespace bya {
                 } else if constexpr (std::is_same_v<ResourceType, sf::Music>) {
                     return m_musics;
                 } else {
-                    throw std::runtime_error("Unknown resource type");
+                    THROW("Unknown resource type");
                 }
             }
 
@@ -132,19 +132,19 @@ namespace bya {
                     // check if the requested texture is in another ImageMap
                     for (auto& [location, imageMap] : m_images) {
                         if (imageMap->find(name) != imageMap->end()) {
-                            throw std::runtime_error("Texture not found: [" + name + "] in [" + location + "] but found in [" + location + "]");
+                            THROW("Texture not found: [" + name + "] in [" + location + "] but found in [" + location + "]");
                         }
                     }
-                    throw std::runtime_error("Texture not found: [" + name + "] in [" + location + "]");
+                    THROW("Texture not found: [" + name + "] in [" + location + "]");
                 }
                 if (map.at(location)->find(name) == map.at(location)->end()) {
                     // check if the requested texture is in another ImageMap
                     for (auto& [location, imageMap] : m_images) {
                         if (imageMap->find(name) != imageMap->end()) {
-                            throw std::runtime_error("Texture not found: [" + name + "] in [" + location + "] but found in [" + location + "]");
+                            THROW("Texture not found: [" + name + "] in [" + location + "] but found in [" + location + "]");
                         }
                     }
-                    throw std::runtime_error("Texture not found: [" + name + "] in [" + location + "]");
+                    THROW("Texture not found: [" + name + "] in [" + location + "]");
                 }
             }
 

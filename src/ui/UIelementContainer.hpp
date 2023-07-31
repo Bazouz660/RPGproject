@@ -46,6 +46,17 @@ namespace bya::ui {
                 m_elements.erase(find(id));
             }
 
+            void remove(const std::shared_ptr<ui::IUIelement> &element)
+            {
+                for (auto it = m_elements.begin(); it != m_elements.end(); ++it) {
+                    if (it->second.handle == element) {
+                        m_elements.erase(it);
+                        return;
+                    }
+                }
+                THROW("element not found");
+            }
+
             void disable(const std::string &id)
             {
                 exists(id);
@@ -142,7 +153,7 @@ namespace bya::ui {
             void exists(const std::string &id) const
             {
                 if (find(id) == m_elements.end())
-                    throw std::runtime_error("Element with id " + id + " does not exist");
+                    THROW("Element with id " + id + " does not exist");
             }
 
             Element& at(const std::string &id)

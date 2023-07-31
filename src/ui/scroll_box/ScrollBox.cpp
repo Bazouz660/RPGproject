@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 03:56:21
+ * @ Modified time: 2023-07-31 18:55:32
  * @ Description:
  */
 
@@ -36,8 +36,8 @@ namespace bya::ui {
         m_indexText.setString("0/0");
         m_indexText.setCharacterSize(20);
 
-        addChild(m_selectedElement);
-        toggleChild(m_selectedElement, false);
+        m_children.add("selected_element", m_selectedElement);
+        //m_children.disable("selected_element");
     }
 
     template<typename T>
@@ -46,10 +46,10 @@ namespace bya::ui {
         if (std::find_if(m_elements.begin(), m_elements.end(), [element](const auto &pair) {
             return pair == element;
         }) == m_elements.end()) {
-            throw std::runtime_error("ScrollBox::setSelectedElement: element not found");
+            THROW("ScrollBox::setSelectedElement: element not found");
         }
         m_selectedElement = element;
-        m_children[0].handle = m_selectedElement;
+        m_children.get<IUIelement>(0) = m_selectedElement;
     }
 
     template<typename T>
@@ -77,7 +77,7 @@ namespace bya::ui {
 
         if (m_selectedElement == nullptr) {
             m_selectedElement = element;
-            m_children[0].handle = m_selectedElement;
+            m_children.get<IUIelement>(0) = m_selectedElement;
         }
     }
 
@@ -89,13 +89,13 @@ namespace bya::ui {
             if (event.mouseWheelScroll.delta > 0) {
                 if (index > 0) {
                     m_selectedElement = m_elements[index - 1];
-                    m_children[0].handle = m_selectedElement;
+                    m_children.get<IUIelement>(0) = m_selectedElement;
                 }
             }
             else {
                 if (index < m_elements.size() - 1) {
                     m_selectedElement = m_elements[index + 1];
-                    m_children[0].handle = m_selectedElement;
+                    m_children.get<IUIelement>(0) = m_selectedElement;
                 }
             }
         }

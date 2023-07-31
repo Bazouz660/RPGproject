@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 03:38:43
+ * @ Modified time: 2023-07-31 18:58:57
  * @ Description:
  */
 
@@ -27,7 +27,7 @@ namespace bya::ui {
             m_timeline.getKeyframeInfo().setKeyframeMarker(keyframeMarker);
         });
         m_keyframeMarkers.push_back(keyframeMarker);
-        addChild(keyframeMarker);
+        m_children.add("keyframeMarke_" + std::to_string(keyframeMarker->getTime()), keyframeMarker);
     }
 
     void KeyframeHolder::addKeyframeMarker(float time)
@@ -50,14 +50,14 @@ namespace bya::ui {
             m_timeline.getKeyframeInfo().setKeyframeMarker(keyframeMarker);
         });
         m_keyframeMarkers.push_back(keyframeMarker);
-        addChild(keyframeMarker);
+        m_children.add("keyframeMarke_" + std::to_string(keyframeMarker->getTime()), keyframeMarker);
     }
 
     void KeyframeHolder::removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker)
     {
         m_animation.removeKeyframe(m_part, keyframeMarker->getTime());
         m_keyframeMarkers.erase(std::remove(m_keyframeMarkers.begin(), m_keyframeMarkers.end(), keyframeMarker), m_keyframeMarkers.end());
-        removeChild(keyframeMarker);
+        m_children.remove(keyframeMarker);
     }
 
     void KeyframeHolder::anyEventHandler(sf::Event& event)

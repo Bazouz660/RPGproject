@@ -26,9 +26,7 @@ namespace bya::ui {
         Button::render(target);
 
         if (m_isOpen) {
-            for (auto& child : m_children) {
-                child.handle->render(target);
-            }
+            m_children.render(target);
         }
     }
 
@@ -37,7 +35,7 @@ namespace bya::ui {
         Button::setPosition(pos);
 
         int i = 0;
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             i++;
             child.handle->setPosition({pos.x, pos.y + (getSize().y * i)});
         }
@@ -46,7 +44,7 @@ namespace bya::ui {
     void DropDownButton::setCharacterSize(unsigned int size)
     {
         Button::getLabel().setCharacterSize(size);
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             dynamic_cast<Button*>(child.handle.get())->getLabel().setCharacterSize(size);
         }
     }
@@ -54,15 +52,15 @@ namespace bya::ui {
     void DropDownButton::addOption(const std::string& option)
     {
         // if a button with the same label already exists, don't add it
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             if (dynamic_cast<Button*>(child.handle.get())->getLabel().getString() == option) {
                 return;
             }
         }
 
         // add the button
-        addChild(std::make_shared<Button>());
-        Button* button = dynamic_cast<Button*>(m_children.back().handle.get());
+        m_children.add("button_" + option, std::make_shared<Button>());
+        auto button = m_children.get<Button>("button_" + option);
 
         // if its the first option, set the label to the option
         if (m_children.size() == 1) {
@@ -82,9 +80,9 @@ namespace bya::ui {
 
     void DropDownButton::removeOption(const std::string& option)
     {
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             if (dynamic_cast<Button*>(child.handle.get())->getLabel().getString() == option) {
-                removeChild(child.handle);
+                m_children.remove(child.handle);
                 return;
             }
         }
@@ -96,7 +94,7 @@ namespace bya::ui {
     void DropDownButton::setSize(const sf::Vector2f& size)
     {
         Button::setSize(size);
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             dynamic_cast<Button*>(child.handle.get())->setSize(size);
         }
     }
@@ -105,7 +103,7 @@ namespace bya::ui {
     {
         sf::FloatRect bounds = Button::getBounds();
         if (m_isOpen) {
-            for (auto& child : m_children) {
+            for (auto& [key, child] : m_children) {
                 bounds.height += child.handle->getBounds().height;
             }
         }

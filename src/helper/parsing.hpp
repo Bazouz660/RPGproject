@@ -25,7 +25,7 @@ namespace bya {
             std::string content;
             std::string line;
             if (!file.is_open())
-                throw std::runtime_error("Failed to open file: " + path);
+                THROW("Failed to open file: " + path);
             while (std::getline(file, line)) {
                 content += line;
                 content.push_back('\n');
@@ -54,7 +54,7 @@ namespace bya {
                 tokens.push_back(token);
             }
             if (tokens.size() != 2)
-                throw std::runtime_error("Invalid vector format: " + tmp);
+                THROW("Invalid vector format: " + tmp);
             return sf::Vector2<T>(std::stof(tokens[0]), std::stof(tokens[1]));
         }
 

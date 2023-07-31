@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-09 00:38:37
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-24 19:12:01
+ * @ Modified time: 2023-07-31 19:42:17
  * @ Description:
  */
 
@@ -26,11 +26,9 @@ namespace bya::ui {
             virtual void render(sf::RenderTarget &target) override;
 
 
-            void addText(std::shared_ptr<EditableText> text) { addChild(text); }
-            void removeText(std::shared_ptr<EditableText> text) { removeChild(text); }
-            void removeText(unsigned int index) { removeChild(m_children[index].handle); }
-            EditableText* getText(unsigned int index) { return dynamic_cast<EditableText*>(m_children[index].handle.get()); }
-
+            void addText(std::shared_ptr<EditableText> text) { m_children.add("text_" + std::to_string(m_children.size()), text); }
+            void removeText(std::shared_ptr<EditableText> text) { m_children.remove(text); }
+            std::shared_ptr<EditableText> getText(unsigned int index) { return m_children.get<EditableText>(index); }
         protected:
             virtual void anyEventHandler(sf::Event &event) override;
 

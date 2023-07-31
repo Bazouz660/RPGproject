@@ -24,7 +24,7 @@ namespace bya::ui {
         m_rotationInput->setCharacterSize(20);
         m_rotationInput->setType(EditableText::Type::DECIMAL);
         m_rotationInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 80));
-        addChild(m_rotationInput);
+        m_children.add("rotationInput", m_rotationInput);
 
         m_timeInput->setPrefix("Time: [");
         m_timeInput->setSuffix("]");
@@ -32,7 +32,7 @@ namespace bya::ui {
         m_timeInput->setCharacterSize(20);
         m_timeInput->setType(EditableText::Type::DECIMAL);
         m_timeInput->setPosition(m_background.getPosition() + sf::Vector2f(10, 30));
-        addChild(m_timeInput);
+        m_children.add("timeInput", m_timeInput);
 
         m_easingDropDown->setSize(sf::Vector2f(150, 25));
         m_easingDropDown->setCharacterSize(20);
@@ -40,7 +40,7 @@ namespace bya::ui {
             m_easingDropDown->addOption(easing.first);
         }
         m_easingDropDown->setPosition(m_background.getPosition() + sf::Vector2f(200, 30));
-        addChild(m_easingDropDown);
+        m_children.add("easingDropDown", m_easingDropDown);
 
         m_easingObserver.setOnUpdate([this]() {
             if (this->m_keyframeMarker == nullptr)
@@ -68,7 +68,7 @@ namespace bya::ui {
     {
         target.draw(m_background);
 
-        for (auto& child : m_children) {
+        for (auto& [key, child] : m_children) {
             child.handle->render(target);
         }
     }
@@ -84,7 +84,7 @@ namespace bya::ui {
     sf::FloatRect KeyframeInfo::getBounds() const
     {
         sf::FloatRect bounds = m_background.getGlobalBounds();
-        bounds = math::combineRects(bounds, getChildsBounds());
+        bounds = math::combineRects(bounds, m_children.getBounds());
         return bounds;
     }
 
