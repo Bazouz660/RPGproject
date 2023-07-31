@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** RPGproject
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 22:58:42
+ * @ Modified time: 2023-07-31 02:57:34
 */
 
 #include "AnimationEditor.hpp"

@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 21:16:55
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 22:56:49
+ * @ Modified time: 2023-07-31 03:38:43
  * @ Description:
  */
 
@@ -18,10 +18,22 @@ namespace bya::ui {
         m_background.setOutlineThickness(1.f);
     }
 
+    void KeyframeHolder::addKeyframeMarker(std::shared_ptr<Animation::Keyframe> newKeyframe)
+    {
+        auto keyframeMarker = std::make_shared<KeyframeMarker>(newKeyframe->getTime(), m_maxTime, m_slider, newKeyframe);
+        keyframeMarker->setCallback([this, keyframeMarker]() {
+            m_timeline.setTimer(keyframeMarker->getTime());
+            this->setSelectedKeyframeMarker(keyframeMarker);
+            m_timeline.getKeyframeInfo().setKeyframeMarker(keyframeMarker);
+        });
+        m_keyframeMarkers.push_back(keyframeMarker);
+        addChild(keyframeMarker);
+    }
+
     void KeyframeHolder::addKeyframeMarker(float time)
     {
-        Animation::Keyframe keyframe(m_part);
-        keyframe.setTime(time)
+        auto keyframe = std::make_shared<Animation::Keyframe>(m_part);
+        keyframe->setTime(time)
         .setPosition(m_part->getPosition())
         .setRotation(m_part->getOwnRotation())
         .setSize(m_part->getSize())
@@ -31,11 +43,11 @@ namespace bya::ui {
 
         m_animation.addKeyframe(keyframe);
 
-        auto keyframeMarker = std::make_shared<KeyframeMarker>(time, m_maxTime, m_slider);
+        auto keyframeMarker = std::make_shared<KeyframeMarker>(time, m_maxTime, m_slider, keyframe);
         keyframeMarker->setCallback([this, keyframeMarker]() {
             m_timeline.setTimer(keyframeMarker->getTime());
             this->setSelectedKeyframeMarker(keyframeMarker);
-            m_timeline.getKeyframeInfo().setKeyframe(m_animation.getKeyframe(m_part, keyframeMarker->getTime()));
+            m_timeline.getKeyframeInfo().setKeyframeMarker(keyframeMarker);
         });
         m_keyframeMarkers.push_back(keyframeMarker);
         addChild(keyframeMarker);

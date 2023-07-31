@@ -25,14 +25,14 @@ namespace bya::ui {
             virtual void render(sf::RenderTarget &target) override;
             virtual void setPosition(const sf::Vector2f &pos) override;
 
-            void setKeyframe(Animation::Keyframe& keyframe);
+            void setKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
 
             sf::FloatRect getBounds() const;
 
         private:
             sf::RectangleShape m_background;
 
-            Animation::Keyframe* m_keyframe;
+            std::shared_ptr<KeyframeMarker> m_keyframeMarker = nullptr;
 
             std::shared_ptr<EditableText> m_timeInput;
             std::shared_ptr<EditableText> m_rotationInput;

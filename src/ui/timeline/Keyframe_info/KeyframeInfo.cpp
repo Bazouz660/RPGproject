@@ -43,20 +43,24 @@ namespace bya::ui {
         addChild(m_easingDropDown);
 
         m_easingObserver.setOnUpdate([this]() {
-            if (this->m_keyframe == nullptr)
+            if (this->m_keyframeMarker == nullptr)
                 return;
-            m_keyframe->setEasingFunction(this->m_easingDropDown->getLabel().getString());
+            auto keyframe = this->m_keyframeMarker->getKeyframe();
+            keyframe->setEasingFunction(this->m_easingDropDown->getLabel().getString());
         });
         m_rotationObserver.setOnUpdate([this]() {
-            if (this->m_keyframe == nullptr)
+            if (this->m_keyframeMarker == nullptr)
                 return;
             float rotation = std::stof(this->m_rotationInput->getInput());
-            this->m_keyframe->setRotation(rotation);
+            auto keyframe = this->m_keyframeMarker->getKeyframe();
+            keyframe->setRotation(rotation);
         });
         m_timeObserver.setOnUpdate([this]() {
-            if (this->m_keyframe == nullptr)
+            if (this->m_keyframeMarker == nullptr)
                 return;
+            auto keyframe = this->m_keyframeMarker->getKeyframe();
             float time = std::stof(this->m_timeInput->getInput());
+            m_keyframeMarker->setTime(time);
         });
     }
 
@@ -84,11 +88,12 @@ namespace bya::ui {
         return bounds;
     }
 
-    void KeyframeInfo::setKeyframe(Animation::Keyframe& keyframe)
+    void KeyframeInfo::setKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker)
     {
-        m_keyframe = &keyframe;
-        m_rotationInput->setPreInpSufx(parsing::floatToString(keyframe.getRotation()));
-        m_timeInput->setPreInpSufx(parsing::floatToString(keyframe.getTime()));
-        m_easingDropDown->setLabel(keyframe.getEasingFunctionName());
+        m_keyframeMarker = keyframeMarker;
+        auto keyframe = m_keyframeMarker->getKeyframe();
+        m_rotationInput->setPreInpSufx(parsing::floatToString(keyframe->getRotation()));
+        m_timeInput->setPreInpSufx(parsing::floatToString(keyframe->getTime()));
+        m_easingDropDown->setLabel(keyframe->getEasingFunctionName());
     }
 }

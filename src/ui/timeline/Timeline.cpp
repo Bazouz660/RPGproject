@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 23:19:23
+ * @ Modified time: 2023-07-31 03:40:22
  *  Description:
  */
 
@@ -264,7 +264,8 @@ namespace bya::ui {
     void Timeline::loadAnimation(std::string path)
     {
         // clear current animation
-        m_animation = Animation::MultiPartAnimation(m_entity);
+        m_animation.clear();
+        m_animation.setEntity(m_entity);
         m_keyframeHolders->clear();
 
         m_animation.loadFromJson(path);
@@ -273,7 +274,9 @@ namespace bya::ui {
         for (auto& [entity, keyframes] : m_animation.getKeyframesMap()) {
             setSelectedPart(entity);
             for (auto& keyframe : keyframes) {
-                m_keyframeHolders->getSelectedElement()->addKeyframeMarker(keyframe.getTime());
+                float time = keyframe->getTime();
+                auto selectedHolder = m_keyframeHolders->getSelectedElement();
+                selectedHolder->addKeyframeMarker(keyframe);
             }
         }
     }

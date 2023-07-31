@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 03:41:31
+ * @ Modified time: 2023-07-31 03:27:27
  * @ Description:
  */
 
@@ -22,14 +22,14 @@ namespace bya::Animation {
 
             enum State { PLAYING, PAUSED };
 
-            void addKeyframe(Keyframe keyframe);
+            void addKeyframe(std::shared_ptr<Keyframe> keyframe);
             void removeKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time);
 
             void setEntity(std::shared_ptr<gameObj::IMultPartEntity> entity) { m_entity = entity; }
-            const std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<Keyframe>>& getKeyframesMap() const { return m_keyframesMap; }
+            const std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<std::shared_ptr<Keyframe>>>& getKeyframesMap() const { return m_keyframesMap; }
 
-            Keyframe& getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index);
-            Keyframe& getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time);
+            std::shared_ptr<Keyframe> getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index);
+            std::shared_ptr<Keyframe> getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time);
 
             void sortKeyframes();
 
@@ -45,6 +45,8 @@ namespace bya::Animation {
             void setLoop(bool loop) { m_loop = loop; }
             bool getLoop() const { return m_loop; }
 
+            void clear();
+
             State getState() const { return m_state; }
 
             MultiPartAnimation blend(MultiPartAnimation& other, float blendFactor);
@@ -54,7 +56,7 @@ namespace bya::Animation {
 
         private:
             std::shared_ptr<gameObj::IMultPartEntity> m_entity;
-            std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<Keyframe>> m_keyframesMap;
+            std::map<std::shared_ptr<gameObj::IMultPartEntity>, std::vector<std::shared_ptr<Keyframe>>> m_keyframesMap;
 
             float m_timer = 0;
             bool m_loop = true;

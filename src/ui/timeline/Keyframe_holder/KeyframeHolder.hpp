@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-17 20:41:54
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-25 19:02:01
+ * @ Modified time: 2023-07-31 03:29:53
  * @ Description:
  */
 
@@ -22,6 +22,7 @@ namespace bya::ui {
                 virtual ~KeyframeHolder() = default;
 
                 void addKeyframeMarker(float time);
+                void addKeyframeMarker(std::shared_ptr<Animation::Keyframe> newKeyframe);
                 void removeKeyframeMarker(std::shared_ptr<KeyframeMarker> keyframeMarker);
 
                 virtual void render(sf::RenderTarget &target) override;

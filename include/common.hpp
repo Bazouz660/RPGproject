@@ -14,6 +14,8 @@
     #define uptr std::unique_ptr
     #define GRAVITY 9.81f
 
+    #include <gperftools/profiler.h>
+
     #include <stdint.h>
     #include <string>
     #include <iostream>

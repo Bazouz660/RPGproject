@@ -6,8 +6,8 @@ project(${PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 set(CMAKE_CXX_STANDARD 20)
 
-# add -g flag
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+# Add -g flag and enable optimizations
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O2")
 
 link_libraries(stdc++fs)
 
@@ -29,3 +29,13 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Link the SFML library
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
+
+# Add gperftools and profiling markers
+find_library(GPERFTOOLS_PROFILER libprofiler.so PATHS /usr/lib /usr/local/lib) # Adjust the paths if necessary
+if (GPERFTOOLS_PROFILER)
+    message("Found gperftools profiler library: ${GPERFTOOLS_PROFILER}")
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${GPERFTOOLS_PROFILER})
+    add_definitions(-DENABLE_PROFILING) # Add a compiler definition to enable profiling markers
+endif ()
+
+

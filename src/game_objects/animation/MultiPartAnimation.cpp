@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 23:17:06
+ * @ Modified time: 2023-07-31 03:27:47
  * @ Description:
  */
 
@@ -13,13 +13,20 @@
 
 namespace bya::Animation {
 
-    void MultiPartAnimation::addKeyframe(Keyframe keyframe)
+    void MultiPartAnimation::addKeyframe(std::shared_ptr<Keyframe> keyframe)
     {
-        if (m_keyframesMap.find(keyframe.getEntity()) == m_keyframesMap.end()) {
-            m_keyframesMap[keyframe.getEntity()] = std::vector<Keyframe>();
+        if (m_keyframesMap.find(keyframe->getEntity()) == m_keyframesMap.end()) {
+            m_keyframesMap[keyframe->getEntity()] = std::vector<std::shared_ptr<Keyframe>>();
         }
 
-        m_keyframesMap[keyframe.getEntity()].push_back(keyframe);
+        // if there is already a keyframe at this time, replace it
+        for (unsigned int i = 0; i < m_keyframesMap[keyframe->getEntity()].size(); i++) {
+            if (m_keyframesMap[keyframe->getEntity()][i]->getTime() == keyframe->getTime()) {
+                logger::warn("Keyframe at time {" + std::to_string(keyframe->getTime()) + "} already exists, replacing it");
+            }
+        }
+
+        m_keyframesMap[keyframe->getEntity()].push_back(keyframe);
         sortKeyframes();
     }
 
@@ -30,7 +37,7 @@ namespace bya::Animation {
         }
 
         for (unsigned int i = 0; i < m_keyframesMap[entity].size(); i++) {
-            if (m_keyframesMap[entity][i].getTime() == time) {
+            if (m_keyframesMap[entity][i]->getTime() == time) {
                 m_keyframesMap[entity].erase(m_keyframesMap[entity].begin() + i);
                 return;
             }
@@ -58,30 +65,30 @@ namespace bya::Animation {
 
                 // if there is only one keyframe, apply it
                 if (keyframes.size() == 1) {
-                    keyframes[0].apply();
+                    keyframes[0]->apply();
                     return;
                 }
 
-                if (m_timer > keyframes.back().getTime()) {
+                if (m_timer > keyframes.back()->getTime()) {
                     return;
                 }
 
 
                 // find the two keyframes to interpolate between
                 int keyframeIndex = 0;
-                while (keyframes[keyframeIndex + 1].getTime() < m_timer) {
+                while (keyframes[keyframeIndex + 1]->getTime() < m_timer) {
                     keyframeIndex++;
                 }
 
-                Keyframe& a = keyframes[keyframeIndex];
-                Keyframe& b = keyframes[keyframeIndex + 1];
+                auto a = keyframes[keyframeIndex];
+                auto b = keyframes[keyframeIndex + 1];
 
-                float blendFactor = (m_timer - a.getTime()) / (b.getTime() - a.getTime());
+                float blendFactor = (m_timer - a->getTime()) / (b->getTime() - a->getTime());
 
                 if (m_timer <= 0)
                     blendFactor = 0;
 
-                Keyframe interpolated = a.interpolate(b, blendFactor);
+                Keyframe interpolated = a->interpolate(*b, blendFactor);
                 interpolated.apply();
             }
         }
@@ -96,7 +103,7 @@ namespace bya::Animation {
         float maxTime = 0;
         for (auto& [entity, keyframes] : m_keyframesMap) {
             if (keyframes.size() > 0) {
-                maxTime = std::max(maxTime, keyframes.back().getTime());
+                maxTime = std::max(maxTime, keyframes.back()->getTime());
             }
         }
         if (m_timer > maxTime) {
@@ -114,8 +121,8 @@ namespace bya::Animation {
 
         for (auto& [entity, keyframes] : m_keyframesMap) {
             for (int i = 0; i < keyframes.size(); i++) {
-                Keyframe keyframe = keyframes[i].interpolate(other.m_keyframesMap[entity][i], blendFactor);
-                result.addKeyframe(keyframe);
+                Keyframe keyframe = keyframes[i]->interpolate(*other.m_keyframesMap[entity][i], blendFactor);
+                result.addKeyframe(std::make_shared<Keyframe>(keyframe));
             }
         }
         return result;
@@ -125,8 +132,8 @@ namespace bya::Animation {
     {
         // sort keyframes by time ascending
         for (auto& [entity, keyframes] : m_keyframesMap) {
-            std::sort(keyframes.begin(), keyframes.end(), [](Keyframe& a, Keyframe& b) {
-                return a.getTime() < b.getTime();
+            std::sort(keyframes.begin(), keyframes.end(), [](std::shared_ptr<Keyframe> a, std::shared_ptr<Keyframe> b) {
+                return a->getTime() < b->getTime();
             });
         }
     }
@@ -148,13 +155,13 @@ namespace bya::Animation {
             json[entityName] = nlohmann::json::array();
             for (auto& keyframe : keyframes) {
                 nlohmann::json keyframeJson;
-                keyframeJson["time"] = keyframe.getTime();
-                keyframeJson["position"] = { keyframe.getPosition().x, keyframe.getPosition().y };
-                keyframeJson["size"] = { keyframe.getSize().x, keyframe.getSize().y };
-                keyframeJson["pivot"] = { keyframe.getPivot().x, keyframe.getPivot().y };
-                keyframeJson["rotation"] = keyframe.getRotation();
-                keyframeJson["zIndex"] = keyframe.getZIndex();
-                keyframeJson["easingFunction"] = keyframe.getEasingFunctionName();
+                keyframeJson["time"] = keyframe->getTime();
+                keyframeJson["position"] = { keyframe->getPosition().x, keyframe->getPosition().y };
+                keyframeJson["size"] = { keyframe->getSize().x, keyframe->getSize().y };
+                keyframeJson["pivot"] = { keyframe->getPivot().x, keyframe->getPivot().y };
+                keyframeJson["rotation"] = keyframe->getRotation();
+                keyframeJson["zIndex"] = keyframe->getZIndex();
+                keyframeJson["easingFunction"] = keyframe->getEasingFunctionName();
                 json[entityName].push_back(keyframeJson);
             }
         }
@@ -200,12 +207,12 @@ namespace bya::Animation {
                     logger::error("Could not load easing function for keyframe in animation " + path + " : " + e.what());
                     throw std::runtime_error("Multi part animation: Could not load easing function for keyframe in animation " + path + " : " + e.what());
                 }
-                addKeyframe(keyframe);
+                addKeyframe(std::make_shared<Keyframe>(keyframe));
             }
         }
     }
 
-    Keyframe& MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index)
+    std::shared_ptr<Keyframe> MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, unsigned int index)
     {
         if (index >= m_keyframesMap[entity].size()) {
             logger::error("Keyframe index out of range");
@@ -214,15 +221,21 @@ namespace bya::Animation {
         return m_keyframesMap[entity][index];
     }
 
-    Keyframe& MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time)
+    std::shared_ptr<Keyframe> MultiPartAnimation::getKeyframe(std::shared_ptr<gameObj::IMultPartEntity> entity, float time)
     {
         for (int i = 0; i < m_keyframesMap[entity].size(); i++) {
-            if (m_keyframesMap[entity][i].getTime() == time) {
+            if (m_keyframesMap[entity][i]->getTime() == time) {
                 return m_keyframesMap[entity][i];
             }
         }
         logger::error("Keyframe not found");
         throw std::runtime_error("Multi part animation: Keyframe not found");
+    }
+
+    void MultiPartAnimation::clear()
+    {
+        m_keyframesMap.clear();
+        setEntity(nullptr);
     }
 
 
