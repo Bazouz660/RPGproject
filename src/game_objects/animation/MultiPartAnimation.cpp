@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 19:13:07
+ * @ Modified time: 2023-08-01 00:22:03
  * @ Description:
  */
 
@@ -60,17 +60,17 @@ namespace bya::Animation {
             for (auto& [entity, keyframes] : m_keyframesMap) {
 
                 if (keyframes.size() == 0) {
-                    return;
+                    continue;
                 }
 
                 // if there is only one keyframe, apply it
                 if (keyframes.size() == 1) {
                     keyframes[0]->apply();
-                    return;
+                    continue;
                 }
 
                 if (m_timer > keyframes.back()->getTime()) {
-                    return;
+                    continue;
                 }
 
 
@@ -204,6 +204,7 @@ namespace bya::Animation {
                 try {
                     keyframe.setEasingFunction(keyframeJson["easingFunction"]);
                 } catch (std::exception& e) {
+                    clear();
                     logger::error("Could not load easing function for keyframe in animation " + path + " : " + e.what());
                     THROW("Multi part animation: Could not load easing function for keyframe in animation " + path + " : " + e.what());
                 }
