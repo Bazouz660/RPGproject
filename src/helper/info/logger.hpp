@@ -15,6 +15,7 @@
 #include <thread>
 #include <atomic>
 #include <mutex>
+#include <condition_variable> // Include for std::condition_variable
 
 namespace bya {
 
@@ -46,6 +47,8 @@ namespace bya {
         std::queue<std::string> logQueue;
         std::thread loggerThread;
         std::atomic<bool> stopFlag;
+        std::condition_variable logCondition; // Add a condition variable
+        std::mutex conditionMtx; // Mutex for the condition variable
 
         logger() : stopFlag(false) {
             loggerThread = std::thread(&logger::logMessages, this);
@@ -56,6 +59,7 @@ namespace bya {
                 std::lock_guard<std::mutex> lock(logMtx);
                 stopFlag = true;
             }
+            logCondition.notify_one(); // Notify the logger thread to wake up
             loggerThread.join(); // Wait for loggerThread to finish
         }
 
@@ -65,6 +69,7 @@ namespace bya {
         void logImpl(const std::string& message) {
             std::lock_guard<std::mutex> lock(logMtx);
             logQueue.push(logCurrentDate() + message);
+            logCondition.notify_one(); // Notify the logger thread to wake up
         }
 
         std::string logCurrentDate() {
@@ -78,7 +83,14 @@ namespace bya {
             while (true) {
                 std::string logEntry;
                 {
-                    std::lock_guard<std::mutex> lock(logMtx);
+                    std::unique_lock<std::mutex> lock(logMtx);
+                    // Wait until there's a log message or stopFlag is true
+                    logCondition.wait(lock, [this] { return !logQueue.empty() || stopFlag; });
+
+                    if (stopFlag && logQueue.empty()) { // Break the loop if stopFlag is true and the logQueue is empty
+                        break;
+                    }
+
                     if (!logQueue.empty()) {
                         logEntry = logQueue.front();
                         logQueue.pop();
@@ -86,9 +98,6 @@ namespace bya {
                 }
                 if (!logEntry.empty()) {
                     std::cout << logEntry << std::endl;
-                }
-                if (stopFlag && logQueue.empty()) { // Break the loop if stopFlag is true and the logQueue is empty
-                    break;
                 }
             }
         }
