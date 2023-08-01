@@ -13,18 +13,18 @@
 namespace bya::ui
 {
 
-    Slider::Slider(sf::Vector2f railSize, sf::Vector2f wagonSize, Orientation orientation)
+    Slider::Slider(Orientation orientation)
         : m_orientation(orientation)
     {
         m_scaling.addState(1, 1);
         m_scaling.addState(1.05, 1.05);
         m_scaling.addState(0.95, 0.95);
 
-        m_wagon.setSize(wagonSize);
+        m_wagon.setSize({20.f, 20.f});
         m_wagon.setColor(sf::Color::White);
         m_wagon.setOrigin(m_wagon.getSize() * 0.5f);
 
-        m_outerRail.setSize(railSize);
+        m_outerRail.setSize({300.f, 20.f});
         m_outerRail.setFillColor(sf::Color::Cyan);
         m_outerRail.setOutlineColor(sf::Color::Black);
         m_outerRail.setOutlineThickness(1);
@@ -40,7 +40,7 @@ namespace bya::ui
         m_internRail.setFillColor(sf::Color::Transparent);
         m_internRail.setOutlineColor(sf::Color::Red);
         m_internRail.setOutlineThickness(1);
-        m_internRail.setSize(railSize);
+        m_internRail.setSize({300.f, 20.f});
         m_internRail.setOrigin(m_internRail.getSize() * 0.5f);
 
         m_size = m_outerRail.getSize();
@@ -67,7 +67,7 @@ namespace bya::ui
             if (m_orientation == HORIZONTAL) {
                 m_progress = (m_wagon.getPosition().x - m_internRail.getGlobalBounds().left) / m_internRail.getSize().x;
             } else if (m_orientation == VERTICAL) {
-                m_progress = (m_wagon.getPosition().y - m_internRail.getGlobalBounds().top) / m_internRail.getSize().y;
+                m_progress = (m_wagon.getGlobalCenter().y - m_internRail.getGlobalBounds().top) / m_internRail.getGlobalBounds().height;
             }
         }
     }

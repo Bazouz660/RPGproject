@@ -10,6 +10,7 @@
 
 #include "common.hpp"
 #include "Button.hpp"
+#include "Slider.hpp"
 #include "Subject.hpp"
 
 namespace bya::ui {
@@ -32,6 +33,8 @@ namespace bya::ui {
 
             std::string getSelectedOption() const { return getLabel().getString(); }
 
+            void setMaxDisplayedOptions(unsigned int max) { m_maxDisplayedOptions = max; }
+
             sf::FloatRect getBounds() const override;
 
         protected:
@@ -39,5 +42,10 @@ namespace bya::ui {
 
         private:
             bool m_isOpen = false;
+
+            std::shared_ptr<Slider> m_slider = nullptr;
+            std::vector<std::shared_ptr<Button>> m_options;
+
+            unsigned int m_maxDisplayedOptions = 5;
     };
 }

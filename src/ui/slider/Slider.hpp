@@ -21,7 +21,7 @@
                 enum State { IDLE, HOVERED, GRABBED };
                 enum Orientation { VERTICAL, HORIZONTAL };
 
-                Slider(sf::Vector2f railSize = {300.f, 20.f}, sf::Vector2f wagonSize = {20.f, 20.f}, Orientation orientation = HORIZONTAL);
+                Slider(Orientation orientation = HORIZONTAL);
 
                 virtual void setPosition(const sf::Vector2f& pos) override;
                 virtual sf::FloatRect getBounds() const override;

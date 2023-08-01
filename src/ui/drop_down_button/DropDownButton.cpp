@@ -13,6 +13,10 @@ namespace bya::ui {
 
     DropDownButton::DropDownButton()
     {
+        m_children.add("slider", std::make_shared<Slider>(Slider::Orientation::VERTICAL));
+        m_slider = m_children.get<Slider>("slider");
+        m_slider->setPosition({getPosition().x + 200.f, getPosition().y});
+
         setSize({100, 20});
         setLabel("No options");
 
@@ -26,7 +30,16 @@ namespace bya::ui {
         Button::render(target);
 
         if (m_isOpen) {
-            m_children.render(target);
+            m_slider->render(target);
+            float progress = m_slider->getProgress(); // between 0 and 1
+
+            // the offset is the starting index of the options to display if the slider is at 0.5, we want to display the options from the middle of the list
+            unsigned int offset = (m_options.size() - m_maxDisplayedOptions) * progress;
+
+            for (unsigned int i = offset; i < offset + m_maxDisplayedOptions; i++) {
+                m_options[i]->setPosition({getPosition().x, getPosition().y + (getSize().y * (i - offset + 1))});
+                m_options[i]->render(target);
+            }
         }
     }
 
@@ -35,58 +48,71 @@ namespace bya::ui {
         Button::setPosition(pos);
 
         int i = 0;
-        for (auto& [key, child] : m_children) {
+        for (auto& option : m_options) {
             i++;
-            child.handle->setPosition({pos.x, pos.y + (getSize().y * i)});
+            option->setPosition({pos.x, pos.y + (getSize().y * i)});
         }
+
+        unsigned int posY = m_options.size() > m_maxDisplayedOptions ? m_maxDisplayedOptions : m_options.size();
+
+        m_slider->setPosition({pos.x + (getSize().x * 0.5f) + (m_slider->getSize().y * 0.5f), pos.y + (getSize().y * 0.5f) + (getSize().y * posY * 0.5f)});
     }
 
     void DropDownButton::setCharacterSize(unsigned int size)
     {
         Button::getLabel().setCharacterSize(size);
-        for (auto& [key, child] : m_children) {
-            dynamic_cast<Button*>(child.handle.get())->getLabel().setCharacterSize(size);
+        for (auto& option : m_options) {
+            option->getLabel().setCharacterSize(size);
         }
     }
 
-    void DropDownButton::addOption(const std::string& option)
+    void DropDownButton::addOption(const std::string& optionLabel)
     {
         // if a button with the same label already exists, don't add it
-        for (auto& [key, child] : m_children) {
-            if (dynamic_cast<Button*>(child.handle.get())->getLabel().getString() == option) {
+        for (auto& option : m_options) {
+            if (option->getLabel().getString() == optionLabel) {
                 return;
             }
         }
 
         // add the button
-        m_children.add("button_" + option, std::make_shared<Button>());
-        auto button = m_children.get<Button>("button_" + option);
+        m_children.add("button_" + optionLabel, std::make_shared<Button>());
+        auto button = m_children.get<Button>("button_" + optionLabel);
+        m_options.push_back(button);
 
         // if its the first option, set the label to the option
-        if (m_children.size() == 1) {
-            setLabel(option);
+        if (m_options.size() == 1) {
+            setLabel(optionLabel);
         }
 
         button->setSize(getSize());
         button->getLabel().setCharacterSize(getLabel().getCharacterSize());
-        button->setLabel(option);
+        button->setLabel(optionLabel);
         button->setCallback([this, button]() {
             setLabel(button->getLabel().getString());
             m_isOpen = false;
             this->notify();
         });
-        button->setPosition({getPosition().x, getPosition().y + (getSize().y * m_children.size())});
+        button->setPosition({getPosition().x, getPosition().y + (getSize().y * m_options.size())});
+
+        // set slider size to fit all options, or maxDisplayedOptions
+        if (m_options.size() > m_maxDisplayedOptions) {
+            m_slider->setSize({getSize().y * m_maxDisplayedOptions, m_slider->getSize().y});
+        } else {
+            m_slider->setSize({getSize().y * m_options.size(), m_slider->getSize().y});
+        }
     }
 
-    void DropDownButton::removeOption(const std::string& option)
+    void DropDownButton::removeOption(const std::string& optionLabel)
     {
-        for (auto& [key, child] : m_children) {
-            if (dynamic_cast<Button*>(child.handle.get())->getLabel().getString() == option) {
-                m_children.remove(child.handle);
+        for (auto& option : m_options) {
+            if (option->getLabel().getString() == optionLabel) {
+                m_children.remove(option);
+                m_options.erase(std::remove(m_options.begin(), m_options.end(), option), m_options.end());
                 return;
             }
         }
-        if (m_children.empty()) {
+        if (m_options.empty()) {
             setLabel("No options");
         }
     }
@@ -94,18 +120,17 @@ namespace bya::ui {
     void DropDownButton::setSize(const sf::Vector2f& size)
     {
         Button::setSize(size);
-        for (auto& [key, child] : m_children) {
-            dynamic_cast<Button*>(child.handle.get())->setSize(size);
+        for (auto& option : m_options) {
+            option->setSize(size);
         }
+        setPosition(getPosition());
     }
 
     sf::FloatRect DropDownButton::getBounds() const
     {
         sf::FloatRect bounds = Button::getBounds();
         if (m_isOpen) {
-            for (auto& [key, child] : m_children) {
-                bounds.height += child.handle->getBounds().height;
-            }
+            bounds = math::combineRects(bounds, m_children.getBounds());
         }
         return bounds;
     }
