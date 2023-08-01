@@ -9,167 +9,91 @@
 #pragma once
 
 #include "AUIelement.hpp"
-#include "math.hpp"
 
 // change this to inherit from AUIelement
 
 namespace bya::ui {
 
-    class UIelementContainer {
+    class UIelementContainer : public AUIelement {
         public:
-            UIelementContainer() = default;
-            ~UIelementContainer() = default;
+            virtual void setPosition(const sf::Vector2f& pos) override {};
+            virtual sf::FloatRect getBounds() const override { return m_children.getBounds(); }
+            virtual void render(sf::RenderTarget& target) override { m_children.render(target); }
 
-            struct Element {
-                std::shared_ptr<ui::IUIelement> handle;
-                bool enabled = true;
-            };
-
-            template<typename T>
-            std::shared_ptr<T> get(const std::string &id)
-            {
-                exists(id);
-                return std::dynamic_pointer_cast<T>(at(id).handle);
-            }
-
-            void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
-            {
-                // if element already exists, replace it
-                if (find(id) != m_elements.end())
-                    m_elements.erase(find(id));
-                m_elements.emplace_back(id, Element{element, true});
-            }
-
-            void remove(const std::string &id)
-            {
-                exists(id);
-                m_elements.erase(find(id));
-            }
-
-            void remove(const std::shared_ptr<ui::IUIelement> &element)
-            {
-                for (auto it = m_elements.begin(); it != m_elements.end(); ++it) {
-                    if (it->second.handle == element) {
-                        m_elements.erase(it);
-                        return;
-                    }
-                }
-                THROW("element not found");
-            }
-
-            void disable(const std::string &id)
-            {
-                exists(id);
-                at(id).enabled = false;
-            }
-
-            void enable(const std::string &id)
-            {
-                exists(id);
-                at(id).enabled = true;
-            }
-
-            void toggle(const std::string &id)
-            {
-                exists(id);
-                at(id).enabled = !at(id).enabled;
-            }
-
-            bool isEnabled(const std::string &id) const
-            {
-                exists(id);
-                return at(id).enabled;
-            }
-
-            void handleEvent(sf::Event event, const sf::RenderWindow &window)
-            {
-                // check if mouse is hovering over an element, parse map in reverse order (because of z-index)
-                for (auto it = m_elements.rbegin(); it != m_elements.rend(); ++it) {
-                    auto &[key, elem] = *it;
-                    if (!elem.enabled)
-                        continue;
-                    if (elem.handle->getBounds().contains(context::getMousePosition())) {
-                        elem.handle->handleHoverInput(event, window);
-                        break;
-                    }
-                }
-
-                // check if keyboard input is being handled by an element, order doesn't matter
-                for (auto &[key, elem] : m_elements) {
-                    if (!elem.enabled)
-                        continue;
-                    elem.handle->handleInputAny(event, window);
-                }
-            }
-
-            void setOrder(const std::vector<std::string> &order)
-            {
-                std::vector<std::pair<std::string, Element>> newElements;
-                for (auto &id : order) {
-                    exists(id);
-                    newElements.emplace_back(id, m_elements.at(find(id) - m_elements.begin()).second);
-                }
-                m_elements = newElements;
-            }
-
-            void update(float dt)
-            {
-                for (auto &[key, elem] : m_elements)
-                    if (elem.enabled)
-                        elem.handle->update(dt);
-            }
-
-            sf::FloatRect getBounds() const
-            {
-                std::unique_ptr<sf::FloatRect> resBounds = nullptr;
-
-                for (auto &[key, elem] : m_elements)
+            // public children methods
+                template<typename T>
+                std::shared_ptr<T> get(const std::string &id)
                 {
-                    auto bounds = elem.handle->getBounds();
-                    if (resBounds == nullptr)
-                        resBounds = std::make_unique<sf::FloatRect>(bounds);
-                    else
-                        *resBounds = math::combineRects(*resBounds, bounds);
+                    return m_children.get<T>(id);
                 }
-                return *resBounds;
-            }
 
-            void render(sf::RenderTarget &target)
-            {
-                for (auto &[key, elem] : m_elements)
-                    if (elem.enabled)
-                        elem.handle->render(target);
-            }
+                template<typename T>
+                std::shared_ptr<T> get(unsigned int index)
+                {
+                    return m_children.get<T>(index);
+                }
 
+                std::size_t size() const { return m_children.size(); }
 
-        private:
-            std::vector<std::pair<std::string, Element>>::const_iterator find(const std::string &id) const
-            {
-                return std::find_if(m_elements.begin(), m_elements.end(), [&id](auto &elem) {
-                    return elem.first == id;
-                });
-            }
+                bool empty() const { return m_children.empty(); }
 
-            void exists(const std::string &id) const
-            {
-                if (find(id) == m_elements.end())
-                    THROW("Element with id " + id + " does not exist");
-            }
+                void set(const std::string &id, std::shared_ptr<ui::IUIelement> element)
+                {
+                    m_children.set(id, element);
+                }
 
-            Element& at(const std::string &id)
-            {
-                exists(id);
-                return m_elements.at(find(id) - m_elements.begin()).second;
-            }
+                void add(const std::string &id, std::shared_ptr<ui::IUIelement> element)
+                {
+                    m_children.add(id, element);
+                }
 
-            const Element& at(const std::string &id) const
-            {
-                exists(id);
-                return m_elements.at(find(id) - m_elements.begin()).second;
-            }
+                void remove(const std::string &id)
+                {
+                    m_children.remove(id);
+                }
 
-        protected:
-            std::vector<std::pair<std::string, Element>> m_elements;
+                void remove(const std::shared_ptr<ui::IUIelement> &element)
+                {
+                    m_children.remove(element);
+                }
+
+                void disable(const std::string &id)
+                {
+                    m_children.disable(id);
+                }
+
+                void enable(const std::string &id)
+                {
+                    m_children.enable(id);
+                }
+
+                void toggle(const std::string &id)
+                {
+                    m_children.toggle(id);
+                }
+
+                bool isEnabled(const std::string &id) const
+                {
+                    return m_children.isEnabled(id);
+                }
+
+                void setInterceptParentEvent(const std::string &id, bool interceptParentEvent)
+                {
+                    m_children.setInterceptParentEvent(id, interceptParentEvent);
+                }
+
+                void setOrder(const std::vector<std::string> &order)
+                {
+                    m_children.setOrder(order);
+                }
+
+                // iterator stuff
+                std::vector<std::pair<std::string, Element>>::iterator begin() { return m_children.begin(); }
+                std::vector<std::pair<std::string, Element>>::iterator end() { return m_children.end(); }
+                std::vector<std::pair<std::string, Element>>::const_iterator begin() const { return m_children.begin(); }
+                std::vector<std::pair<std::string, Element>>::const_iterator end() const { return m_children.end(); }
+                std::vector<std::pair<std::string, Element>>::const_iterator cbegin() const { return m_children.cbegin(); }
+                std::vector<std::pair<std::string, Element>>::const_iterator cend() const { return m_children.cend(); }
 
     };
 

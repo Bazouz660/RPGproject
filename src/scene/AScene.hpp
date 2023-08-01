@@ -21,7 +21,8 @@ namespace bya
 
             virtual void handleUIEvent(sf::Event &event, sf::RenderWindow &window) override final
             {
-                m_UIelements.handleEvent(event, window);
+                m_UIelements.handleInputAny(event, window);
+                m_UIelements.handleHoverInput(event, window);
             }
 
             virtual void updateUI(float dt) override final

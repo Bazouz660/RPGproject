@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:23:16
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-08-01 16:00:35
+ * @ Modified time: 2023-08-01 17:09:56
  * @ Description:
  */
 
@@ -158,6 +158,8 @@ namespace bya::ui {
 
                 sf::FloatRect getBounds() const
                 {
+                    if (m_elements.empty())
+                        return math::NULL_RECT;
                     std::unique_ptr<sf::FloatRect> resBounds = nullptr;
 
                     for (auto &[key, elem] : m_elements)
