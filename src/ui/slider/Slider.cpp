@@ -138,7 +138,9 @@ namespace bya::ui
 
     sf::FloatRect Slider::getBounds() const
     {
-        return math::combineRects(m_outerRail.getGlobalBounds(), m_internRail.getGlobalBounds());
+        sf::FloatRect wagonBounds = m_wagon.getBounds();
+        sf::FloatRect railBounds = math::combineRects(m_outerRail.getGlobalBounds(), m_internRail.getGlobalBounds());
+        return math::combineRects(wagonBounds, railBounds);
     }
 
     void Slider::render(sf::RenderTarget &target)
