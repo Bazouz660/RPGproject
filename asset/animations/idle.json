@@ -1,7 +1,63 @@
 {
+    "abdomen": [
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                20.0,
+                0.0
+            ],
+            "position": [
+                957.6564331054688,
+                533.4083251953125
+            ],
+            "rotation": -4.926855087280273,
+            "size": [
+                40.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": 0
+        },
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                20.0,
+                0.0
+            ],
+            "position": [
+                960.0,
+                533.5
+            ],
+            "rotation": 0.0,
+            "size": [
+                40.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": 0
+        },
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                20.0,
+                0.0
+            ],
+            "position": [
+                957.6564331054688,
+                533.4083251953125
+            ],
+            "rotation": -4.926855087280273,
+            "size": [
+                40.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": 0
+        }
+    ],
     "head": [
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 19.0,
                 47.5
@@ -19,7 +75,7 @@
             "zIndex": 1
         },
         {
-            "easingFunction": "linear",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 19.0,
                 47.5
@@ -37,7 +93,7 @@
             "zIndex": 1
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 19.0,
                 47.5
@@ -57,7 +113,7 @@
     ],
     "leftArm": [
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -75,7 +131,7 @@
             "zIndex": -2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -93,7 +149,7 @@
             "zIndex": -2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -113,14 +169,14 @@
     ],
     "leftForearm": [
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
             ],
             "position": [
-                985.6062622070313,
-                532.0682373046875
+                981.9000244140625,
+                532.9000244140625
             ],
             "rotation": -12.0,
             "size": [
@@ -131,25 +187,7 @@
             "zIndex": -2
         },
         {
-            "easingFunction": "easeInOutCubic",
-            "pivot": [
-                10.0,
-                0.0
-            ],
-            "position": [
-                981.9000244140625,
-                532.9000244140625
-            ],
-            "rotation": -15.0,
-            "size": [
-                20.0,
-                50.0
-            ],
-            "time": 0.0,
-            "zIndex": -2
-        },
-        {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
@@ -167,7 +205,7 @@
             "zIndex": -2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
@@ -185,9 +223,49 @@
             "zIndex": -2
         }
     ],
+    "leftThigh": [
+        {
+            "easingFunction": "linear",
+            "pivot": [
+                11.0,
+                0.0
+            ],
+            "position": [
+                972.9676513671875,
+                573.2902221679688
+            ],
+            "rotation": -2.8562633991241455,
+            "size": [
+                22.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": -2
+        }
+    ],
+    "leftTibia": [
+        {
+            "easingFunction": "linear",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                975.84814453125,
+                623.2071533203125
+            ],
+            "rotation": 3.182934522628784,
+            "size": [
+                20.0,
+                55.0
+            ],
+            "time": 0.0,
+            "zIndex": -1
+        }
+    ],
     "rightArm": [
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -205,7 +283,7 @@
             "zIndex": 2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -223,7 +301,7 @@
             "zIndex": 2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 10.0
@@ -243,7 +321,7 @@
     ],
     "rightForearm": [
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
@@ -261,7 +339,7 @@
             "zIndex": 2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
@@ -279,7 +357,7 @@
             "zIndex": 2
         },
         {
-            "easingFunction": "easeInOutCubic",
+            "easingFunction": "easeInOutSine",
             "pivot": [
                 10.0,
                 0.0
@@ -295,6 +373,102 @@
             ],
             "time": 2.0,
             "zIndex": 2
+        }
+    ],
+    "rightThigh": [
+        {
+            "easingFunction": "linear",
+            "pivot": [
+                11.0,
+                0.0
+            ],
+            "position": [
+                942.9685668945313,
+                573.5239868164063
+            ],
+            "rotation": 4.150766849517822,
+            "size": [
+                22.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": 1
+        }
+    ],
+    "rightTibia": [
+        {
+            "easingFunction": "linear",
+            "pivot": [
+                10.0,
+                0.0
+            ],
+            "position": [
+                938.2293701171875,
+                623.2988891601563
+            ],
+            "rotation": 0.3727376461029053,
+            "size": [
+                20.0,
+                55.0
+            ],
+            "time": 0.0,
+            "zIndex": 1
+        }
+    ],
+    "torso": [
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                22.5,
+                20.0
+            ],
+            "position": [
+                960.0,
+                503.5
+            ],
+            "rotation": 4.48043966293335,
+            "size": [
+                45.0,
+                50.0
+            ],
+            "time": 0.0,
+            "zIndex": 0
+        },
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                22.5,
+                20.0
+            ],
+            "position": [
+                960.0,
+                503.5
+            ],
+            "rotation": 0.0,
+            "size": [
+                45.0,
+                50.0
+            ],
+            "time": 1.0,
+            "zIndex": 0
+        },
+        {
+            "easingFunction": "easeInOutSine",
+            "pivot": [
+                22.5,
+                20.0
+            ],
+            "position": [
+                960.0,
+                503.5
+            ],
+            "rotation": 4.48043966293335,
+            "size": [
+                45.0,
+                50.0
+            ],
+            "time": 2.0,
+            "zIndex": 0
         }
     ]
 }

@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-15 16:48:05
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 22:06:28
+ * @ Modified time: 2023-08-01 15:57:40
  * @ Description:
  */
 
@@ -37,7 +37,7 @@ namespace bya::ui {
         m_indexText.setCharacterSize(20);
 
         m_children.add("selected_element", m_selectedElement);
-        //m_children.disable("selected_element");
+        m_children.setInterceptParentEvent("selected_element", false);
     }
 
     template<typename T>

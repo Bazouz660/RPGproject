@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-08 17:23:16
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 22:07:42
+ * @ Modified time: 2023-08-01 16:00:35
  * @ Description:
  */
 
@@ -22,6 +22,7 @@ namespace bya::ui {
         struct Element {
             std::shared_ptr<ui::IUIelement> handle;
             bool enabled = true;
+            bool interceptParentEvent = true;
         };
 
     public:
@@ -43,10 +44,15 @@ namespace bya::ui {
 
                 void set(const std::string &id, std::shared_ptr<ui::IUIelement> element)
                 {
+                    bool enabled = true;
+                    bool interceptParentEvent = true;
                     // if element already exists, replace it
-                    if (find(id) != m_elements.end())
+                    if (find(id) != m_elements.end()) {
+                        enabled = at(id).enabled;
+                        interceptParentEvent = at(id).interceptParentEvent;
                         m_elements.erase(find(id));
-                    m_elements.emplace_back(id, Element{element, true});
+                    }
+                    m_elements.emplace_back(id, Element{element, enabled, interceptParentEvent});
                 }
 
                 std::size_t size() const { return m_elements.size(); }
@@ -112,6 +118,12 @@ namespace bya::ui {
                     }
                 }
 
+                void setInterceptParentEvent(const std::string &id, bool interceptParentEvent)
+                {
+                    exists(id);
+                    at(id).interceptParentEvent = interceptParentEvent;
+                }
+
                 void handleInputAny(sf::Event& event, const sf::RenderWindow& window)
                 {
                     for (const auto& [key, elem] : m_elements) {
@@ -126,7 +138,9 @@ namespace bya::ui {
                     for (const auto& [key, elem] : m_elements) {
                         if (elem.handle && elem.handle->getBounds().contains(context::getMousePosition()) && elem.enabled) {
                             elem.handle->handleHoverInput(event, window);
-                            return true;
+                            if (elem.interceptParentEvent)
+                                return true;
+                            break;
                         }
                     }
                     return false;

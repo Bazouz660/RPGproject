@@ -56,7 +56,9 @@ namespace bya::gameObj
                 m_directChildren.erase(std::remove(m_directChildren.begin(), m_directChildren.end(), part), m_directChildren.end());
             }
 
-            virtual std::shared_ptr<IMultPartEntity> getPart(std::string name) override {
+            virtual std::shared_ptr<IMultPartEntity> getPart(std::string name, bool includeSelf = false) override {
+                if (includeSelf && getName() == name)
+                    return shared_from_this();
                 if (m_parts.find(name) == m_parts.end()) {
                     for (auto &[partName, part] : m_parts) {
                         std::shared_ptr<IMultPartEntity> found = part->getPart(name);
@@ -76,7 +78,6 @@ namespace bya::gameObj
             virtual void setPosition(sf::Vector2f pos) override {
                 sf::Vector2f offset = pos - getPosition();
                 OrientedBoundingBox::setPosition(pos);
-                m_pivotPointIndicator.setPosition(getPosition());
 
                 for (auto &child : getDirectChildren())
                     child->setPosition(child->getPosition() + offset);
@@ -185,7 +186,6 @@ namespace bya::gameObj
                     sf::Vector2f newPos(root->getPosition().x - posRelativeToRoot.x, getPosition().y);
                     setPosition(newPos);
                 }
-                m_pivotPointIndicator.setScale({m_pivotPointIndicator.getScale().x * -1, m_pivotPointIndicator.getScale().y});
 
                 setZIndex(-getZIndex());
                 // flip childs
@@ -235,16 +235,12 @@ namespace bya::gameObj
             {
                 showOutline(true);
                 setOutlineColor(sf::Color::Black);
-                m_pivotPointIndicator.setRadius(2);
-                sf::FloatRect bounds = m_pivotPointIndicator.getGlobalBounds();
-                m_pivotPointIndicator.setOrigin(bounds.width / 2, bounds.height / 2);
             }
 
             void draw(sf::RenderTarget &target, bool drawDebug) {
                 //if (drawDebug)
                 //    target.draw(m_collisionBox);
                 OrientedBoundingBox::render(target);
-                target.draw(m_pivotPointIndicator);
             }
 
         private:
@@ -253,7 +249,6 @@ namespace bya::gameObj
             float m_ownRotation = 0;
             sf::Vector2f m_attachPointOnParent = {0, 0};
             sf::Color m_tint = sf::Color::White;
-            sf::CircleShape m_pivotPointIndicator;
             IMultPartEntity* m_parent = nullptr;
             std::vector<std::shared_ptr<IMultPartEntity>> m_sortedZparts;
             std::unordered_map<std::string, std::string> m_partMapping;

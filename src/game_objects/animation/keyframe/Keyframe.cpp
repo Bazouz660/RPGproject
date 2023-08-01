@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 03:57:55
+ * @ Modified time: 2023-08-01 00:43:24
  * @ Description:
  */
 
@@ -13,6 +13,9 @@ namespace bya::Animation {
 
     std::map<std::string, std::function<float(float)>> Keyframe::easingFunctions = {
         {"linear", linear},
+        {"easeInSine", easeInSine},
+        {"easeOutSine", easeOutSine},
+        {"easeInOutSine", easeInOutSine},
         {"easeInQuad", easeInQuad},
         {"easeOutQuad", easeOutQuad},
         {"easeInOutQuad", easeInOutQuad},

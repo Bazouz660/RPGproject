@@ -19,7 +19,7 @@ namespace bya::gameObj
             virtual void update(float dt) = 0;
             virtual void addPart(std::shared_ptr<IMultPartEntity> part) = 0;
             virtual void removePart(std::shared_ptr<IMultPartEntity> part, std::string name = "") = 0;
-            virtual std::shared_ptr<IMultPartEntity> getPart(std::string name) = 0;
+            virtual std::shared_ptr<IMultPartEntity> getPart(std::string name, bool includeSelf = false) = 0;
             virtual void render(sf::RenderTarget &target) = 0;
 
             virtual void setRotation(float angle, bool changeOwn = true) = 0;

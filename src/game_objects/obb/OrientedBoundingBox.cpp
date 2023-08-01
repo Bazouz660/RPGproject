@@ -16,11 +16,11 @@ namespace bya::gameObj
         m_vertexBuffer.create(5);
         m_vertexBuffer.setPrimitiveType(sf::PrimitiveType::Quads);
         m_vertexBuffer.setUsage(sf::VertexBuffer::Usage::Dynamic);
-        m_originShape.setRadius(2);
-        m_originShape.setFillColor(sf::Color::Blue);
-        m_originShape.setOrigin(0.5f, 0.5f);
-        m_pivotShape = m_originShape;
-        m_pivotShape.setFillColor(sf::Color::Cyan);
+        m_centerShape.setRadius(2);
+        m_centerShape.setFillColor(sf::Color::Blue);
+        m_centerShape.setOrigin(0.5f, 0.5f);
+        m_originShape = m_centerShape;
+        m_originShape.setFillColor(sf::Color::Cyan);
     }
 
     OrientedBoundingBox::OrientedBoundingBox(
@@ -150,10 +150,10 @@ namespace bya::gameObj
 
         m_vertexBuffer.update(m_vertices, 5, 0);
         target.draw(m_vertexBuffer, m_renderStates);
-        m_originShape.setPosition(getGlobalCenter());
-        m_pivotShape.setPosition(getPosition());
+        m_centerShape.setPosition(getGlobalCenter());
+        m_originShape.setPosition(getPosition());
+        target.draw(m_centerShape);
         target.draw(m_originShape);
-        target.draw(m_pivotShape);
 
         if (!m_showOutline)
             return;

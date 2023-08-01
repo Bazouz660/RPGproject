@@ -62,8 +62,8 @@ namespace bya::gameObj
             std::array<sf::Vector2f, 4> m_transformedCorners = {};
             sf::Vertex m_vertices[5] = {};
             sf::VertexBuffer m_vertexBuffer;
+            sf::CircleShape m_centerShape;
             sf::CircleShape m_originShape;
-            sf::CircleShape m_pivotShape;
             sf::Texture *m_texture = nullptr;
             sf::IntRect m_textureRect = {0, 0, 0, 0};
             sf::RenderStates m_renderStates = sf::RenderStates::Default;

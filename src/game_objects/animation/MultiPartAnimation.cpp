@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:26:06
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-08-01 00:22:03
+ * @ Modified time: 2023-08-01 16:11:42
  * @ Description:
  */
 
@@ -188,7 +188,7 @@ namespace bya::Animation {
         }
 
         for (auto& [entityName, keyframesJson] : json.items()) {
-            std::shared_ptr<gameObj::IMultPartEntity> entity = m_entity->getPart(entityName);
+            std::shared_ptr<gameObj::IMultPartEntity> entity = m_entity->getPart(entityName, true);
             if (entity == nullptr) {
                 logger::log("Entity " + entityName + " not found in animation " + path);
                 THROW("Multi part animation: Entity " + entityName + " not found in animation " + path);

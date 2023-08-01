@@ -2,7 +2,7 @@
  * @ Author: Basile Trebus--Hamann
  * @ Create Time: 2023-07-16 21:17:00
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 23:15:50
+ * @ Modified time: 2023-08-01 00:42:52
  * @ Description:
  */
 
@@ -81,7 +81,6 @@ namespace bya::Animation {
             static float easeInSine(float x) { return 1 - cos((x * M_PI) / 2); }
             static float easeOutSine(float x) { return sin((x * M_PI) / 2); }
             static float easeInOutSine(float x) { return -(cos(M_PI * x) - 1) / 2; }
-
             static float easeInQuad(float x) { return x * x; }
             static float easeOutQuad(float x) { return x * (2 - x); }
             static float easeInOutQuad(float x) { return x < 0.5 ? 2 * x * x : -1 + (4 - 2 * x) * x; }
