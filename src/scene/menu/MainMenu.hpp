@@ -14,11 +14,16 @@ namespace bya
     class MainMenu : public AScene {
         public:
             MainMenu();
-            ~MainMenu();
-            void init() override;
+            virtual ~MainMenu() override = default;
+            void load() override;
             void handleEvent(sf::Event &event, sf::RenderWindow &window) override;
             void update(float dt) override;
             void render(sf::RenderTarget &target) override;
+
+        private:
+            void configureMainMenu();
+            void configureSettingsMenu();
+
         private:
             sf::Sprite m_gameLogo;
     };

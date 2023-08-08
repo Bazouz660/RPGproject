@@ -15,7 +15,7 @@
     class IScene {
         public:
             virtual ~IScene() = default;
-            virtual void init() = 0;
+            virtual void load() = 0;
             virtual void close() = 0;
             virtual void reset() = 0;
             virtual void handleUIEvent(sf::Event& event, sf::RenderWindow& window) = 0;

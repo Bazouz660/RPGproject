@@ -21,7 +21,7 @@ namespace bya
     public:
         ModelEditor() = default;
         virtual ~ModelEditor() override = default;
-        virtual void init() override;
+        virtual void load() override;
         virtual void handleEvent(sf::Event &event, sf::RenderWindow &window) override;
         virtual void update(float dt) override;
         virtual void render(sf::RenderTarget &target) override;

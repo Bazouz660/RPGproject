@@ -20,6 +20,7 @@
             public:
                 enum State { IDLE, HOVERED, PRESSED, DISABLED };
                 Button(const sf::Texture& texture = RESOURCE().getTexture("default", "button"), const std::string& label = "");
+                virtual ~Button() override = default;
 
                 virtual void setCallback(std::function<void(void)> func);
                 virtual void setLabel(const std::string& label);
@@ -45,6 +46,7 @@
             protected:
                 virtual void hoverEventHandler(sf::Event& event) override;
                 virtual void anyEventHandler(sf::Event& event) override;
+                virtual void updateHandler(float dt) override;
 
             protected:
                 sf::Text m_label;

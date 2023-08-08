@@ -1,8 +1,8 @@
 /*
  *  Author: Clément Thomas
  *  Create Time: 2023-07-06 23:29:16
- *  Modified by: Basile Trebus--Hamann
- *  Modified time: 2023-07-12 03:38:31
+ * @ Modified by: Basile Trebus--Hamann
+ * @ Modified time: 2023-08-08 02:49:56
  *  Description:
  */
 
@@ -17,7 +17,7 @@ namespace bya
     class AScene : public IScene {
         public:
             ~AScene() override = default;
-            virtual void init() override {};
+            virtual void load() override {};
 
             virtual void handleUIEvent(sf::Event &event, sf::RenderWindow &window) override final
             {

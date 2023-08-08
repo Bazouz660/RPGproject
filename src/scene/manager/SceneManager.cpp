@@ -35,7 +35,7 @@ namespace bya {
         if (m_currentScene != nullptr)
             m_currentScene->close();
         m_currentScene = m_scenes.at(identifier);
-        m_currentScene->init();
+        m_currentScene->load();
     }
 
     std::shared_ptr<IScene> SceneManager::getCurrentScene()

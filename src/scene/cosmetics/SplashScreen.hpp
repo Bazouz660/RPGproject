@@ -16,7 +16,7 @@ namespace bya {
         public:
             SplashScreen();
             ~SplashScreen();
-            void init() override;
+            void load() override;
             void update(float) override;
             void render(sf::RenderTarget&) override;
 

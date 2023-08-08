@@ -9,64 +9,114 @@
 #include "MainMenu.hpp"
 #include "ResourceManager.hpp"
 #include "SceneManager.hpp"
+#include "MenuGraph.hpp"
 #include "context.hpp"
 
 namespace bya
 {
     MainMenu::MainMenu()
     {
-    }
-
-    MainMenu::~MainMenu()
-    {
-    }
-
-    void MainMenu::init()
-    {
-        MusicManager::getInstance().switchTrack("main_theme", 1.f, true, false);
-
         m_gameLogo.setTexture(RESOURCE().getTexture("main_menu", "logo"));
-        m_gameLogo.setPosition(
-                (context::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
-                (context::getWindowSize().y - m_gameLogo.getGlobalBounds().height) * 0.2f);
 
-        m_UIelements.add("Continue", std::make_shared<ui::MenuButton>());
-        m_UIelements.add("NewGame", std::make_shared<ui::MenuButton>());
-        m_UIelements.add("Extra", std::make_shared<ui::MenuButton>());
-        m_UIelements.add("Settings", std::make_shared<ui::MenuButton>());
-        m_UIelements.add("Credits", std::make_shared<ui::MenuButton>());
-        m_UIelements.add("Quit", std::make_shared<ui::MenuButton>());
+        auto menuGraph = std::make_shared<ui::MenuGraph>();
+        auto mainMenu = std::make_shared<ui::Menu>();
+        auto settingsMenu = std::make_shared<ui::Menu>();
+        menuGraph->add("mainMenu", mainMenu);
+        menuGraph->add("settingsMenu", settingsMenu);
 
-        auto continueButton = m_UIelements.get<ui::MenuButton>("Continue");
+        m_UIelements.add("menuGraph", menuGraph);
+
+        configureMainMenu();
+        configureSettingsMenu();
+    }
+
+    void MainMenu::configureMainMenu()
+    {
+        auto menuGraph = m_UIelements.get<ui::MenuGraph>("menuGraph");
+        auto mainMenu = menuGraph->get("mainMenu");
+
+        mainMenu->add("Continue", std::make_shared<ui::MenuButton>());
+        mainMenu->add("NewGame", std::make_shared<ui::MenuButton>());
+        mainMenu->add("Extra", std::make_shared<ui::MenuButton>());
+        mainMenu->add("Settings", std::make_shared<ui::MenuButton>());
+        mainMenu->add("Credits", std::make_shared<ui::MenuButton>());
+        mainMenu->add("Quit", std::make_shared<ui::MenuButton>());
+
+        auto continueButton = mainMenu->get<ui::MenuButton>("Continue");
         continueButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.6));
         continueButton->setLabel("Continue");
         continueButton->setDisabled();
 
-        auto newGameButton = m_UIelements.get<ui::MenuButton>("NewGame");
+        auto newGameButton = mainMenu->get<ui::MenuButton>("NewGame");
         newGameButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.64));
         newGameButton->setLabel("New Game");
 
-        auto extraButton = m_UIelements.get<ui::MenuButton>("Extra");
+        auto extraButton = mainMenu->get<ui::MenuButton>("Extra");
         extraButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.68));
         extraButton->setLabel("Extra");
         extraButton->setCallback([](){
             SceneManager::getInstance().setCurrentScene("AnimationEditor");
         });
 
-        auto settingsButton = m_UIelements.get<ui::MenuButton>("Settings");
+        auto settingsButton = mainMenu->get<ui::MenuButton>("Settings");
         settingsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.72));
         settingsButton->setLabel("Settings");
+        settingsButton->setCallback([menuGraph](){
+            menuGraph->setCurrent("settingsMenu");
+        });
 
-        auto creditsButton = m_UIelements.get<ui::MenuButton>("Credits");
+        auto creditsButton = mainMenu->get<ui::MenuButton>("Credits");
         creditsButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.76));
         creditsButton->setLabel("Credits");
 
-        auto quitButton = m_UIelements.get<ui::MenuButton>("Quit");
+        auto quitButton = mainMenu->get<ui::MenuButton>("Quit");
         quitButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8));
         quitButton->setLabel("Quit");
         quitButton->setCallback([](){
             context::closeWindow();
         });
+    }
+
+    void MainMenu::configureSettingsMenu()
+    {
+        auto menuGraph = m_UIelements.get<ui::MenuGraph>("menuGraph");
+        auto settingsMenu = menuGraph->get("settingsMenu");
+
+        settingsMenu->add("Back", std::make_shared<ui::MenuButton>());
+        settingsMenu->add("Fullscreen", std::make_shared<ui::MenuButton>());
+        settingsMenu->add("Resolution", std::make_shared<ui::MenuButton>());
+        settingsMenu->add("Volume", std::make_shared<ui::MenuButton>());
+
+        auto backButton = settingsMenu->get<ui::MenuButton>("Back");
+        backButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8));
+        backButton->setLabel("Back");
+        backButton->setCallback([menuGraph](){
+            menuGraph->setCurrent("mainMenu");
+        });
+
+        auto fullscreenButton = settingsMenu->get<ui::MenuButton>("Fullscreen");
+        fullscreenButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.6));
+        fullscreenButton->setLabel("Fullscreen");
+        fullscreenButton->setCallback([](){
+            //context::toggleFullscreen();
+        });
+
+        auto resolutionButton = settingsMenu->get<ui::MenuButton>("Resolution");
+        resolutionButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.64));
+        resolutionButton->setLabel("Resolution");
+
+        auto volumeButton = settingsMenu->get<ui::MenuButton>("Volume");
+        volumeButton->setPosition(sf::Vector2f(context::getWindowSize().x / 2, context::getWindowSize().y * 0.68));
+        volumeButton->setLabel("Volume");
+    }
+
+    void MainMenu::load()
+    {
+        MusicManager::getInstance().switchTrack("main_theme", 1.f, true, false);
+
+        m_gameLogo.setPosition(
+                (context::getWindowSize().x - m_gameLogo.getGlobalBounds().width) / 2,
+                (context::getWindowSize().y - m_gameLogo.getGlobalBounds().height) * 0.2f);
     }
 
     void MainMenu::handleEvent(sf::Event &event, sf::RenderWindow &window)

@@ -53,6 +53,7 @@ namespace bya {
         m_fpsHint.setOutlineThickness(1);
         m_fpsHint.setPosition(10, 10);
         m_fpsHint.setString("FPS: 0");
+
         m_sceneManager.addScene("AnimationEditor", std::make_shared<AnimationEditor>());
         m_sceneManager.addScene("MainMenu", std::make_shared<MainMenu>());
         SceneManager::getInstance().setCurrentScene("MainMenu");

@@ -14,6 +14,7 @@ namespace bya::ui
     {
         public:
             MenuButton();
+            virtual ~MenuButton() override = default;
             void setIdle() override;
             void setHovered() override;
             void setPressed() override;

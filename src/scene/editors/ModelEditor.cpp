@@ -23,7 +23,7 @@
 
 namespace bya {
 
-        void ModelEditor::init()
+        void ModelEditor::load()
         {
             sf::Vector2f wSize = sf::Vector2f(context::getWindowSize());
 

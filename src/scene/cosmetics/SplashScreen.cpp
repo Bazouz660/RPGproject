@@ -21,26 +21,31 @@ namespace bya
         RESOURCE().loadResource<sf::Music>("asset/audio/music/Aleph.ogg");
         RESOURCE().loadResource<sf::Texture>("asset/texture/gui/splash_screen/splash.png");
         RESOURCE().loadResource<sf::Texture>("asset/texture/gui/splash_screen/loading.png");
+
+        m_background.setFillColor(sf::Color(15, 15, 15, 255));
+        m_loading.setTexture(RESOURCE().getTexture("splash_screen", "loading"));
+        m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
+        m_loading.setScale(3, 3);
+        m_splashIcon.setTexture(RESOURCE().getTexture("splash_screen", "splash"));
+        m_splashIcon.setOrigin(m_splashIcon.getGlobalBounds().width / 2, m_splashIcon.getGlobalBounds().height / 2);
+
+        fadeIn.setDuration(1.5f);
     }
 
     SplashScreen::~SplashScreen()
     {
     }
 
-    void SplashScreen::init()
+    void SplashScreen::load()
     {
         MusicManager::getInstance().switchTrack("Aleph", 0.5f, false, false);
 
         m_background.setSize(sf::Vector2f(context::getWindowSize().x, context::getWindowSize().y));
-        m_background.setFillColor(sf::Color(15, 15, 15, 255));
-        m_splashIcon.setTexture(RESOURCE().getTexture("splash_screen", "splash"));
-        m_loading.setTexture(RESOURCE().getTexture("splash_screen", "loading"));
-        m_loading.setOrigin(m_loading.getGlobalBounds().width / 2, m_loading.getGlobalBounds().height / 2);
+
         m_loading.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y * 0.8f);
-        m_loading.setScale(3, 3);
-        m_splashIcon.setOrigin(m_splashIcon.getGlobalBounds().width / 2, m_splashIcon.getGlobalBounds().height / 2);
         m_splashIcon.setPosition(context::getWindowSize().x / 2, context::getWindowSize().y / 2);
-        fadeIn.setDuration(1.5f);
+
+        fadeIn.reset();
     }
 
     void SplashScreen::update(float)

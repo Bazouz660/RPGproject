@@ -24,7 +24,7 @@
 
 namespace bya {
 
-        void AnimationEditor::init()
+        void AnimationEditor::load()
         {
             sf::Vector2f wSize = sf::Vector2f(context::getWindowSize());
 

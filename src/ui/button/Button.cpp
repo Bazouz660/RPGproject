@@ -38,6 +38,12 @@ namespace bya::ui
         m_catchedMouseEvent = false;
     }
 
+    void Button::updateHandler(float dt)
+    {
+        if (!isHovered() && m_state != IDLE && m_state != DISABLED)
+            setIdle();
+    }
+
     void Button::hoverEventHandler(sf::Event& event)
     {
         m_catchedMouseEvent = true;
