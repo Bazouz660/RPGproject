@@ -73,7 +73,7 @@ namespace bya {
         bool Box::isHovered()
         {
             sf::Vector2f mousePos = context::getMousePosition();
-            return getGlobalBounds().contains(mousePos);
+            return getBounds().contains(mousePos);
         }
 
         bool Box::isClicked()

@@ -51,7 +51,7 @@ namespace bya::ui
             return;
         if (isHovered()) {
             if (m_state == PRESSED && !isClicked()) {
-                m_callback();
+                onClick();
                 setIdle();
             } else if (isClicked())
                 setPressed();
@@ -60,6 +60,11 @@ namespace bya::ui
         } else if (m_state != IDLE) {
             setIdle();
         }
+    }
+
+    void Button::onClick()
+    {
+        m_callback();
     }
 
     void Button::setLabel(const std::string &label)
@@ -107,7 +112,7 @@ namespace bya::ui
 
     void Button::activate()
     {
-        m_callback();
+        onClick();
     }
 
     void Button::setPosition(const sf::Vector2f &pos)
@@ -122,7 +127,7 @@ namespace bya::ui
 
     sf::FloatRect Button::getBounds() const
     {
-        return Box::getGlobalBounds();
+        return Box::getBounds();
     }
 
     void Button::setSize(const sf::Vector2f &size)

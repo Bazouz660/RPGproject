@@ -47,6 +47,7 @@
                 virtual void hoverEventHandler(sf::Event& event) override;
                 virtual void anyEventHandler(sf::Event& event) override;
                 virtual void updateHandler(float dt) override;
+                virtual void onClick();
 
             protected:
                 sf::Text m_label;

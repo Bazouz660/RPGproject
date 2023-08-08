@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:18:21
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-30 22:57:20
+ * @ Modified time: 2023-08-08 18:31:57
  *  Description:
  */
 
@@ -16,11 +16,14 @@
 #include "ScrollBox.hpp"
 #include "Button.hpp"
 #include "KeyframeInfo.hpp"
+#include "TickBox.hpp"
 
 // MultPartAnimation includes
 #include "MultiPartAnimation.hpp"
 #include "Keyframe.hpp"
 #include "KeyframeHolder.hpp"
+
+// TODO: add toggle looping button, play / pause button, set duration...
 
 namespace bya::ui {
 
@@ -74,6 +77,7 @@ namespace bya::ui {
 
             std::shared_ptr<Slider> m_slider;
             std::shared_ptr<Text> m_currentTimeText;
+            std::shared_ptr<TickBox> m_loopingBox;
 
             std::shared_ptr<gameObj::IMultPartEntity> m_entity = nullptr;
             std::shared_ptr<gameObj::IMultPartEntity> m_selectedPart = nullptr;
@@ -93,6 +97,7 @@ namespace bya::ui {
             float m_timer = 0;
 
             bool m_playing = false;
+            bool m_looping = false;
     };
 
 }

@@ -2,7 +2,7 @@
  *  Author: Basile Trebus--Hamann
  *  Create Time: 2023-07-12 03:22:02
  * @ Modified by: Basile Trebus--Hamann
- * @ Modified time: 2023-07-31 21:55:45
+ * @ Modified time: 2023-08-08 18:37:31
  *  Description:
  */
 
@@ -23,6 +23,12 @@ namespace bya::ui {
         m_slider->getWagon().setSize({10, 20});
         m_slider->getWagon().setOrigin({5, 10});
         m_children.add("slider", m_slider);
+
+        m_loopingBox = std::make_shared<TickBox>();
+        m_loopingBox->getLabel().setCharacterSize(20);
+        m_loopingBox->setLabel("Loop");
+        m_loopingBox->setCallback([this]() { m_looping = m_loopingBox->isChecked(); });
+        m_children.add("loopingBox", m_loopingBox);
 
         setTimer(0);
 
@@ -203,7 +209,10 @@ namespace bya::ui {
 
         if (m_playing) {
             if (m_timer >= m_maxTime) {
-                m_playing = false;
+                if (m_looping)
+                    setTimer(0);
+                else
+                    pause();
             }
             setTimer(m_timer + dt);
         }
@@ -226,6 +235,7 @@ namespace bya::ui {
     {
         m_slider->setPosition(pos);
         updateMarkersPos();
+        m_loopingBox->setPosition({m_slider->getBounds().left + m_slider->getBounds().width * 2 + m_loopingBox->getBounds().width, pos.y});
     }
 
     void Timeline::clear()
